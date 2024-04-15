@@ -1,0 +1,14 @@
+{
+  "name": "generazioni",
+  "version": "1.0.0",
+  "description": "Progetto GenerAzioni per il corso di Ingegneria del Software.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tommaso Mario Repele, Tommaso Tamagnini",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
