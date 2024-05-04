@@ -31,11 +31,12 @@ db.mongoose
     console.log("Connesso al database.");
   })
   .catch((err) => {
-    console.log("Connessione al database fallita.");
+    console.log("Connessione al database fallita: " + err.message);
     process.exit();
   });
 
 require("./app/routes/richiesta.routes.js")(app);
+require("./app/routes/utente.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
