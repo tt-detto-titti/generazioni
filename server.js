@@ -6,6 +6,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 
 const app = express();
 
+// Creo la documentazione delle API
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -30,24 +31,27 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Mi connetto al database
 const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    dbName: db.name,
+    user: db.user,
+    pass: db.pass,
   })
   .then(() => {
     console.log("Connesso al database.");
   })
   .catch((err) => {
-    console.log("Connessione al database fallita: " + err.message);
+    console.error("Connessione al database fallita: " + err.message);
     process.exit();
   });
 
+// Carico le routes
 require("./app/routes/richiesta.routes.js")(app);
 require("./app/routes/utente.routes.js")(app);
 
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Il server è in ascolto sulla porta ${PORT}.`);
 });
