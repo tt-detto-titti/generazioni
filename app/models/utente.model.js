@@ -1,7 +1,7 @@
 module.exports = (mongoose) => {
   const Utente = mongoose.model(
     "utente",
-    mongoose.schema(
+    mongoose.Schema(
       {
         nome: String,
         cognome: String,
