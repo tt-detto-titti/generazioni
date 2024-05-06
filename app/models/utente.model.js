@@ -3,12 +3,23 @@ module.exports = (mongoose) => {
     "utente",
     mongoose.Schema(
       {
-        nome: String,
-        cognome: String,
-        email: String,
-        password: String,
+        nome: { type: String, required: true },
+        cognome: { type: String, required: true },
+        cf: { type: String, required: true, unique: true },
+        dataNascita: { type: Date, required: true },
+        residenza: { type: String, required: true },
+        telefono: { type: String, required: true, unique: true },
+        email: { type: String, required: true, unique: true },
+        password: { type: String, required: true },
+        qualifica: {
+          type: [String],
+          enum: ["utente", "anziano", "volontario", "anziano volontario"],
+        },
       },
-      { timestamps: true }
+      {
+        collection: "utenti",
+        autoCreate: false,
+      }
     )
   );
 
