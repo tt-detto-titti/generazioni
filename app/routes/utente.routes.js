@@ -3,7 +3,7 @@ module.exports = (app) => {
   var router = require("express").Router();
 
   // Registra un utente
-  router.post("/register", utenti.signup);
+  router.post("/signup", utenti.signup);
   // Logga un utente
   router.post("/login", utenti.login);
 
