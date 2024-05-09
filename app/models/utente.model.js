@@ -15,6 +15,11 @@ module.exports = (mongoose) => {
           type: [String],
           enum: ["utente", "anziano", "volontario", "anziano volontario"],
         },
+        //Campi specifici per Anziano
+        anziano: {
+          bio: { type: String, required: false },
+          esigenze: { type: String, required: false },
+        }
       },
       {
         collection: "utenti",

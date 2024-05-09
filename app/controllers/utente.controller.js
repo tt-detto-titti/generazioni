@@ -13,6 +13,7 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     qualifica: ["utente"],
+    anziano: req.body.anziano,
   });
 
   utente
