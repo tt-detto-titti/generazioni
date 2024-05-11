@@ -1,32 +1,23 @@
-const db = require("../models");
-const Utente = db.utenti;
-
-// Crea e salva un nuovo utente
-exports.signup = (req, res) => {
-  const utente = new Utente({
-    nome: req.body.nome,
-    cognome: req.body.cognome,
-    cf: req.body.cf,
-    dataNascita: req.body.dataNascita,
-    residenza: req.body.residenza,
-    telefono: req.body.telefono,
-    email: req.body.email,
-    password: req.body.password,
-    qualifica: ["utente"],
-    anziano: req.body.anziano,
-  });
-
-  utente
-    .save(utente)
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Impossibile salvare l'utente: " + err.message,
-      });
-    });
+exports.testTutti = (req, res) => {
+  res.status(200).send("Contenuto pubblico.");
 };
 
-// Verifica le credenziali di un utente
-exports.login = (req, res) => {};
+exports.testUtente = (req, res) => {
+  res.status(200).send("Contenuto per utenti.");
+};
+
+exports.testAnziano = (req, res) => {
+  res.status(200).send("Contenuto per anziani.");
+};
+
+exports.testVolontario = (req, res) => {
+  res.status(200).send("Contenuto per volontari.");
+};
+
+exports.testSupervisore = (req, res) => {
+  res.status(200).send("Contenuto per supervisori.");
+};
+
+exports.testAdmin = (req, res) => {
+  res.status(200).send("Contenuto per admin.");
+};

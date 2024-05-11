@@ -11,19 +11,18 @@ module.exports = (mongoose) => {
         telefono: { type: String, required: true, unique: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
-        qualifica: {
-          type: [String],
-          enum: ["utente", "anziano", "volontario", "anziano volontario"],
-        },
-        //Campi specifici per Anziano
+        // Campi specifici per Anziano
         anziano: {
           bio: { type: String, required: false },
           esigenze: { type: String, required: false },
-        }
+        },
+        ruoli: [{
+          type: String,
+          ref: "Ruolo"
+        }]
       },
       {
-        collection: "utenti",
-        autoCreate: false,
+        collection: "utenti"
       }
     )
   );
