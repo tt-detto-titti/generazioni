@@ -1,25 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const swaggerUi = require("swagger-ui-express");
-const swaggerJsDoc = require("swagger-jsdoc");
 
 const app = express();
-
-// Creo la documentazione delle API
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "GenerAzioni API",
-      version: "1.0.0",
-      description: "Queste sono le API del progetto GenerAzioni.",
-    },
-  },
-  apis: ["./app/routes/*.js"], // files containing annotations as above
-};
-const swaggerDocument = swaggerJsDoc(options);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 var corsOptions = {
   origin: "http://localhost:8081",
@@ -48,8 +31,9 @@ db.mongoose
   });
 
 // Carico le routes
-require("./app/routes/richiesta.routes.js")(app);
+require("./app/routes/auth.routes.js")(app);
 require("./app/routes/utente.routes.js")(app);
+require("./app/routes/richiesta.routes.js")(app);
 
 const PORT = 8080;
 app.listen(PORT, () => {

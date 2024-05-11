@@ -1,5 +1,5 @@
 const db = require("../models");
-const Richiesta = db.richieste;
+const Richiesta = db.richiesta;
 
 // Crea e salva una nuova richiesta d'aiuto
 exports.create = (req, res) => {
