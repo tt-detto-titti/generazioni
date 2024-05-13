@@ -4,7 +4,7 @@ const db = require("../models");
 const Utente = db.utente;
 const Ruolo = db.ruolo;
 
-verificaToken = (req, res, next) => {
+const verificaToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
@@ -20,7 +20,7 @@ verificaToken = (req, res, next) => {
   });
 };
 
-controllaRuolo = (ruoloRichiesto) => {
+const controllaRuolo = (ruoloRichiesto) => {
   return async (req, res, next) => {
     try {
       const utente = await Utente.findById(req.id_utente);
@@ -49,17 +49,17 @@ controllaRuolo = (ruoloRichiesto) => {
   };
 };
 
-controllaAnziano = controllaRuolo("anziano");
-controllaVolontario = controllaRuolo("volontario");
-controllaSupervisore = controllaRuolo("supervisore");
-controllaAdmin = controllaRuolo("admin");
+const controllaAnziano = controllaRuolo("anziano");
+const controllaVolontario = controllaRuolo("volontario");
+const controllaSupervisore = controllaRuolo("supervisore");
+const controllaAdmin = controllaRuolo("admin");
 
 const authJwt = {
   verificaToken,
   controllaAnziano,
   controllaVolontario,
   controllaSupervisore,
-  controllaAdmin
+  controllaAdmin,
 };
 
 module.exports = authJwt;

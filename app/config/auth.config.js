@@ -1,4 +1,5 @@
 module.exports = {
     secret: "nonmoltosegretoperchésalvatoinchiaro",
-    ruoli: [ "utente", "anziano", "volontario", "supervisore", "admin" ]
+    ruoli: [ "utente", "anziano", "volontario", "supervisore", "admin" ],
+    ruoloDefault: "utente"
 };

@@ -3,7 +3,7 @@ const RUOLI = db.RUOLI;
 const Utente = db.utente;
 
 // Controlla che nel database non esista un utente con la stessa email
-controllaEmailDoppia = async (req, res, next) => {
+const controllaEmailDoppia = async (req, res, next) => {
   try {
     const utente = await Utente.findOne({ email: req.body.email });
 
@@ -19,7 +19,7 @@ controllaEmailDoppia = async (req, res, next) => {
 };
 
 // Controlla che i ruoli inseriti esistano
-controllaRuolo = (req, res, next) => {
+const controllaRuolo = (req, res, next) => {
   const ruoli = req.body.ruoli;
 
   if (ruoli) {
