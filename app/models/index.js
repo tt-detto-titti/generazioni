@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const config = require("../config/auth.config.js");
 
 const db = {};
 mongoose.Promise = global.Promise;
@@ -10,10 +9,9 @@ db.name = "generazioni";
 db.user = "dev";
 db.pass = "dev";
 
+db.categoria_aiuto = require("./categoria_aiuto.model.js")(mongoose);
 db.richiesta = require("./richiesta.model.js")(mongoose);
 db.ruolo = require("./ruolo.model.js")(mongoose);
 db.utente = require("./utente.model.js")(mongoose);
-
-db.RUOLI = config.ruoli;
 
 module.exports = db;
