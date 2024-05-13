@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  version: "1.0"
+  title: "API GenerAzioni"
+  description: API del progetto GenerAzioni del corso di Ingegneria del Software.
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8081/api/
+    description: Localhost
+paths:
+  /richieste/add:
+    post:
+      description: Crea una nuova richiesta d'aiuto.
+      operationId: "nuovaRichiesta"
+      responses:
+        "201":
+          description: La richiesta è stata creata correttamente.
+        "404":
+          description: L'utente specificato non è stato trovato.
+        "500":
+          description: Impossibile creare la richiesta.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+                - durata
+
+              properties:
+                data:
+                  type: string
+                  format: date-time
+                  description: "La data e l'ora per cui viene effettuata la richiesta d'aiuto."
+                durata:
+                  type: integer
+                  description: "La durata in minuti stimata per la prestazione d'aiuto."
+                  example: 90
+                descrizione:
+                  type: string
+                  description: "Una breve descrizione della richiesta d'aiuto fornita dalla persona anziana."
+                  example: "Ho bisogno d'aiuto per andare a fare la spesa."
+                categoria:
+                  type: string
+                  enum: ["aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina"]
+                  description: "La categoria della richiesta."
+                  example: "aiuto fuori casa"
+                id_anziano:
+                  type: "string"
+                  description: "L'ID della persona anziana che fa la richiesta."
+                  example: "66424ccccec1fcdcfd99a8f0"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
+  schemas:
+    Richiesta:
+      type: object
+      required:
+        - data
+        - durata
+        - descrizione
+        - categoria
+      properties:
+        data:
+          type: string
+          description: La data e l'ora per cui viene effettuata la richiesta d'aiuto.
+        durata:
+          type: integer
+          description: La durata in minuti stimata per la prestazione d'aiuto.
+        descrizione:
+          type: string
+          description: Una breve descrizione fatta dalla persona anziana sulla richiesta d'aiuto che sta facendo.
+        categoria:
+          type: string
+          enum:
+            [aiuto in casa, aiuto fuori casa, compagnia, passaggio in macchina]
