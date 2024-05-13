@@ -16,13 +16,16 @@ module.exports = (mongoose) => {
           bio: { type: String, required: false },
           esigenze: { type: String, required: false },
         },
-        ruoli: [{
-          type: String,
-          ref: "Ruolo"
-        }]
+        ruoli: [
+          {
+            type: String,
+            ref: "Ruolo",
+            required: true,
+          },
+        ],
       },
       {
-        collection: "utenti"
+        collection: "utenti",
       }
     )
   );

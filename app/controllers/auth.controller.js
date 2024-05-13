@@ -20,17 +20,15 @@ exports.signup = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 8),
     });
 
-    const utenteSalvato = await utente.save();
-
     // TODO non permettere a chiunque di registrarsi come admin lol
     if (req.body.ruoli) {
-      utenteSalvato.ruoli = req.body.ruoli;
+      utente.ruoli = req.body.ruoli;
     } else {
       // Se non viene specificato un ruolo, viene assegnato "utente" di default
-      utenteSalvato.ruoli = [{ _id: "utente" }];
+      utente.ruoli = [{ _id: "utente" }];
     }
 
-    await utenteSalvato.save();
+    await utente.save();
     res
       .status(201)
       .send({ message: "L'utente è stato registrato correttamente." });

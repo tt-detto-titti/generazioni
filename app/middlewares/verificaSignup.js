@@ -1,5 +1,6 @@
+const config = require("../config/auth.config.js");
 const db = require("../models");
-const RUOLI = db.RUOLI;
+const RUOLI = config.ruoli;
 const Utente = db.utente;
 
 // Controlla che nel database non esista un utente con la stessa email
