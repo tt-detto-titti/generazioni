@@ -17,69 +17,54 @@ paths:
           description: La richiesta è stata creata correttamente.
         '404':
           description: L'utente specificato non è stato trovato.
-    
-  /students:
-    post:
-      description: >-
-        Creates a new student in the system.
-      summary: Register a new student
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-              properties:
-                email:
-                  type: string
-                  description: 'Email address of the student'
-      responses:
-        '201':
-          description: 'User created. Link in the Location header'
-          headers:
-            'Location':
-              schema:
-                type: string
-              description: Link to the newly created student.
-
-  /books:
+  /utenti:
+    x-summary: Utenti collection
     get:
-      description: >-
-        Gets the list of books.
-      summary: View all books
+      summary: elenca tutti gli Utenti
       responses:
-        '200':
-          description: 'Collection of books'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
-  /booklendings:
+        200:
+          description: la richiesta ha avuto successo.
+#          schema:
+#            type: array
+#            items: '#/definitions/Utenti'
     post:
-      description: >-
-        Creates a new booklending.
-      summary: Borrow a book
+      description: Crea un nuovo utente.
       responses:
         '201':
-          description: 'Booklending created. Link in the Location header'
-          headers:
-            'Location':
-              schema:
-                type: string
-              description: Link to the newly created booklending.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Booklending'
+          description: L'utente è stato creato correttamente.
+        '404':
+          description: L'utente non è stato trovato.
           
 components:
   schemas:
     Richiesta:
       type: object
+    
+    Utente:
+      title: Utente
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        cf:
+          type: string
+        dataNascita:
+          type: string
+        residenza:
+          type: string
+        telefono:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        qualifica:
+          type: string
+        anziano:
+          type: array
+
       
     Student:
       type: object
