@@ -1,45 +1,150 @@
 openapi: 3.0.0
 info:
-  version: '1.0'
+  version: "1.0"
   title: "API GenerAzioni"
-  description: API del progetto GenerAzioni del corso di Ingegneria del Software
+  description: API del progetto GenerAzioni del corso di Ingegneria del Software.
   license:
     name: MIT
 servers:
-  - url: http://localhost:8000/api/v1
+  - url: http://localhost:8080/api/
     description: Localhost
 paths:
-  /richieste/add:
-    post:
-      description: Crea una nuova richiesta d'aiuto.
-      responses:
-        '201':
-          description: La richiesta è stata creata correttamente.
-        '404':
-          description: L'utente specificato non è stato trovato.
   /utenti:
     x-summary: Utenti collection
     get:
       summary: elenca tutti gli Utenti
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: la richiesta ha avuto successo.
-#          schema:
-#            type: array
-#            items: '#/definitions/Utenti'
+          content:
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Utente"
+  /auth/signup:
     post:
       description: Crea un nuovo utente.
       responses:
-        '201':
+        "201":
           description: L'utente è stato creato correttamente.
-        '404':
+        "500":
+          description: Impossibile creare l'utente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - cognome
+                - cf
+                - dataNascita
+                - residenza
+                - telefono
+                - email
+                - password
+                - ruoli
+              properties:
+                nome:
+                  type: string
+                  description: "Nome dell'utente"
+                  example: "Mario"
+                cognome:
+                  type: string
+                  description: "Cognome dell'utente"
+                  example: "Rossi"
+                cf:
+                  type: string
+                  description: "Codice fiscale dell'utente"
+                  example: "RSSMRA60A01H501Q"
+                dataNascita:
+                  type: string
+                  format: date-time
+                  description: "Data di nascita dell'utente"
+                  example: "1960-01-01"
+                residenza:
+                  type: string
+                  description: "Indirizzo di residenza dell'utente"
+                  example: "Via Trento 1, Roma RM"
+                telefono:
+                  type: string
+                  description: "Numero di telefono dell'utente"
+                  example: "335 1234567"
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                  example: "mario.rossi@gmail.com"
+                password:
+                  type: string
+                  description: "Password dell'utente"
+                ruoli:
+                  type: array
+                  items:
+                    type: string
+                    enum: [anziano, volontario, supervisore, admin]
+                  description: "Ruolo dell'utente"
+                  example: ["anziano"]
+                anziano:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Anziano"
+                  description: "Campi specifici per utente Anziano"
+
+  /auth/login:
+    post:
+      description: Effettua il login di un utente.
+      responses:
+        "404":
           description: L'utente non è stato trovato.
-          
+        "401":
+          description: La password non è valida.
+        "200":
+          description: Login effettuato con successo.
+          content:
+            text/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: "Indirizzo email dell'utente"
+                  ruoli:
+                    type: string
+                    description: "Ruoli dell'utente"
+                  _id:
+                    type: string
+                    description: "ID dell'utente"
+                  accessToken:
+                    type: string
+                    description: "Il token di autenticazione."
+        "500":
+          description: Impossibile effettuare il login.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                password:
+                  type: string
+                  description: "Password dell'utente"
+
 components:
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
   schemas:
-    Richiesta:
-      type: object
-    
     Utente:
       title: Utente
       type: object
@@ -52,6 +157,7 @@ components:
           type: string
         dataNascita:
           type: string
+          format: date-time
         residenza:
           type: string
         telefono:
@@ -60,54 +166,18 @@ components:
           type: string
         password:
           type: string
-        qualifica:
+        ruoli:
           type: string
+          enum: ["utente", "anziano", "volontario", "supervisore", "admin"]
         anziano:
           type: array
-
-      
-    Student:
+          items:
+            $ref: "#/components/schemas/Anziano"
+    Anziano:
+      title: Anziano
       type: object
-      required:
-        - id
-        - email
       properties:
-        id:
-          type: integer
-          description: 'ID of the user'
-        email:
+        bio:
           type: string
-          description: 'Email address of the user'
-    Book:
-      type: object
-      required:
-        - title
-        - author
-        - ISBN
-        - status
-      properties:
-        title:
+        esigenze:
           type: string
-          description: 'Title of the book'
-        author:
-          type: string
-          description: 'Author of the book'
-        ISBN:
-          type: string
-          description: 'ISBN of the book'
-        status:
-          type: string
-          enum: [available, lended]
-          description: 'Tells whether the book is currently available or not'
-    Booklending:
-      type: object
-      required:
-      - student
-      - book
-      properties:
-        user:
-          type: string
-          description: 'Link to the user'
-        book:
-          type: integer
-          description: 'Link to the book'
