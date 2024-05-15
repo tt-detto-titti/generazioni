@@ -6,13 +6,14 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://localhost:8081/api/
+  - url: http://localhost:8080/api/
     description: Localhost
 paths:
   /richieste/add:
     post:
       description: Crea una nuova richiesta d'aiuto.
-      operationId: "nuovaRichiesta"
+      security:
+        - BearerAuth: []
       responses:
         "201":
           description: La richiesta è stata creata correttamente.
@@ -28,7 +29,9 @@ paths:
               required:
                 - data
                 - durata
-
+                - descrizione
+                - categoria
+                - id_anziano
               properties:
                 data:
                   type: string
@@ -78,5 +81,5 @@ components:
           description: Una breve descrizione fatta dalla persona anziana sulla richiesta d'aiuto che sta facendo.
         categoria:
           type: string
-          enum:
-            [aiuto in casa, aiuto fuori casa, compagnia, passaggio in macchina]
+          enum: [aiuto in casa, aiuto fuori casa, compagnia, passaggio in macchina]
+          description: La categoria in cui rientra la richiesta d'aiuto.
