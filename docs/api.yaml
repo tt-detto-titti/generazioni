@@ -54,6 +54,133 @@ paths:
                   type: "string"
                   description: "L'ID della persona anziana che fa la richiesta."
                   example: "66424ccccec1fcdcfd99a8f0"
+  /utenti:
+    x-summary: Utenti collection
+    get:
+      summary: elenca tutti gli Utenti
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: la richiesta ha avuto successo.
+          content:
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Utente"
+  /auth/signup:
+    post:
+      description: Crea un nuovo utente.
+      responses:
+        "201":
+          description: L'utente è stato creato correttamente.
+        "500":
+          description: Impossibile creare l'utente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - cognome
+                - cf
+                - dataNascita
+                - residenza
+                - telefono
+                - email
+                - password
+                - ruoli
+              properties:
+                nome:
+                  type: string
+                  description: "Nome dell'utente"
+                  example: "Mario"
+                cognome:
+                  type: string
+                  description: "Cognome dell'utente"
+                  example: "Rossi"
+                cf:
+                  type: string
+                  description: "Codice fiscale dell'utente"
+                  example: "RSSMRA60A01H501Q"
+                dataNascita:
+                  type: string
+                  format: date-time
+                  description: "Data di nascita dell'utente"
+                  example: "1960-01-01"
+                residenza:
+                  type: string
+                  description: "Indirizzo di residenza dell'utente"
+                  example: "Via Trento 1, Roma RM"
+                telefono:
+                  type: string
+                  description: "Numero di telefono dell'utente"
+                  example: "335 1234567"
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                  example: "mario.rossi@gmail.com"
+                password:
+                  type: string
+                  description: "Password dell'utente"
+                ruoli:
+                  type: array
+                  items:
+                    type: string
+                    enum: [anziano, volontario, supervisore, admin]
+                  description: "Ruolo dell'utente"
+                  example: ["anziano"]
+                anziano:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Anziano"
+                  description: "Campi specifici per utente Anziano"
+  /auth/login:
+    post:
+      description: Effettua il login di un utente.
+      responses:
+        "404":
+          description: L'utente non è stato trovato.
+        "401":
+          description: La password non è valida.
+        "200":
+          description: Login effettuato con successo.
+          content:
+            text/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: "Indirizzo email dell'utente"
+                  ruoli:
+                    type: string
+                    description: "Ruoli dell'utente"
+                  _id:
+                    type: string
+                    description: "ID dell'utente"
+                  accessToken:
+                    type: string
+                    description: "Il token di autenticazione."
+        "500":
+          description: Impossibile effettuare il login.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                password:
+                  type: string
+                  description: "Password dell'utente"
 
 components:
   securitySchemes:
@@ -83,3 +210,39 @@ components:
           type: string
           enum: [aiuto in casa, aiuto fuori casa, compagnia, passaggio in macchina]
           description: La categoria in cui rientra la richiesta d'aiuto.
+    Utente:
+      title: Utente
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        cf:
+          type: string
+        dataNascita:
+          type: string
+          format: date-time
+        residenza:
+          type: string
+        telefono:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        ruoli:
+          type: string
+          enum: ["utente", "anziano", "volontario", "supervisore", "admin"]
+        anziano:
+          type: array
+          items:
+            $ref: "#/components/schemas/Anziano"
+    Anziano:
+      title: Anziano
+      type: object
+      properties:
+        bio:
+          type: string
+        esigenze:
+          type: string

@@ -65,6 +65,8 @@ exports.login = async (req, res) => {
 
     res.status(200).send({
       id: utente._id,
+      nome: utente.nome,
+      cognome: utente.cognome,
       email: utente.email,
       ruoli: utente.ruoli,
       accessToken: token,

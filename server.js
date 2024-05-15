@@ -2,19 +2,20 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const path = __dirname + "/app/views/";
 const app = express();
 
+app.use(express.static(path));
+
 var corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
 app.use(bodyParser.json());
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Mi connetto al database
+// Connessione al database
 const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
@@ -30,7 +31,11 @@ db.mongoose
     process.exit();
   });
 
-// Carico le routes
+app.get("/", function (req, res) {
+  res.sendFile(path + "index.html");
+});
+
+// Carica le routes
 require("./app/routes/auth.routes.js")(app);
 require("./app/routes/utente.routes.js")(app);
 require("./app/routes/richiesta.routes.js")(app);
