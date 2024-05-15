@@ -1,7 +1,6 @@
 const config = require("../config/auth.config.js");
 const db = require("../models/index.js");
 const Utente = db.utente;
-const Ruolo = db.ruolo;
 
 // Usato per gestire i token di accesso
 var jwt = require("jsonwebtoken");
@@ -21,7 +20,7 @@ exports.signup = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 8),
     });
 
-    utenteSalvato = await utente.save();
+    const utenteSalvato = await utente.save();
 
     // TODO non permettere a chiunque di registrarsi come admin lol
     if (req.body.ruoli) {
@@ -68,6 +67,8 @@ exports.login = async (req, res) => {
 
     res.status(200).send({
       id: utente._id,
+      nome: utente.nome,
+      cognome: utente.cognome,
       email: utente.email,
       ruoli: utente.ruoli,
       accessToken: token,
