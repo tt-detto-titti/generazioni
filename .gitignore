@@ -36,6 +36,7 @@ Temporary Items
 
 ### Node ###
 node_modules/
+**/node_modules/
 
 # Logs
 logs
@@ -190,8 +191,8 @@ test/
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
-dist/
-npm-debug.log
-yarn-error.log
+**/dist/
+**/npm-debug.log
+**/yarn-error.log
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,node,vuejs,vue
