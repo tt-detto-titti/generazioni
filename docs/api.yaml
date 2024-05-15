@@ -6,13 +6,15 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://localhost:8081/api/
+  - url: http://localhost:8080/api/
     description: Localhost
 paths:
   /utenti:
     x-summary: Utenti collection
     get:
       summary: elenca tutti gli Utenti
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: la richiesta ha avuto successo.
@@ -21,18 +23,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Utente'
+                  $ref: "#/components/schemas/Utente"
   /auth/signup:
-   post:
+    post:
       description: Crea un nuovo utente.
-      operationId: "nuovoUtente"
       responses:
         "201":
           description: L'utente è stato creato correttamente.
         "500":
           description: Impossibile creare l'utente.
       requestBody:
-         content:
+        content:
           application/json:
             schema:
               type: object
@@ -46,49 +47,55 @@ paths:
                 - email
                 - password
                 - ruoli
-
               properties:
                 nome:
                   type: string
                   description: "Nome dell'utente"
+                  example: "Mario"
                 cognome:
                   type: string
                   description: "Cognome dell'utente"
+                  example: "Rossi"
                 cf:
                   type: string
                   description: "Codice fiscale dell'utente"
+                  example: "RSSMRA60A01H501Q"
                 dataNascita:
                   type: string
                   format: date-time
                   description: "Data di nascita dell'utente"
+                  example: "1960-01-01"
                 residenza:
                   type: string
                   description: "Indirizzo di residenza dell'utente"
+                  example: "Via Trento 1, Roma RM"
                 telefono:
                   type: string
                   description: "Numero di telefono dell'utente"
+                  example: "335 1234567"
                 email:
                   type: string
                   description: "Indirizzo email dell'utente"
+                  example: "mario.rossi@gmail.com"
                 password:
                   type: string
                   description: "Password dell'utente"
                 ruoli:
-                  type: string
-                  enum:
-                    [Anziano, Volontario, Parente]
+                  type: array
+                  items:
+                    type: string
+                    enum: [anziano, volontario, supervisore, admin]
                   description: "Ruolo dell'utente"
+                  example: ["anziano"]
                 anziano:
-                   type: array
-                   items:
-                    $ref: '#/components/schemas/Anziano'
-                    description: "Campi specifici per utente Anziano"
-
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Anziano"
+                  description: "Campi specifici per utente Anziano"
 
   /auth/login:
     post:
       description: Effettua il login di un utente.
-      operationId: "nuovoUtente"
       responses:
         "404":
           description: L'utente non è stato trovato.
@@ -96,17 +103,33 @@ paths:
           description: La password non è valida.
         "200":
           description: Login effettuato con successo.
+          content:
+            text/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: "Indirizzo email dell'utente"
+                  ruoli:
+                    type: string
+                    description: "Ruoli dell'utente"
+                  _id:
+                    type: string
+                    description: "ID dell'utente"
+                  accessToken:
+                    type: string
+                    description: "Il token di autenticazione."
         "500":
           description: Impossibile effettuare il login.
       requestBody:
-         content:
+        content:
           application/json:
             schema:
               type: object
               required:
                 - email
                 - password
-
               properties:
                 email:
                   type: string
@@ -114,12 +137,6 @@ paths:
                 password:
                   type: string
                   description: "Password dell'utente"
-                _id:
-                  type: string
-                  description: "ID dell'utente"
-                ruoli:
-                  type: string
-                  description: "Ruoli dell'utente"
 
 components:
   securitySchemes:
@@ -151,13 +168,11 @@ components:
           type: string
         ruoli:
           type: string
-          enum:
-           ["utente", "anziano", "volontario", "supervisore", "admin"]
+          enum: ["utente", "anziano", "volontario", "supervisore", "admin"]
         anziano:
           type: array
           items:
-            $ref: '#/components/schemas/Anziano'
-
+            $ref: "#/components/schemas/Anziano"
     Anziano:
       title: Anziano
       type: object
@@ -166,4 +181,3 @@ components:
           type: string
         esigenze:
           type: string
-
