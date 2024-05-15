@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  version: "1.0"
+  title: "API GenerAzioni"
+  description: API del progetto GenerAzioni del corso di Ingegneria del Software.
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8081/api/
+    description: Localhost
+paths:
+  /utenti:
+    x-summary: Utenti collection
+    get:
+      summary: elenca tutti gli Utenti
+      responses:
+        200:
+          description: la richiesta ha avuto successo.
+          content:
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Utente'
+  /auth/signup:
+   post:
+      description: Crea un nuovo utente.
+      operationId: "nuovoUtente"
+      responses:
+        "201":
+          description: L'utente è stato creato correttamente.
+        "500":
+          description: Impossibile creare l'utente.
+      requestBody:
+         content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - cognome
+                - cf
+                - dataNascita
+                - residenza
+                - telefono
+                - email
+                - password
+                - ruoli
+
+              properties:
+                nome:
+                  type: string
+                  description: "Nome dell'utente"
+                cognome:
+                  type: string
+                  description: "Cognome dell'utente"
+                cf:
+                  type: string
+                  description: "Codice fiscale dell'utente"
+                dataNascita:
+                  type: string
+                  format: date-time
+                  description: "Data di nascita dell'utente"
+                residenza:
+                  type: string
+                  description: "Indirizzo di residenza dell'utente"
+                telefono:
+                  type: string
+                  description: "Numero di telefono dell'utente"
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                password:
+                  type: string
+                  description: "Password dell'utente"
+                ruoli:
+                  type: string
+                  enum:
+                    [Anziano, Volontario, Parente]
+                  description: "Ruolo dell'utente"
+                anziano:
+                   type: array
+                   items:
+                    $ref: '#/components/schemas/Anziano'
+                    description: "Campi specifici per utente Anziano"
+
+
+  /auth/login:
+    post:
+      description: Effettua il login di un utente.
+      operationId: "nuovoUtente"
+      responses:
+        "404":
+          description: L'utente non è stato trovato.
+        "401":
+          description: La password non è valida.
+        "200":
+          description: Login effettuato con successo.
+        "500":
+          description: Impossibile effettuare il login.
+      requestBody:
+         content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+
+              properties:
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                password:
+                  type: string
+                  description: "Password dell'utente"
+                _id:
+                  type: string
+                  description: "ID dell'utente"
+                ruoli:
+                  type: string
+                  description: "Ruoli dell'utente"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
+  schemas:
+    Utente:
+      title: Utente
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        cf:
+          type: string
+        dataNascita:
+          type: string
+          format: date-time
+        residenza:
+          type: string
+        telefono:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        ruoli:
+          type: string
+          enum:
+           ["utente", "anziano", "volontario", "supervisore", "admin"]
+        anziano:
+          type: array
+          items:
+            $ref: '#/components/schemas/Anziano'
+
+    Anziano:
+      title: Anziano
+      type: object
+      properties:
+        bio:
+          type: string
+        esigenze:
+          type: string
+
