@@ -9,7 +9,9 @@
           </router-link>
         </li>
         <li v-if="mostraNuovaRichiesta" class="nav-item">
-          <router-link to="/richiesta/add" class="nav-link">Nuova Richiesta</router-link>
+          <router-link to="/richiesta/add" class="nav-link">
+            <font-awesome-icon icon="hand-holding-medical" /> Nuova Richiesta
+          </router-link>
         </li>
       </div>
 
@@ -52,6 +54,9 @@ export default {
   computed: {
     utenteCorrente() {
       return this.$store.state.auth.utente;
+    },
+    mostraNuovaRichiesta() {
+      return true;
     }
   },
   methods: {
