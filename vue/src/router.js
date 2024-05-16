@@ -40,16 +40,17 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-router.beforeEach((to, from, next) => {
-  const paginePubbliche = ["/login", "signup", "/home"];
-  const pagineAuth = !paginePubbliche.includes(to.path);
-  const loggato = localStorage.getItem("utente");
+// TODO
+// router.beforeEach((to, from, next) => {
+//   const paginePubbliche = ["/login", "/signup", "/home"];
+//   const pagineAuth = !paginePubbliche.includes(to.path);
+//   const loggato = localStorage.getItem("utente");
 
-  if (pagineAuth && !loggato) {
-    next("/login");
-  } else {
-    next();
-  }
-});
+//   if (pagineAuth && !loggato) {
+//     next("/login");
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;
