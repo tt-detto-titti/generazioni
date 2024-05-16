@@ -13,36 +13,36 @@
         </div>
         <!-- Campo Durata -->
         <div class="form-group">
-              <label for="durata">Durata</label>
-              <Field name="durata" type="text" class="form-control" />
-              <ErrorMessage name="durata" class="error-feedback" />
-          </div>
+          <label for="durata">Durata</label>
+          <Field name="durata" type="text" class="form-control" />
+          <ErrorMessage name="durata" class="error-feedback" />
+        </div>
         <!-- Campo Descrizione -->
         <div class="form-group">
-          <label for=""descrizione>Descrizione</label>
+          <label for="" descrizione>Descrizione</label>
           <Field name="descrizione" type="descrizione" class="form-control" />
           <ErrorMessage name="descrizione" class="error-feedback" />
         </div>
       </Form>
       <div class="forms">
-      <!-- Campo Tipologia di Aiuto -->
-            <Form @submit_prevent="registerAnswer" :validation-schema="schema">
-                <p>Categoria di aiuto:</p>
-                <label>
-                    <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
-                </label>
-                <label>
-                    <input type="radio" name="categoria" v-model="inpVal" value="Aiuto fuori casa">
-                </label>
-                <label>
-                    <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
-                </label>
-                <label>
-                    <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
-                </label>
-                <button type="submit">Submit</button>
-            </Form>
-        </div>
+        <!-- Campo Tipologia di Aiuto -->
+        <Form @submit_prevent="registerAnswer" :validation-schema="schema">
+          <p>Categoria di aiuto:</p>
+          <label>
+            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
+          </label>
+          <label>
+            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto fuori casa">
+          </label>
+          <label>
+            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
+          </label>
+          <label>
+            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
+          </label>
+          <button type="submit">Submit</button>
+        </Form>
+      </div>
     </div>
   </div>
 </template>
@@ -90,12 +90,12 @@ export default {
   },
   methods: {
     //form data, durata, descrizione
-    richiestaHandler(){
+    richiestaHandler() {
       //implementazione
     },
     //scelta multipla tipologia aiuto
-    registerAnswer(){
-      if(this.inpVal){
+    registerAnswer() {
+      if (this.inpVal) {
         this.inpValSubmitted = this.inpVal;
       }
     }
@@ -109,19 +109,20 @@ label {
   margin-top: 10px;
 }
 
-button{
+button {
   margin: 10px;
 }
 
 label:hover {
-    cursor: pointer;
-    background-color: rgb(211, 244, 211);
-    border-radius: 5px;
-  }
+  cursor: pointer;
+  background-color: rgb(211, 244, 211);
+  border-radius: 5px;
+}
+
 #pAnswer {
-    background-color: lightgreen;
-    padding: 5px;
-  }
+  background-color: lightgreen;
+  padding: 5px;
+}
 
 .card-container.card {
   max-width: 350px !important;
