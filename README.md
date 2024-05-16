@@ -4,17 +4,13 @@
 
 Progetto **_GenerAzioni_** per il corso di Ingegneria del Software A.A. 2023/24.
 
-Lo scopo principale dell'applicazione è fornire alle **persone anziane** uno strumento con cui possono chiedere aiuto velocemente e facilmente rispetto alle incombenze quotidiane che si trovano ad affrontare, anche semplicemente rispondere al desiderio di stare in compagnia, rivolgendo queste richieste alle **associazioni di volontariato** presenti sul territorio. Al tempo stesso permette ai **volontari** di queste associazioni di rispondere a queste richieste e riuscire a fornire un aiuto mirato e più efficiente.
+L’idea per il progetto nasce da un’esperienze quotidiana che tutti facciamo: vedere persone anziane, magari nostre parenti, che si trovano in varie situazione di difficoltà. L’applicazione si pone come obiettivo quello di attrezzare queste persone con uno strumento che permetta di chiedere autonomamente e velocemente aiuto, e che permetta al tempo stesso alle associazioni di volontariato e ai volontari di fornire questo aiuto in maniera efficace e tempestiva.
 
 ## Deliverables
 
-[D1](./docs/D1%20#8%20-%20GenerAzioni.pdf)
-[D2](./docs/D2%20#8%20-%20GenerAzioni.pdf)
+[D1](<./docs/D1 #8 - GenerAzioni.pdf>)
+[D2](<./docs/D2 #8 - GenerAzioni.pdf>)
 
 ## Sprints
 
-### Sprint 1
-
-**GOAL**: scrivere i punti più importanti delle API principali (v1) e progettare il database, abbozzare anche le GUI che dialogano con le API (form, pagine di registrazione, eccetera).
-
-**DoD**: le API sono documentate ed è stata testata la loro funzionalità, le GUI permettono di usare le API.
+[S1](<./docs/S1 #8 - GenerAzioni.pdf>)
