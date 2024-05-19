@@ -169,8 +169,6 @@ export default {
       this.ok = false;
       this.caricamento = true;
 
-      console.log(utente);
-
       this.$store.dispatch("auth/signup", utente).then(
         (data) => {
           this.messaggio = data.message;
