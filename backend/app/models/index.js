@@ -4,10 +4,10 @@ const db = {};
 mongoose.Promise = global.Promise;
 db.mongoose = mongoose;
 
-db.url = "mongodb+srv://generazioni.e4br1v2.mongodb.net/?retryWrites=true&w=majority&appName=generazioni";
-db.name = "generazioni";
-db.user = "dev";
-db.pass = "dev";
+db.url = process.env.MONGODB_URL;
+db.name = process.env.MONGODB_NAME;
+db.user = process.env.MONGODB_USER;
+db.pass = process.env.MONGODB_PASS;
 
 db.categoria_aiuto = require("./categoria_aiuto.model.js")(mongoose);
 db.richiesta = require("./richiesta.model.js")(mongoose);

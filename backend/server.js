@@ -1,14 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-const path = __dirname + "/app/views/";
 const app = express();
+const path = __dirname + "/app/views/";
 
 app.use(express.static(path));
 
 var corsOptions = {
-  origin: "http://localhost:5173",
+  origin: process.env.CORS_ORIGIN,
 };
 app.use(cors(corsOptions));
 
@@ -40,7 +39,7 @@ require("./app/routes/auth.routes.js")(app);
 require("./app/routes/utente.routes.js")(app);
 require("./app/routes/richiesta.routes.js")(app);
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Il server è in ascolto sulla porta ${PORT}.`);
 });

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
+const config= require("../config/auth.config.js");
 const db = require("../models/index.js");
 const Utente = db.utente;
 const Ruolo = db.ruolo;
@@ -11,7 +11,7 @@ const verificaToken = (req, res, next) => {
     return res.status(403).send({ message: "È necessario fornire un token!" });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Non sei autorizzato!" });
     }
