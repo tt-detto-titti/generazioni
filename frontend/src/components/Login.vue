@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <img id="profile-img" src="/login.jpg" class="profile-img-card" />
+      <img id="profile-img" src="/login.png" class="profile-img-card" />
       <Form @submit="loginHandler" :validation-schema="schema">
         <div class="form-group">
           <label for="email">Email</label>
@@ -16,7 +16,10 @@
 
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="caricamento">
-            <span v-show="caricamento" class="spinner-border spinner-border-sm"></span>
+            <span
+              v-show="caricamento"
+              class="spinner-border spinner-border-sm"
+            ></span>
             <span>Entra nel sito</span>
           </button>
         </div>
@@ -46,7 +49,7 @@ export default {
     // Schema di validazione
     const schema = yup.object().shape({
       email: yup.string().required("È necessario inserire l'email!"),
-      password: yup.string().required("È necessario inserire la password!")
+      password: yup.string().required("È necessario inserire la password!"),
     });
 
     return {
@@ -80,7 +83,7 @@ export default {
             (err.response && err.response.data && err.response.data.message) ||
             err.message ||
             err.toString();
-        }
+        },
       );
     },
   },
@@ -112,13 +115,10 @@ label {
 }
 
 .profile-img-card {
-  width: 96px;
-  height: 96px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto 10px;
   display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
 }
 
 .error-feedback {
