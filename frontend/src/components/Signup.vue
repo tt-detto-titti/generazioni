@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card card-container">
       <!-- TODO caricare una nuova icona -->
-      <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+      <img id="profile-img" src="/signup.png" class="profile-img-card" />
       <Form @submit="signupHandler" :validation-schema="schema">
         <div v-if="!ok">
           <!-- Nome e Cognome -->
@@ -62,32 +62,65 @@
 
           <!-- Ruoli -->
           <div class="form-check form-check-inline">
-            <Field name="ruoli" id="anziano" value="anziano" type="checkbox" class="form-check-input" />
+            <Field
+              name="ruoli"
+              id="anziano"
+              value="anziano"
+              type="checkbox"
+              class="form-check-input"
+            />
             <label class="form-check-label" for="anziano">Anziano</label>
           </div>
           <div class="form-check form-check-inline">
-            <Field name="ruoli" id="volontario" value="volontario" type="checkbox" class="form-check-input" />
+            <Field
+              name="ruoli"
+              id="volontario"
+              value="volontario"
+              type="checkbox"
+              class="form-check-input"
+            />
             <label class="form-check-label" for="volontario">Volontario</label>
           </div>
           <div class="form-check form-check-inline">
-            <Field name="ruoli" id="supervisore" value="supervisore" type="checkbox" class="form-check-input" />
-            <label class="form-check-label" for="supervisore">Supervisore</label>
+            <Field
+              name="ruoli"
+              id="supervisore"
+              value="supervisore"
+              type="checkbox"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="supervisore"
+              >Supervisore</label
+            >
           </div>
           <div class="form-check form-check-inline">
-            <Field name="ruoli" id="admin" value="admin" type="checkbox" class="form-check-input" />
+            <Field
+              name="ruoli"
+              id="admin"
+              value="admin"
+              type="checkbox"
+              class="form-check-input"
+            />
             <label class="form-check-label" for="admin">Admin</label>
           </div>
 
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="caricamento">
-              <span v-show="caricamento" class="spinner-border spinner-border-sm"></span>
+              <span
+                v-show="caricamento"
+                class="spinner-border spinner-border-sm"
+              ></span>
               Registrati al sito
             </button>
           </div>
         </div>
       </Form>
 
-      <div v-if="messaggio" class="alert" :class="ok ? 'alert-success' : 'alert-danger'">
+      <div
+        v-if="messaggio"
+        class="alert"
+        :class="ok ? 'alert-success' : 'alert-danger'"
+      >
         {{ messaggio }}
       </div>
     </div>
@@ -127,7 +160,10 @@ export default {
       dataNascita: yup
         .date()
         .required("È necessario inserire la data di nascita!")
-        .max(new Date(Date.now() - 567648000000), "Devi essere almeno maggiorenne.")
+        .max(
+          new Date(Date.now() - 567648000000),
+          "Devi essere almeno maggiorenne.",
+        )
         .min(new Date(1900, 0, 1), "Non sei Matusalemme."),
       email: yup
         .string()
@@ -141,8 +177,7 @@ export default {
         .required("È necessario inserire la password!")
         .min(8, "Dev'essere lunga almeno 8 caratteri.")
         .max(32, "Dev'essere lunga al massimo 32 caratteri."),
-      ruoli: yup
-        .array()
+      ruoli: yup.array(),
     });
 
     return {
@@ -184,7 +219,7 @@ export default {
             error.toString();
           this.ok = false;
           this.caricamento = false;
-        }
+        },
       );
     },
   },
@@ -221,13 +256,10 @@ label {
 }
 
 .profile-img-card {
-  width: 96px;
-  height: 96px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto 10px;
   display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
 }
 
 .error-feedback {
