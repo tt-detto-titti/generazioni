@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="production" type="NodeJSConfigurationType" node-parameters="--env-file=production.env" path-to-js-file="./backend/server.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="production" type="NodeJSConfigurationType" node-parameters="--env-file=.env.production" path-to-js-file="./backend/server.js" working-dir="$PROJECT_DIR$">
     <method v="2" />
   </configuration>
 </component>
