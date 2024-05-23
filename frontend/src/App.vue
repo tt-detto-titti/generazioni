@@ -1,16 +1,24 @@
 <template>
-  <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a class="navbar-brand">GenerAzioni</a>
+  <div id="app" style="background-color: #ecf0f1">
+    <nav
+      class="navbar navbar-expand navbar-dark shadow-sm"
+      style="background-color: #2c3e50"
+    >
+      <a class="navbar-brand">
+        <!-- img src="/logo.png" width="30" height="30" / -->
+        Gener<strong>Azioni</strong>
+      </a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
-            <font-awesome-icon icon="home" /> Home
+            <font-awesome-icon icon="home" />
+            Home
           </router-link>
         </li>
         <li v-if="mostraNuovaRichiesta" class="nav-item">
           <router-link to="/richiesta/add" class="nav-link">
-            <font-awesome-icon icon="hand-holding-medical" /> Nuova Richiesta
+            <font-awesome-icon icon="hand-holding-medical" />
+            Nuova Richiesta
           </router-link>
         </li>
       </div>
@@ -18,12 +26,14 @@
       <div v-if="!utenteCorrente" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/signup" class="nav-link">
-            <font-awesome-icon icon="user-plus" /> Sign Up
+            <font-awesome-icon icon="user-plus" />
+            Sign Up
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/login" class="nav-link">
-            <font-awesome-icon icon="sign-in-alt" /> Login
+            <font-awesome-icon icon="sign-in-alt" />
+            Login
           </router-link>
         </li>
       </div>
@@ -37,7 +47,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" /> LogOut
+            <font-awesome-icon icon="sign-out-alt" />
+            LogOut
           </a>
         </li>
       </div>
@@ -57,13 +68,13 @@ export default {
     },
     mostraNuovaRichiesta() {
       return true;
-    }
+    },
   },
   methods: {
     logOut() {
-      this.$store.dispatch('auth/logout');
-      this.$router.push('/login');
-    }
-  }
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    },
+  },
 };
 </script>

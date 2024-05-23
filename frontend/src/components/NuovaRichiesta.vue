@@ -1,67 +1,91 @@
 <template>
-  <div class="container">
+  <div class="col-md-12">
     <div class="card card-container">
-      <h3>🤝 Serve una mano?</h3>
-      <p>
-        Bentornato! Speriamo tu stia bene 😊.<br />
-        Qui puoi chiedere un <strong>aiuto</strong> per
-        <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
-        andare a fare la spesa per il pranzo con i nipoti o un passaggio in
-        macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
-      </p>
-      <Form @submit="richiestaHandler" :validation-schema="schema">
-        <!-- Data, Ora  e Categoria-->
-        <div class="input-container">
-          <div class="form-group">
-            <label for="data">Data</label>
-            <Field name="data" type="date" class="form-control" />
-            <ErrorMessage name="data" class="error-feedback" />
+      <div v-if="!ok">
+        <h3>🤝 Serve una mano?</h3>
+        <p>
+          Qui puoi chiedere un <strong>aiuto</strong> per
+          <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
+          andare a fare la spesa per il pranzo con i nipoti o un passaggio in
+          macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
+        </p>
+        <Form @submit="richiestaHandler" :validation-schema="schema">
+          <!-- Data, Ora  e Categoria-->
+          <div class="input-container">
+            <div class="form-group">
+              <label for="data">Data</label>
+              <Field id="data" name="data" type="date" class="form-control" />
+              <ErrorMessage name="data" class="error-feedback" />
+            </div>
+            <div class="form-group">
+              <label for="ora">Ora</label>
+              <Field id="ora" name="ora" type="time" class="form-control" />
+              <ErrorMessage name="ora" class="error-feedback" />
+            </div>
+            <div class="form-group">
+              <label for="durata">Durata (min.)</label>
+              <Field
+                id="durata"
+                name="durata"
+                type="number"
+                min="30"
+                max="180"
+                class="form-control"
+              />
+              <ErrorMessage name="durata" class="error-feedback" />
+            </div>
+            <div class="form-group">
+              <label for="categoria">Categoria di aiuto</label>
+              <Field
+                id="categoria"
+                name="categoria"
+                as="select"
+                class="form-control"
+              >
+                <option value="aiuto in casa" selected>Aiuto in casa</option>
+                <option value="aiuto fuori casa">Aiuto fuori casa</option>
+                <option value="compagnia">Compagnia</option>
+                <option value="passaggio in macchina">Passaggio in auto</option>
+              </Field>
+              <ErrorMessage name="categoria" class="error-feedback" />
+            </div>
           </div>
+
+          <!-- Descrizione -->
           <div class="form-group">
-            <label for="ora">Ora</label>
-            <Field name="ora" type="time" class="form-control" />
-            <ErrorMessage name="ora" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="durata">Durata (min.)</label>
+            <label for="descrizione">Descrizione</label>
             <Field
-              name="durata"
-              type="number"
-              min="30"
-              max="180"
+              id="descrizione"
+              name="descrizione"
+              as="textarea"
               class="form-control"
             />
-            <ErrorMessage name="durata" class="error-feedback" />
+            <ErrorMessage name="descrizione" class="error-feedback" />
+            <small class="form-text text-muted">
+              Raccontaci di cosa hai bisogno, aggiungi quanti più dettagli
+              possibili.
+            </small>
           </div>
+
           <div class="form-group">
-            <label for="categoria">Categoria di aiuto</label>
-            <Field name="categoria" as="select" class="form-control">
-              <option value="aiuto in casa" selected>Aiuto in casa</option>
-              <option value="aiuto fuori casa">Aiuto fuori casa</option>
-              <option value="compagnia">Compagnia</option>
-              <option value="passaggio in macchina">Passaggio in auto</option>
-            </Field>
-            <ErrorMessage name="categoria" class="error-feedback" />
+            <button class="btn btn-primary btn-block" :disabled="caricamento">
+              <span
+                v-show="caricamento"
+                class="spinner-border spinner-border-sm"
+              ></span>
+              Invia la richiesta
+            </button>
           </div>
-        </div>
+        </Form>
+      </div>
 
-        <!-- Descrizione -->
-        <div class="form-group">
-          <label for="descrizione">Descrizione</label>
-          <Field name="descrizione" as="textarea" class="form-control" />
-          <ErrorMessage name="descrizione" class="error-feedback" />
-        </div>
-
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="caricamento">
-            <span
-              v-show="caricamento"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            Invia la richiesta
-          </button>
-        </div>
-      </Form>
+      <div
+        v-if="messaggio"
+        class="alert"
+        :class="ok ? 'alert-success' : 'alert-danger'"
+      >
+        {{ messaggio }}
+      </div>
     </div>
   </div>
 </template>
@@ -79,35 +103,30 @@ export default {
     ErrorMessage,
   },
   data() {
-    //Schema di validazione
+    // Schema di validazione
     const schema = yup.object().shape({
-      data: yup.string().required("È necessario inserire la data"),
-      tipologia: yup
+      data: yup
+        .date()
+        .required("È necessario inserire la data!")
+        .min(new Date(), "La data deve essere nel futuro."),
+      ora: yup.string().required("È necessario inserire l'ora!"),
+      durata: yup
+        .number()
+        .required("È necessario inserire la durata!")
+        .min(30, "La durata minima è di 30 minuti.")
+        .max(180, "La durata massima è di 180 minuti."),
+      categoria: yup.string().required("È necessario inserire la categoria!"),
+      descrizione: yup
         .string()
-        .required("È necessario inserire la tipologia di aiuto"),
+        .required("È necessario inserire una descrizione!"),
     });
+
     return {
-      //Per data, durata e descrizione aiuto
+      ok: false,
       caricamento: false,
-      contenuto: "",
+      messaggio: "",
       schema,
-      //Per scelta multipla tipologia aiuto
-      inpVal: "",
-      inpValSubmitted: "Not submitted yet",
     };
-  },
-  montato() {
-    ServizioUtente.getContenutoAnziano().then(
-      (res) => {
-        this.contenuto = res.data;
-      },
-      (err) => {
-        this.contenuto =
-          (err.response && err.response.data && err.response.data.message) ||
-          err.message ||
-          err.toString();
-      },
-    );
   },
   methods: {
     richiestaHandler() {
@@ -118,36 +137,10 @@ export default {
 </script>
 
 <style scoped>
-label {
-  display: block;
-  margin-top: 10px;
-}
+@import "../global.css";
 
 .card-container.card {
   max-width: 650px !important;
   padding: 40px 40px;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.input-container {
-  display: flex;
-  width: 100%;
-  gap: 10px;
-}
-
-.error-feedback {
-  color: red;
 }
 </style>

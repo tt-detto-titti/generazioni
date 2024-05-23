@@ -1,35 +1,59 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <img id="profile-img" src="/login.png" class="profile-img-card" />
-      <Form @submit="loginHandler" :validation-schema="schema">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <Field name="email" type="text" class="form-control" />
-          <ErrorMessage name="email" class="error-feedback" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <Field name="password" type="password" class="form-control" />
-          <ErrorMessage name="password" class="error-feedback" />
-        </div>
+      <div class="row">
+        <div class="col">
+          <h3>👐 Rieccoti!</h3>
+          <p>
+            Bentornato! Speriamo tu stia bene 😊.<br />
+            Inserendo qui le tue <strong>credenziali</strong> (<em>email</em> e
+            <em>password</em>
+            scritte sul post-it attaccato al computer 😉) puoi entrare nel sito!
+          </p>
+          <Form @submit="loginHandler" :validation-schema="schema">
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <Field id="email" name="email" type="text" class="form-control" />
+              <ErrorMessage name="email" class="error-feedback" />
+            </div>
 
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="caricamento">
-            <span
-              v-show="caricamento"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span>Entra nel sito</span>
-          </button>
-        </div>
+            <!-- Password -->
+            <div class="form-group">
+              <label for="password">Password</label>
+              <Field
+                id="password"
+                name="password"
+                type="password"
+                class="form-control"
+              />
+              <ErrorMessage name="password" class="error-feedback" />
+            </div>
 
-        <div class="form-group">
-          <div v-if="messaggio" class="alert alert-danger" role="alert">
-            {{ messaggio }}
-          </div>
+            <div class="form-group">
+              <button
+                class="btn btn-block btn-arancione"
+                :disabled="caricamento"
+              >
+                <span
+                  v-show="caricamento"
+                  class="spinner-border spinner-border-sm"
+                ></span>
+                <span>Entra</span>
+              </button>
+            </div>
+
+            <div class="form-group">
+              <div v-if="messaggio" class="alert alert-danger" role="alert">
+                {{ messaggio }}
+              </div>
+            </div>
+          </Form>
         </div>
-      </Form>
+        <div class="col-5 d-flex align-items-center">
+          <img src="/login.png" class="login-img" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -75,6 +99,7 @@ export default {
 
       this.$store.dispatch("auth/login", utente).then(
         () => {
+          // Reindirizza alla pagina personale
           this.$router.push("/profilo");
         },
         (err) => {
@@ -91,37 +116,17 @@ export default {
 </script>
 
 <style scoped>
-label {
-  display: block;
-  margin-top: 10px;
-}
+@import "../global.css";
 
 .card-container.card {
-  max-width: 350px !important;
+  max-width: 700px !important;
   padding: 40px 40px;
 }
 
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 150px;
-  height: 150px;
+.login-img {
+  width: 250px;
+  height: 250px;
   margin: 0 auto 10px;
   display: block;
-}
-
-.error-feedback {
-  color: red;
 }
 </style>
