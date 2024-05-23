@@ -1,48 +1,67 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{ contenuto }}</h3>
-    </header>
     <div class="card card-container">
+      <h3>🤝 Serve una mano?</h3>
+      <p>
+        Bentornato! Speriamo tu stia bene 😊.<br />
+        Qui puoi chiedere un <strong>aiuto</strong> per
+        <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
+        andare a fare la spesa per il pranzo con i nipoti o un passaggio in
+        macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
+      </p>
       <Form @submit="richiestaHandler" :validation-schema="schema">
-        <!-- Campo Data -->
-        <div class="form-group">
-          <label for="data">Data</label>
-          <Field name="data" type="date" class="form-control" />
-          <ErrorMessage name="data" class="error-feedback" />
+        <!-- Data, Ora  e Categoria-->
+        <div class="input-container">
+          <div class="form-group">
+            <label for="data">Data</label>
+            <Field name="data" type="date" class="form-control" />
+            <ErrorMessage name="data" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="ora">Ora</label>
+            <Field name="ora" type="time" class="form-control" />
+            <ErrorMessage name="ora" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="durata">Durata (min.)</label>
+            <Field
+              name="durata"
+              type="number"
+              min="30"
+              max="180"
+              class="form-control"
+            />
+            <ErrorMessage name="durata" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="categoria">Categoria di aiuto</label>
+            <Field name="categoria" as="select" class="form-control">
+              <option value="aiuto in casa" selected>Aiuto in casa</option>
+              <option value="aiuto fuori casa">Aiuto fuori casa</option>
+              <option value="compagnia">Compagnia</option>
+              <option value="passaggio in macchina">Passaggio in auto</option>
+            </Field>
+            <ErrorMessage name="categoria" class="error-feedback" />
+          </div>
         </div>
-        <!-- Campo Durata -->
+
+        <!-- Descrizione -->
         <div class="form-group">
-          <label for="durata">Durata</label>
-          <Field name="durata" type="text" class="form-control" />
-          <ErrorMessage name="durata" class="error-feedback" />
-        </div>
-        <!-- Campo Descrizione -->
-        <div class="form-group">
-          <label for="" descrizione>Descrizione</label>
-          <Field name="descrizione" type="descrizione" class="form-control" />
+          <label for="descrizione">Descrizione</label>
+          <Field name="descrizione" as="textarea" class="form-control" />
           <ErrorMessage name="descrizione" class="error-feedback" />
         </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" :disabled="caricamento">
+            <span
+              v-show="caricamento"
+              class="spinner-border spinner-border-sm"
+            ></span>
+            Invia la richiesta
+          </button>
+        </div>
       </Form>
-      <div class="forms">
-        <!-- Campo Tipologia di Aiuto -->
-        <Form @submit_prevent="registerAnswer" :validation-schema="schema">
-          <p>Categoria di aiuto:</p>
-          <label>
-            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
-          </label>
-          <label>
-            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto fuori casa">
-          </label>
-          <label>
-            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
-          </label>
-          <label>
-            <input type="radio" name="categoria" v-model="inpVal" value="Aiuto in casa">
-          </label>
-          <button type="submit">Submit</button>
-        </Form>
-      </div>
     </div>
   </div>
 </template>
@@ -63,7 +82,9 @@ export default {
     //Schema di validazione
     const schema = yup.object().shape({
       data: yup.string().required("È necessario inserire la data"),
-      tipologia: yup.string().required("È necessario inserire la tipologia di aiuto")
+      tipologia: yup
+        .string()
+        .required("È necessario inserire la tipologia di aiuto"),
     });
     return {
       //Per data, durata e descrizione aiuto
@@ -85,21 +106,14 @@ export default {
           (err.response && err.response.data && err.response.data.message) ||
           err.message ||
           err.toString();
-      }
+      },
     );
   },
   methods: {
-    //form data, durata, descrizione
     richiestaHandler() {
-      //implementazione
+      // TODO implementare
     },
-    //scelta multipla tipologia aiuto
-    registerAnswer() {
-      if (this.inpVal) {
-        this.inpValSubmitted = this.inpVal;
-      }
-    }
-  }
+  },
 };
 </script>
 
@@ -109,23 +123,8 @@ label {
   margin-top: 10px;
 }
 
-button {
-  margin: 10px;
-}
-
-label:hover {
-  cursor: pointer;
-  background-color: rgb(211, 244, 211);
-  border-radius: 5px;
-}
-
-#pAnswer {
-  background-color: lightgreen;
-  padding: 5px;
-}
-
 .card-container.card {
-  max-width: 350px !important;
+  max-width: 650px !important;
   padding: 40px 40px;
 }
 
@@ -142,14 +141,10 @@ label:hover {
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
+.input-container {
+  display: flex;
+  width: 100%;
+  gap: 10px;
 }
 
 .error-feedback {
