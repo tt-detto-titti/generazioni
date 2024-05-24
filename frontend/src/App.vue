@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a class="navbar-brand">GenerAzioni</a>
+    <nav class="navbar navbar-expand light bg-light">
+      <a class="navbar-brand">
+        <img src="/logo.png" width="30" height="30" />
+        GenerAzioni
+      </a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
@@ -57,13 +60,13 @@ export default {
     },
     mostraNuovaRichiesta() {
       return true;
-    }
+    },
   },
   methods: {
     logOut() {
-      this.$store.dispatch('auth/logout');
-      this.$router.push('/login');
-    }
-  }
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    },
+  },
 };
 </script>

@@ -40,6 +40,7 @@ require("./app/routes/utente.routes.js")(app);
 require("./app/routes/richiesta.routes.js")(app);
 
 const PORT = process.env.PORT || 8080;
+console.log(process.env.MONGODB_URL);
 app.listen(PORT, () => {
   console.log(`Il server è in ascolto sulla porta ${PORT}.`);
 });

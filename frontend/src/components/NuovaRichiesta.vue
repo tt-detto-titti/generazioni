@@ -110,8 +110,26 @@ export default {
     );
   },
   methods: {
-    richiestaHandler() {
+    richiestaHandler(utente) {
       // TODO implementare
+      this.messaggio = "";
+      this.ok = false;
+      this.caricamento = true;
+      ServizioUtente.nuovaRichiesta(utente).then(
+        (res) => {
+          this.caricamento = false;
+          this.messaggio = res.message;
+          this.ok = true;
+        },
+        (err) => {
+          this.messaggio =
+            (err.response && err.response.data && err.response.data.message) ||
+            err.message ||
+            err.toString();
+          this.ok = false;
+          this.caricamento = false;
+        },
+      );
     },
   },
 };
