@@ -35,10 +35,12 @@
     "vee-validate": "^4.12.8",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2",
+    "vuetify": "^3.6.7",
     "vuex": "^4.1.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@mdi/font": "^7.4.47",
     "@vitejs/plugin-vue": "^5.0.4",
     "globals": "^15.2.0",
     "prettier": "^3.2.5",

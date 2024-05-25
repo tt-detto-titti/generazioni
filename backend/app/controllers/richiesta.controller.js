@@ -22,22 +22,25 @@ exports.nuovaRichiesta = async (req, res) => {
     await richiesta.save();
     res.status(201).send("La richiesta è stata salvata correttamente.");
   } catch (err) {
-    res
-      .status(500)
-      .send({ message: "Impossibile creare la richiesta: " + err });
+    res.status(500).send({ message: err.message });
   }
 };
 
-exports.findAll = (req, res) => {
-  Richiesta.find(true)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "Qualcosa di strano è successo mentre cercavo le richieste.",
-      });
+// Trova tutte le richieste d'aiuto fatte da parte di una persona anziana
+exports.trovaTutte = async (req, res) => {
+  try {
+    const id = req.params.id_anziano;
+    const data = await Richiesta.find({ id_anziano: id });
+    res.send(data);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
     });
+  }
 };
+
+// Modifica una richiesta d'aiuto
+exports.modifica = (req, res) => {};
+
+// Elimina una richiesta d'aiuto
+exports.elimina = (req, res) => {};
