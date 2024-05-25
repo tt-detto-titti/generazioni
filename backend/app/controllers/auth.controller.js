@@ -3,14 +3,13 @@ const db = require("../models/index.js");
 const Utente = db.utente;
 
 // Usato per gestire i token di accesso
-var jwt= require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 // Usato per generare e controllare gli hash delle password
-var bcrypt= require("bcryptjs");
+var bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   try {
-    const utente =
-        new Utente({
+    const utente = new Utente({
       nome: req.body.nome,
       cognome: req.body.cognome,
       cf: req.body.cf,
@@ -49,7 +48,7 @@ exports.login = async (req, res) => {
     // Verifica la password con l'hash
     const passwordValida = bcrypt.compareSync(
       req.body.password,
-      utente.password
+      utente.password,
     );
     if (!passwordValida) {
       return res.status(401).send({
@@ -61,7 +60,7 @@ exports.login = async (req, res) => {
     // Genera un token d'accesso
     const token = jwt.sign({ id: utente._id }, config.JWT_SECRET, {
       algorithm: "HS256",
-      expiresIn: config.SCADENZA_TOKEN,
+      expiresIn: 86400,
     });
 
     res.status(200).send({
