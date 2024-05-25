@@ -3,17 +3,16 @@ info:
   version: "1.0"
   title: "API GenerAzioni"
   description: API del progetto GenerAzioni del corso di Ingegneria del Software.
-  license:
-    name: MIT
 servers:
-  - url: http://localhost:8080/api/
-    description: Localhost
+  - url: https://generazioni.onrender.com/api/
+    description: Render.com
 paths:
-  /richieste/add:
+  /matchmaker/richieste/add:
     post:
-      description: Crea una nuova richiesta d'aiuto.
+      summary: Crea una richiesta d'aiuto
+      description: Permette a una persona anziana di creare una nuova richiesta d'aiuto.
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       responses:
         "201":
           description: La richiesta è stata creata correttamente.
@@ -25,53 +24,36 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - data
-                - durata
-                - descrizione
-                - categoria
-                - id_anziano
-              properties:
-                data:
-                  type: string
-                  format: date-time
-                  description: "La data e l'ora per cui viene effettuata la richiesta d'aiuto."
-                durata:
-                  type: integer
-                  description: "La durata in minuti stimata per la prestazione d'aiuto."
-                  example: 90
-                descrizione:
-                  type: string
-                  description: "Una breve descrizione della richiesta d'aiuto fornita dalla persona anziana."
-                  example: "Ho bisogno d'aiuto per andare a fare la spesa."
-                categoria:
-                  type: string
-                  enum: ["aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina"]
-                  description: "La categoria della richiesta."
-                  example: "aiuto fuori casa"
-                id_anziano:
-                  type: "string"
-                  description: "L'ID della persona anziana che fa la richiesta."
-                  example: "66424ccccec1fcdcfd99a8f0"
-  /utenti:
-    x-summary: Utenti collection
+              $ref: "#/components/schemas/Richiesta"
+  /matchmaker/richieste/{id_anziano}:
     get:
-      summary: elenca tutti gli Utenti
+      summary: Trova tutte le richieste d'aiuto
+      description: Restituisce tutte le richieste d'aiuto fatte da una persona anziana specificata dall'ID.
       security:
-        - bearerAuth: []
+        - BearerAuth: [ ]
+      parameters:
+        - in: path
+          name: id_anziano
+          required: true
+          schema:
+            type: string
+          description: ID della persona anziana
+          example: "6651f6c1b506e79c21632f90"
       responses:
-        200:
-          description: la richiesta ha avuto successo.
+        '200':
+          description: Richieste trovate con successo.
           content:
-            text/json:
+            application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Utente"
+                  $ref: "#/components/schemas/Richiesta"
+        '500':
+          description: Impossibile trovare le richieste.
   /auth/signup:
     post:
-      description: Crea un nuovo utente.
+      summary: SignUp
+      description: Permette a un nuovo utente di registrarsi al sito.
       responses:
         "201":
           description: L'utente è stato creato correttamente.
@@ -81,65 +63,11 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - nome
-                - cognome
-                - cf
-                - dataNascita
-                - residenza
-                - telefono
-                - email
-                - password
-                - ruoli
-              properties:
-                nome:
-                  type: string
-                  description: "Nome dell'utente"
-                  example: "Mario"
-                cognome:
-                  type: string
-                  description: "Cognome dell'utente"
-                  example: "Rossi"
-                cf:
-                  type: string
-                  description: "Codice fiscale dell'utente"
-                  example: "RSSMRA60A01H501Q"
-                dataNascita:
-                  type: string
-                  format: date-time
-                  description: "Data di nascita dell'utente"
-                  example: "1960-01-01"
-                residenza:
-                  type: string
-                  description: "Indirizzo di residenza dell'utente"
-                  example: "Via Trento 1, Roma RM"
-                telefono:
-                  type: string
-                  description: "Numero di telefono dell'utente"
-                  example: "335 1234567"
-                email:
-                  type: string
-                  description: "Indirizzo email dell'utente"
-                  example: "mario.rossi@gmail.com"
-                password:
-                  type: string
-                  description: "Password dell'utente"
-                ruoli:
-                  type: array
-                  items:
-                    type: string
-                    enum: [anziano, volontario, supervisore, admin]
-                  description: "Ruolo dell'utente"
-                  example: ["anziano"]
-                anziano:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/Anziano"
-                  description: "Campi specifici per utente Anziano"
+              $ref: "#/components/schemas/Utente"
   /auth/login:
     post:
-      description: Effettua il login di un utente.
+      summary: Login
+      description: Permette a un utente esistente di accedere al sito.
       responses:
         "404":
           description: L'utente non è stato trovato.
@@ -152,6 +80,12 @@ paths:
               schema:
                 type: object
                 properties:
+                  nome:
+                    type: string
+                    description: "Nome dell'utente"
+                  cognome:
+                    type: string
+                    description: "Cognome dell'utente"
                   email:
                     type: string
                     description: "Indirizzo email dell'utente"
@@ -163,7 +97,7 @@ paths:
                     description: "ID dell'utente"
                   accessToken:
                     type: string
-                    description: "Il token di autenticazione."
+                    description: "Token di autenticazione"
         "500":
           description: Impossibile effettuare il login.
       requestBody:
@@ -178,9 +112,11 @@ paths:
                 email:
                   type: string
                   description: "Indirizzo email dell'utente"
+                  example: "giovanni.rana@email.it"
                 password:
                   type: string
                   description: "Password dell'utente"
+                  example: "pastaalpesto"
 
 components:
   securitySchemes:
@@ -196,48 +132,87 @@ components:
         - durata
         - descrizione
         - categoria
+        - id_anziano
       properties:
         data:
           type: string
-          description: La data e l'ora per cui viene effettuata la richiesta d'aiuto.
+          format: date-time
+          description: "Data e ora per cui viene effettuata la richiesta d'aiuto"
         durata:
           type: integer
-          description: La durata in minuti stimata per la prestazione d'aiuto.
+          description: "Durata in minuti stimata per la prestazione d'aiuto"
+          example: 90
         descrizione:
           type: string
-          description: Una breve descrizione fatta dalla persona anziana sulla richiesta d'aiuto che sta facendo.
+          description: "Breve descrizione della richiesta d'aiuto fornita dalla persona anziana"
+          example: "Ho bisogno d'aiuto per andare a fare la spesa"
         categoria:
           type: string
-          enum: [aiuto in casa, aiuto fuori casa, compagnia, passaggio in macchina]
-          description: La categoria in cui rientra la richiesta d'aiuto.
+          enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
+          description: "Categoria della richiesta"
+          example: "aiuto fuori casa"
+        id_anziano:
+          type: "string"
+          description: "ID della persona anziana che fa la richiesta"
+          example: "6651f6c1b506e79c21632f90"
     Utente:
       title: Utente
       type: object
+      required:
+        - nome
+        - cognome
+        - cf
+        - dataNascita
+        - residenza
+        - telefono
+        - email
+        - password
+        - ruoli
       properties:
         nome:
           type: string
+          description: "Nome dell'utente"
+          example: "Mario"
         cognome:
           type: string
+          description: "Cognome dell'utente"
+          example: "Rossi"
         cf:
           type: string
+          description: "Codice fiscale dell'utente"
+          example: "RSSMRA60A01H501Q"
         dataNascita:
           type: string
           format: date-time
+          description: "Data di nascita dell'utente"
+          example: "1960-01-01"
         residenza:
           type: string
+          description: "Indirizzo di residenza dell'utente"
+          example: "Via Trento 1, Roma RM"
         telefono:
           type: string
+          description: "Numero di telefono dell'utente"
+          example: "335 1234567"
         email:
           type: string
+          description: "Indirizzo email dell'utente"
+          example: "mario.rossi@gmail.com"
         password:
           type: string
+          description: "Password dell'utente"
         ruoli:
-          type: string
-          enum: ["utente", "anziano", "volontario", "supervisore", "admin"]
+          type: array
+          items:
+            type: string
+            enum: [ anziano, volontario, supervisore, admin ]
+          description: "Ruolo dell'utente"
+          example: [ "anziano" ]
         anziano:
           type: array
           items:
             $ref: "#/components/schemas/Anziano"
+          description: "Campi specifici per utente Anziano"
     Anziano:
       title: Anziano
       type: object
