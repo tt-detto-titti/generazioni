@@ -27,7 +27,7 @@ paths:
               $ref: "#/components/schemas/Richiesta"
   /matchmaker/richieste/{id_anziano}:
     get:
-      summary: Richieste fatte da un anziano
+      summary: Trova tutte le richieste d'aiuto
       description: Restituisce tutte le richieste d'aiuto fatte da una persona anziana specificata dall'ID.
       security:
         - BearerAuth: [ ]
@@ -50,43 +50,6 @@ paths:
                   $ref: "#/components/schemas/Richiesta"
         '500':
           description: Impossibile trovare le richieste.
-  /matchmaker/richieste/disponibili:
-    get:
-      summary: Richieste disponibili
-      description: Resituisce a un volontario tutte le richieste d'aiuto disponibili (future) non ancora accettate.
-      security:
-        - BearerAuth: [ ]
-      responses:
-        "200":
-          description: Richieste trovate con successo.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Richiesta"
-
-  /matchmaker/richieste/accetta/{id_richiesta}:
-    put:
-      summary: Accetta una richiesta d'aiuto
-      description: Permette a un volontario di accettare una richiesta d'aiuto.
-      security:
-        - BearerAuth: [ ]
-      parameters:
-        - in: path
-          name: id_richiesta
-          required: true
-          schema:
-            type: string
-          description: ID della richiesta che si vuole accettare
-          example: "66536c68e151ca5dd70799f7"
-      responses:
-        "200":
-          description: La richiesta è stata accettata correttamente.
-        "404":
-          description: La richiesta specificata non è stata trovata.
-        "500":
-          description: Impossibile accettare la richiesta.
   /auth/signup:
     post:
       summary: SignUp
@@ -169,6 +132,7 @@ components:
         - durata
         - descrizione
         - categoria
+        - id_anziano
       properties:
         data:
           type: string
@@ -187,6 +151,10 @@ components:
           enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
           description: "Categoria della richiesta"
           example: "aiuto fuori casa"
+        id_anziano:
+          type: "string"
+          description: "ID della persona anziana che fa la richiesta"
+          example: "6651f6c1b506e79c21632f90"
     Utente:
       title: Utente
       type: object
