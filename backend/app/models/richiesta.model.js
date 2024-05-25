@@ -8,7 +8,7 @@ module.exports = (mongoose) => {
         data: { type: Date, required: true },
         durata: { type: Number, required: true },
         descrizione: { type: String, required: true },
-        categoria: [{ type: String, ref: "CategoriaAiuto", required: true }],
+        categoria: { type: String, ref: "CategoriaAiuto", required: true },
         stato: { type: String, enum: config.stati, default: "in attesa" },
         id_anziano: {
           type: mongoose.Schema.Types.ObjectId,
@@ -21,8 +21,8 @@ module.exports = (mongoose) => {
           default: null,
         },
       },
-      { collection: "richieste_aiuto", timestamps: true }
-    )
+      { collection: "richieste_aiuto", timestamps: true },
+    ),
   );
 
   return Richiesta;
