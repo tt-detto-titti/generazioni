@@ -31,7 +31,7 @@ exports.trovaTutte = async (req, res) => {
   try {
     const id = req.params.id_anziano;
     const data = await Richiesta.find({ id_anziano: id });
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     res.status(500).send({
       message: err.message,
