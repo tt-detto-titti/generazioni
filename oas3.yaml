@@ -27,7 +27,7 @@ paths:
               $ref: "#/components/schemas/Richiesta"
   /matchmaker/richieste/{id_anziano}:
     get:
-      summary: Trova tutte le richieste d'aiuto
+      summary: Richieste fatte da un anziano
       description: Restituisce tutte le richieste d'aiuto fatte da una persona anziana specificata dall'ID.
       security:
         - BearerAuth: [ ]
@@ -50,6 +50,21 @@ paths:
                   $ref: "#/components/schemas/Richiesta"
         '500':
           description: Impossibile trovare le richieste.
+  /matchmaker/richieste/:
+    get:
+      summary: Richieste disponibili
+      description: Resituisce a un volontario tutte le richieste d'aiuto disponibili (future) non ancora accettate.
+      security:
+        - BearerAuth: [ ]
+      responses:
+        "200":
+          description: Richieste trovate con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Richiesta"
   /auth/signup:
     post:
       summary: SignUp
