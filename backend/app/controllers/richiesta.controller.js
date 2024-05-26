@@ -20,7 +20,7 @@ exports.nuovaRichiesta = async (req, res) => {
     });
 
     await richiesta.save();
-    res.status(201).send("La richiesta è stata salvata correttamente.");
+    res.status(201).send({ message: "La richiesta è stata salvata correttamente." });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

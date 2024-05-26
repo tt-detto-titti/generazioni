@@ -1,47 +1,43 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <div v-if="!ok">
-        <h3>🤝 Serve una mano?</h3>
-        <p>
-          Qui puoi chiedere un <strong>aiuto</strong> per
-          <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
-          andare a fare la spesa per il pranzo con i nipoti o un passaggio in
-          macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
-        </p>
-        <Form @submit="richiestaHandler" :validation-schema="schema">
+      <h3>🤝 Serve una mano?</h3>
+      <p>
+        Bentornato! Speriamo tu stia bene 😊.<br/>
+        Qui puoi chiedere un <strong>aiuto</strong> per
+        <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
+        andare a fare la spesa per il pranzo con i nipoti o un passaggio in
+        macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
+      </p>
+      <Form @submit="richiestaHandler" :validation-schema="schema">
+        <div v-if="!ok">
           <!-- Data, Ora  e Categoria-->
           <div class="input-container">
             <div class="form-group">
               <label for="data">Data</label>
-              <Field id="data" name="data" type="date" class="form-control" />
-              <ErrorMessage name="data" class="error-feedback" />
+              <Field id="data" name="data" type="date" class="form-control"/>
+              <ErrorMessage name="data" class="error-feedback"/>
             </div>
             <div class="form-group">
               <label for="ora">Ora</label>
-              <Field id="ora" name="ora" type="time" class="form-control" />
-              <ErrorMessage name="ora" class="error-feedback" />
+              <Field id="ora" name="ora" type="time" class="form-control"/>
+              <ErrorMessage name="ora" class="error-feedback"/>
             </div>
             <div class="form-group">
               <label for="durata">Durata (min.)</label>
               <Field
-                id="durata"
-                name="durata"
-                type="number"
-                min="30"
-                max="180"
-                class="form-control"
+                  id="durata"
+                  name="durata"
+                  type="number"
+                  min="30"
+                  max="180"
+                  class="form-control"
               />
-              <ErrorMessage name="durata" class="error-feedback" />
+              <ErrorMessage name="durata" class="error-feedback"/>
             </div>
             <div class="form-group">
               <label for="categoria">Categoria di aiuto</label>
-              <Field
-                id="categoria"
-                name="categoria"
-                as="select"
-                class="form-control"
-              >
+              <Field id="categoria" name="categoria" as="select" class="form-control">
                 <option value="aiuto in casa" selected>Aiuto in casa</option>
                 <option value="aiuto fuori casa">Aiuto fuori casa</option>
                 <option value="compagnia">Compagnia</option>
@@ -91,8 +87,8 @@
 </template>
 
 <script>
-import ServizioUtente from "../services/utente.service.js";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import ServizioAnziano from "../services/anziano.service.js";
+import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from "yup";
 
 export default {
@@ -129,8 +125,26 @@ export default {
     };
   },
   methods: {
-    richiestaHandler() {
-      // TODO implementare
+    richiestaHandler(richiesta) {
+      this.messaggio = "";
+      this.ok = false;
+      this.caricamento = true;
+
+      ServizioAnziano.nuovaRichiesta(richiesta).then(
+          (res) => {
+            this.caricamento = false;
+            this.messaggio = res.message;
+            this.ok = true;
+          },
+          (err) => {
+            this.messaggio =
+                (err.response && err.response.data && err.response.data.message) ||
+                err.message ||
+                err.toString();
+            this.ok = false;
+            this.caricamento = false;
+          },
+      );
     },
   },
 };
