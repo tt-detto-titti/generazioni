@@ -16,6 +16,7 @@ class ServizioAnziano {
       .post(
         "/matchmaker/richieste/add",
         {
+          // TODO risolvere un problema con l'ora, quando viene salvata nel database vengono aggiunte due ore
           data: `${richiesta.data}T${richiesta.ora}:00Z`,
           durata: richiesta.durata,
           descrizione: richiesta.descrizione,
