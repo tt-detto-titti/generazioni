@@ -20,24 +20,10 @@ exports.nuovaRichiesta = async (req, res) => {
     });
 
     await richiesta.save();
-    res.status(201).send("La richiesta è stata salvata correttamente.");
+    res.status(201).send({ message: "La richiesta è stata salvata correttamente." });
   } catch (err) {
     res
       .status(500)
       .send({ message: "Impossibile creare la richiesta: " + err });
   }
-};
-
-exports.findAll = (req, res) => {
-  Richiesta.find(true)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "Qualcosa di strano è successo mentre cercavo le richieste.",
-      });
-    });
 };
