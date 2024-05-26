@@ -4,6 +4,7 @@ import Login from "./components/Login.vue";
 import Signup from "./components/Signup.vue";
 import Profilo from "./components/Profilo.vue";
 
+import ListaRichieste from "./components/ListaRichieste.vue";
 import NuovaRichiesta from "./components/NuovaRichiesta.vue";
 
 const routes = [
@@ -30,7 +31,12 @@ const routes = [
     component: Profilo,
   },
   {
-    path: "/richiesta/add",
+    path: "/richieste",
+    name: "listaRichieste",
+    component: ListaRichieste,
+  },
+  {
+    path: "/richieste/add",
     name: "nuovaRichiesta",
     component: NuovaRichiesta,
   },

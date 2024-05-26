@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="col-md-12">
     <div class="card card-container">
       <h3>🤝 Serve una mano?</h3>
       <p>
@@ -43,33 +43,42 @@
                 <option value="compagnia">Compagnia</option>
                 <option value="passaggio in macchina">Passaggio in auto</option>
               </Field>
-              <ErrorMessage name="categoria" class="error-feedback"/>
+              <ErrorMessage name="categoria" class="error-feedback" />
             </div>
           </div>
 
           <!-- Descrizione -->
           <div class="form-group">
             <label for="descrizione">Descrizione</label>
-            <Field id="descrizione" name="descrizione" as="textarea" class="form-control"/>
-            <ErrorMessage name="descrizione" class="error-feedback"/>
+            <Field
+              id="descrizione"
+              name="descrizione"
+              as="textarea"
+              class="form-control"
+            />
+            <ErrorMessage name="descrizione" class="error-feedback" />
+            <small class="form-text text-muted">
+              Raccontaci di cosa hai bisogno, aggiungi quanti più dettagli
+              possibili.
+            </small>
           </div>
 
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="caricamento">
-            <span
+              <span
                 v-show="caricamento"
                 class="spinner-border spinner-border-sm"
-            ></span>
+              ></span>
               Invia la richiesta
             </button>
           </div>
-        </div>
-      </Form>
+        </Form>
+      </div>
 
       <div
-          v-if="messaggio"
-          class="alert"
-          :class="ok ? 'alert-success' : 'alert-danger'"
+        v-if="messaggio"
+        class="alert"
+        :class="ok ? 'alert-success' : 'alert-danger'"
       >
         {{ messaggio }}
       </div>
@@ -90,16 +99,27 @@ export default {
     ErrorMessage,
   },
   data() {
-    //Schema di validazione
+    // Schema di validazione
     const schema = yup.object().shape({
-      // data: yup.string().required("È necessario inserire la data"),
-      // tipologia: yup
-      //   .string()
-      //   .required("È necessario inserire la tipologia di aiuto"),
+      data: yup
+        .date()
+        .required("È necessario inserire la data!")
+        .min(new Date(), "La data deve essere nel futuro."),
+      ora: yup.string().required("È necessario inserire l'ora!"),
+      durata: yup
+        .number()
+        .required("È necessario inserire la durata!")
+        .min(30, "La durata minima è di 30 minuti.")
+        .max(180, "La durata massima è di 180 minuti."),
+      categoria: yup.string().required("È necessario inserire la categoria!"),
+      descrizione: yup
+        .string()
+        .required("È necessario inserire una descrizione!"),
     });
+
     return {
-      caricamento: false,
       ok: false,
+      caricamento: false,
       messaggio: "",
       schema,
     };
@@ -131,36 +151,10 @@ export default {
 </script>
 
 <style scoped>
-label {
-  display: block;
-  margin-top: 10px;
-}
+@import "../global.css";
 
 .card-container.card {
   max-width: 650px !important;
   padding: 40px 40px;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.input-container {
-  display: flex;
-  width: 100%;
-  gap: 10px;
-}
-
-.error-feedback {
-  color: red;
 }
 </style>

@@ -7,9 +7,19 @@ import {
   faSignInAlt,
   faSignOutAlt,
   faHandHoldingMedical,
-  faHandshakeAngle
+  faHandshakeAngle,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faHandHoldingMedical, faHandshakeAngle);
+library.add(
+  faHome,
+  faUser,
+  faUserPlus,
+  faSignInAlt,
+  faSignOutAlt,
+  faHandHoldingMedical,
+  faHandshakeAngle,
+  faList,
+);
 
 export { FontAwesomeIcon };

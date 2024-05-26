@@ -1,120 +1,135 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <!-- TODO caricare una nuova icona -->
-      <img id="profile-img" src="/signup.png" class="profile-img-card" />
-      <Form @submit="signupHandler" :validation-schema="schema">
-        <div v-if="!ok">
-          <!-- Nome e Cognome -->
-          <!-- TODO fare in modo che la riga prenda tutto lo spazio-->
-          <div class="input-container">
-            <div class="form-group">
-              <label for="nome">Nome</label>
-              <Field name="nome" type="text" class="form-control" />
-              <ErrorMessage name="nome" class="error-feedback" />
+      <div v-if="!ok" class="row">
+        <div class="col">
+          <h3>🤟 Benvenuto/a!</h3>
+          <p>
+            È sempre bello conoscere una persona nuova! ❤️<br />
+            Inserendo qui alcune tue <strong>informazioni</strong> puoi
+            registrarti a <em>Gener<strong>Azioni</strong></em> e iniziare
+            subito a usare il sito!
+          </p>
+          <Form @submit="signupHandler" :validation-schema="schema">
+            <!-- Nome, Cognome e Data di nascita-->
+            <div class="input-container">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <Field id="nome" name="nome" type="text" class="form-control" />
+                <ErrorMessage name="nome" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="cognome">Cognome</label>
+                <Field
+                  id="cognome"
+                  name="cognome"
+                  type="text"
+                  class="form-control"
+                />
+                <ErrorMessage name="cognome" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="dataNascita">Data di nascita</label>
+                <Field
+                  id="dataNascita"
+                  name="dataNascita"
+                  type="date"
+                  class="form-control"
+                />
+                <ErrorMessage name="dataNascita" class="error-feedback" />
+              </div>
             </div>
-            <div class="form-group">
-              <label for="cognome">Cognome</label>
-              <Field name="cognome" type="text" class="form-control" />
-              <ErrorMessage name="cognome" class="error-feedback" />
-            </div>
-          </div>
 
-          <!-- CF, Residenza e Data di nascita -->
-          <div class="input-container">
-            <div class="form-group">
-              <label for="cf">Codice Fiscale</label>
-              <Field name="cf" type="text" class="form-control" />
-              <ErrorMessage name="cf" class="error-feedback" />
+            <!-- CF e Residenza -->
+            <div class="input-container">
+              <div class="form-group w-100">
+                <label for="cf">Codice Fiscale</label>
+                <Field id="cf" name="cf" type="text" class="form-control" />
+                <ErrorMessage name="cf" class="error-feedback" />
+              </div>
+              <div class="form-group w-100">
+                <label for="residenza">Indirizzo di residenza</label>
+                <Field
+                  id="residenza"
+                  name="residenza"
+                  type="text"
+                  class="form-control"
+                />
+                <ErrorMessage name="residenza " class="error-feedback" />
+              </div>
             </div>
-            <div class="form-group">
-              <label for="residenza">Indirizzo di residenza</label>
-              <Field name="residenza" type="text" class="form-control" />
-              <ErrorMessage name="residenza " class="error-feedback" />
-            </div>
-            <div class="form-group">
-              <label for="dataNascita">Data di nascita</label>
-              <Field name="dataNascita" type="date" class="form-control" />
-              <ErrorMessage name="dataNascita" class="error-feedback" />
-            </div>
-          </div>
 
-          <!-- Email e Telefono -->
-          <div class="input-container">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <Field name="email" type="text" class="form-control" />
-              <ErrorMessage name="email" class="error-feedback" />
+            <!-- Email e Telefono -->
+            <div class="input-container">
+              <div class="form-group w-100">
+                <label for="email">Email</label>
+                <Field
+                  id="email"
+                  name="email"
+                  type="text"
+                  class="form-control"
+                />
+                <ErrorMessage name="email" class="error-feedback" />
+              </div>
+              <div class="form-group w-100">
+                <label for="telefono">Telefono</label>
+                <Field
+                  id="telefono"
+                  name="telefono"
+                  type="text"
+                  class="form-control"
+                />
+                <ErrorMessage name="telefono" class="error-feedback" />
+              </div>
             </div>
-            <div class="form-group">
-              <label for="telefono">Telefono</label>
-              <Field name="telefono" type="text" class="form-control" />
-              <ErrorMessage name="telefono" class="error-feedback" />
+
+            <!-- Password e Ruoli-->
+            <div class="input-container">
+              <div class="form-group w-100">
+                <label for="password">Password</label>
+                <Field
+                  id="password"
+                  name="password"
+                  type="password"
+                  class="form-control"
+                />
+                <ErrorMessage name="password" class="error-feedback" />
+              </div>
+              <div class="form-group w-100">
+                <label for="ruoli">Ruoli</label>
+                <Field
+                  id="ruoli"
+                  name="ruoli"
+                  as="select"
+                  multiple
+                  class="form-control"
+                >
+                  <option value="anziano" selected>Anziano</option>
+                  <option value="volontario">Volontario</option>
+                  <option value="supervisore">Supervisore</option>
+                  <option value="admin">Admin</option>
+                </Field>
+              </div>
             </div>
-          </div>
 
-          <!-- Password -->
-          <div class="form-group">
-            <label for="password">Password</label>
-            <Field name="password" type="password" class="form-control" />
-            <ErrorMessage name="password" class="error-feedback" />
-          </div>
-
-          <!-- Ruoli -->
-          <div class="form-check form-check-inline">
-            <Field
-              name="ruoli"
-              id="anziano"
-              value="anziano"
-              type="checkbox"
-              class="form-check-input"
-            />
-            <label class="form-check-label" for="anziano">Anziano</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <Field
-              name="ruoli"
-              id="volontario"
-              value="volontario"
-              type="checkbox"
-              class="form-check-input"
-            />
-            <label class="form-check-label" for="volontario">Volontario</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <Field
-              name="ruoli"
-              id="supervisore"
-              value="supervisore"
-              type="checkbox"
-              class="form-check-input"
-            />
-            <label class="form-check-label" for="supervisore"
-              >Supervisore</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <Field
-              name="ruoli"
-              id="admin"
-              value="admin"
-              type="checkbox"
-              class="form-check-input"
-            />
-            <label class="form-check-label" for="admin">Admin</label>
-          </div>
-
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="caricamento">
-              <span
-                v-show="caricamento"
-                class="spinner-border spinner-border-sm"
-              ></span>
-              Registrati al sito
-            </button>
-          </div>
+            <div class="form-group">
+              <button
+                class="btn btn-arancione btn-block"
+                :disabled="caricamento"
+              >
+                <span
+                  v-show="caricamento"
+                  class="spinner-border spinner-border-sm"
+                ></span>
+                Registrati
+              </button>
+            </div>
+          </Form>
         </div>
-      </Form>
+        <div class="col-5 d-flex align-items-center">
+          <img src="/signup.png" class="signup-img" />
+        </div>
+      </div>
 
       <div
         v-if="messaggio"
@@ -207,7 +222,7 @@ export default {
       this.$store.dispatch("auth/signup", utente).then(
         (data) => {
           this.messaggio = data.message;
-          this.ok = true;
+          this.ok = true; // Nasconde il form
           this.caricamento = false;
         },
         (error) => {
@@ -227,42 +242,17 @@ export default {
 </script>
 
 <style scoped>
-label {
-  display: block;
-  margin-top: 10px;
-}
-
-.input-container {
-  display: flex;
-  gap: 10px;
-}
+@import "../global.css";
 
 .card-container.card {
-  max-width: 650px !important;
+  max-width: 900px !important;
   padding: 40px 40px;
 }
 
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 150px;
-  height: 150px;
+.signup-img {
+  width: 250px;
+  height: 250px;
   margin: 0 auto 10px;
   display: block;
-}
-
-.error-feedback {
-  color: red;
 }
 </style>
