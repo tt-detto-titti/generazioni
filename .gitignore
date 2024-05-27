@@ -192,4 +192,7 @@ test/
 **/npm-debug.log
 **/yarn-error.log
 
+# WebStorm
+.idea
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,node,vuejs,vue
