@@ -8,6 +8,7 @@
         <!-- img src="/logo.png" width="30" height="30" / -->
         Gener<strong>Azioni</strong>
       </a>
+      <!-- Differenziare le route in base al ruolo -->
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
@@ -15,8 +16,14 @@
             Home
           </router-link>
         </li>
-        <li v-if="mostraListaRichieste" class="nav-item">
-          <router-link to="/richieste" class="nav-link">
+        <li v-if="mostraListaRichiesteAnziano" class="nav-item">
+          <router-link to="/richieste/tutte" class="nav-link">
+            <font-awesome-icon icon="list" />
+            Richieste
+          </router-link>
+        </li>
+        <li v-if="mostraListaRichiesteVolontario" class="nav-item">
+          <router-link to="/richieste/disponibili" class="nav-link">
             <font-awesome-icon icon="list" />
             Richieste
           </router-link>
@@ -72,10 +79,13 @@ export default {
     utenteCorrente() {
       return this.$store.state.auth.utente;
     },
-    mostraListaRichieste() {
+    mostraListaRichiesteAnziano() {
       return true;
     },
     mostraNuovaRichiesta() {
+      return true;
+    },
+    mostraListaRichiesteVolontario() {
       return true;
     },
   },
