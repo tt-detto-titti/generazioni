@@ -11,10 +11,20 @@ module.exports = (app) => {
     next();
   });
 
+  // Restituisce a un volontario tutte le richieste che potrebbe accettare
+  router.get(
+    "/disponibili",
+    authJwt.controllaVolontario,
+    controller.trovaRichiesteDisponibili,
+  );
   // Crea una richiesta
   router.post("/add", authJwt.controllaAnziano, controller.nuovaRichiesta);
-  // Cerca tutte le richieste fatte da parte di una persona anziana
-  router.get("/:id_anziano", authJwt.controllaAnziano, controller.trovaTutte);
+  // Restituisce tutte le richieste fatte da parte di una persona anziana
+  router.get(
+    "/:id_anziano",
+    authJwt.controllaAnziano,
+    controller.trovaRichiesteAnziano,
+  );
 
   app.use("/api/matchmaker/richieste", authJwt.verificaToken, router);
 };
