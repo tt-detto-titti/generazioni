@@ -23,7 +23,7 @@
               <Field id="ora" name="ora" type="time" class="form-control" />
               <ErrorMessage name="ora" class="error-feedback" />
             </div>
-            <div class="form-group">
+            <div class="form-group w-100">
               <label for="durata">Durata (min.)</label>
               <Field
                 id="durata"
@@ -35,7 +35,7 @@
               />
               <ErrorMessage name="durata" class="error-feedback" />
             </div>
-            <div class="form-group">
+            <div class="form-group w-100">
               <label for="categoria">Categoria di aiuto</label>
               <Field
                 id="categoria"
@@ -69,7 +69,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="caricamento">
+            <button class="btn btn-arancione btn-block" :disabled="caricamento">
               <span
                 v-show="caricamento"
                 class="spinner-border spinner-border-sm"

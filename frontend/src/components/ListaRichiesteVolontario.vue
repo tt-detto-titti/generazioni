@@ -1,16 +1,16 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
+      <h3>🫰 Vuoi dare una mano?</h3>
+      <p>
+        Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che sono
+        ancora <strong>in attesa</strong> di una risposta, se ne trovi una che
+        soddisfa le tue disponibilità non esitare ad accettarla!<br />
+        Cliccando sulle <strong>icone</strong> in fondo ad ogni riga puoi
+        <strong>accettare</strong> la richiesta o
+        <strong>visualizzarne i dettagli</strong>.
+      </p>
       <div v-if="!ok">
-        <h3>🫰 Vuoi dare una mano?</h3>
-        <p>
-          Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che sono
-          ancora <strong>in attesa</strong> di una risposta, se ne trovi una che
-          soddisfa le tue disponibilità non esitare ad accettarla!<br />
-          Cliccando sulle <strong>icone</strong> in fondo ad ogni riga puoi
-          <strong>accettare</strong> la richiesta o
-          <strong>visualizzarne i dettagli</strong>.
-        </p>
         <v-data-table
           v-model:expanded="expanded"
           :items="richieste"
@@ -23,7 +23,9 @@
           <!-- Riga espansa -->
           <template v-slot:expanded-row="{ columns, item }">
             <tr>
-              <td :colspan="columns.length">{{ item.descrizione }}</td>
+              <td :colspan="columns.length">
+                <strong>{{ item.descrizione }}</strong>
+              </td>
             </tr>
           </template>
 
@@ -31,11 +33,17 @@
           <template v-slot:top>
             <v-dialog v-model="dialogAccetta" max-width="500px">
               <v-card>
-                <v-card-title class="text-h5">Confermi di voler accettare la richiesta?</v-card-title>
+                <v-card-title class="text-h5"
+                  >Confermi di voler accettare la richiesta?</v-card-title
+                >
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue-darken-1" variant="text" @click="chiudi">Ho cambiato idea</v-btn>
-                  <v-btn color="blue-darken-1" variant="text" @click="conferma">Conferma</v-btn>
+                  <v-btn color="blue-darken-1" variant="text" @click="chiudi"
+                    >Ho cambiato idea</v-btn
+                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="conferma"
+                    >Conferma</v-btn
+                  >
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -46,6 +54,7 @@
           <template v-slot:item.accetta="{ item }">
             <v-icon
               icon="fas fa-hand-holding-heart"
+              style="color: #e67e22"
               @click="accetta(item)"
             ></v-icon>
           </template>
@@ -121,7 +130,7 @@ export default {
     async conferma() {
       try {
         const res = await ServizioVolontario.accettaRichiesta(
-          this.richieste[this.richiestaAccettata].id
+          this.richieste[this.richiestaAccettata].id,
         );
         this.messaggio = res.message;
         this.ok = true;

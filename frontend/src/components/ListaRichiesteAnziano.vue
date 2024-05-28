@@ -19,9 +19,16 @@
         disable-pagination
         show-expand
       >
+        <template v-slot:item.stato="{ item }">
+          <v-chip :class="getClasseStato(item.stato)" dark>{{
+            item.stato
+          }}</v-chip>
+        </template>
         <template v-slot:expanded-row="{ columns, item }">
           <tr>
-            <td :colspan="columns.length">{{ item.descrizione }}</td>
+            <td :colspan="columns.length">
+              <strong>{{ item.descrizione }}</strong>
+            </td>
           </tr>
         </template>
       </v-data-table>
@@ -42,6 +49,7 @@ export default {
         { title: "Ora", key: "ora", sortable: false },
         { title: "Categoria", key: "categoria", sortable: true },
         { title: "Durata (min)", key: "durata", sortable: true },
+        { title: "Stato", key: "stato", sortable: false },
         { title: "", key: "data-table-expand" },
       ],
     };
@@ -62,8 +70,21 @@ export default {
         ora: new Date(richiesta.data).toLocaleTimeString(),
         durata: richiesta.durata,
         categoria: richiesta.categoria,
+        stato: richiesta.stato,
         descrizione: richiesta.descrizione,
       };
+    },
+    getClasseStato(stato) {
+      switch (stato) {
+        case "in attesa":
+          return "stato-attesa";
+        case "accettata":
+          return "stato-accettata";
+        case "scaduta":
+          return "stato-scaduta";
+        default:
+          return "";
+      }
     },
   },
   mounted() {
@@ -78,5 +99,20 @@ export default {
 .card-container.card {
   max-width: 700px !important;
   padding: 40px 40px;
+}
+
+.stato-attesa {
+  background-color: yellow;
+  color: black;
+}
+
+.stato-accettata {
+  background-color: green;
+  color: white;
+}
+
+.stato-scaduta {
+  background-color: red;
+  color: white;
 }
 </style>
