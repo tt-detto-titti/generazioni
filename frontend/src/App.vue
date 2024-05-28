@@ -79,14 +79,20 @@ export default {
     utenteCorrente() {
       return this.$store.state.auth.utente;
     },
+    isAnziano() {
+      return this.utenteCorrente && this.utenteCorrente.ruoli.includes("anziano");
+    },
+    isVolontario() {
+      return this.utenteCorrente && this.utenteCorrente.ruoli.includes("volontario");
+    },
     mostraListaRichiesteAnziano() {
-      return true;
+      return this.isAnziano;
     },
     mostraNuovaRichiesta() {
-      return true;
+      return this.isAnziano;
     },
     mostraListaRichiesteVolontario() {
-      return true;
+      return this.isVolontario;
     },
   },
   methods: {
