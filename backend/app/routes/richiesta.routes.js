@@ -18,7 +18,7 @@ module.exports = (app) => {
     controller.trovaRichiesteDisponibili,
   );
   // Permette a un volontario di accettare una richiesta
-  router.post("/accetta/:id", authJwt.controllaVolontario, controller.accettaRichiesta);
+  router.post("/accetta/:id_richiesta", authJwt.controllaVolontario, controller.accettaRichiesta);
   // Crea una richiesta
   router.post("/add", authJwt.controllaAnziano, controller.nuovaRichiesta);
   // Restituisce tutte le richieste fatte da parte di una persona anziana

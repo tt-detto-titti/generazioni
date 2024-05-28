@@ -65,7 +65,7 @@ exports.trovaRichiesteDisponibili = async (req, res) => {
 // Accetta una richiesta d'aiuto
 exports.accettaRichiesta = async (req, res) => {
   try {
-    const richiesta = await Richiesta.findById(req.params.id);
+    const richiesta = await Richiesta.findById(req.params.id_richiesta);
     if (!richiesta) {
       res.status(404).send({ message: "Richiesta non trovata!" });
       return;
@@ -75,7 +75,7 @@ exports.accettaRichiesta = async (req, res) => {
     richiesta.id_volontario = req.id_utente;
     await richiesta.save();
 
-    res.status(201).send({ message: "La richiesta è stata accettata correttamente." });
+    res.status(200).send({ message: "La richiesta è stata accettata correttamente." });
   } catch (err) {
     res.status(500).send({
       message: err.message,
