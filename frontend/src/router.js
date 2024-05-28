@@ -4,8 +4,9 @@ import Login from "./components/Login.vue";
 import Signup from "./components/Signup.vue";
 import Profilo from "./components/Profilo.vue";
 
-import ListaRichieste from "./components/ListaRichieste.vue";
+import ListaRichiesteAnziano from "./components/ListaRichiesteAnziano.vue";
 import NuovaRichiesta from "./components/NuovaRichiesta.vue";
+import ListaRichiesteVolontario from "./components/ListaRichiesteVolontario.vue";
 
 const routes = [
   {
@@ -31,14 +32,19 @@ const routes = [
     component: Profilo,
   },
   {
-    path: "/richieste",
-    name: "listaRichieste",
-    component: ListaRichieste,
+    path: "/richieste/tutte",
+    name: "listaRichiesteAnziano",
+    component: ListaRichiesteAnziano,
   },
   {
     path: "/richieste/add",
     name: "nuovaRichiesta",
     component: NuovaRichiesta,
+  },
+  {
+    path: "/richieste/disponibili",
+    name: "listaRichiesteVolontario",
+    component: ListaRichiesteVolontario,
   },
 ];
 
