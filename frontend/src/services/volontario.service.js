@@ -9,6 +9,13 @@ class ServizioVolontario {
       return res.data;
     });
   }
+
+  accettaRichiesta(idRichiesta) {
+    const url = "/matchmaker/richieste/accetta/" + idRichiesta;
+    return http.post(url, {}, { headers: headerAauth() }).then((res) => {
+      return res.data;
+    });
+  }
 }
 
 export default new ServizioVolontario();

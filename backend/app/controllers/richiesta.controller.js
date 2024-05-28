@@ -20,7 +20,7 @@ exports.nuovaRichiesta = async (req, res) => {
     });
 
     await richiesta.save();
-    res.status(201).send("La richiesta è stata salvata correttamente.");
+    res.status(201).send({ message: "La richiesta è stata salvata correttamente." });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -55,6 +55,27 @@ exports.trovaRichiesteDisponibili = async (req, res) => {
       stato: "in attesa",
     });
     res.status(200).send(richieste);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+};
+
+// Accetta una richiesta d'aiuto
+exports.accettaRichiesta = async (req, res) => {
+  try {
+    const richiesta = await Richiesta.findById(req.params.id);
+    if (!richiesta) {
+      res.status(404).send({ message: "Richiesta non trovata!" });
+      return;
+    }
+
+    richiesta.stato = "accettata";
+    richiesta.id_volontario = req.id_utente;
+    await richiesta.save();
+
+    res.status(201).send({ message: "La richiesta è stata accettata correttamente." });
   } catch (err) {
     res.status(500).send({
       message: err.message,
