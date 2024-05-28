@@ -7,7 +7,7 @@ const statoIniziale = utente
 
 export const auth = {
   namespaced: true,
-  stato: statoIniziale,
+  state: statoIniziale,
   actions: {
     login({ commit }, utente) {
       return ServizioAuth.login(utente).then(
