@@ -1,5 +1,15 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="development" type="NodeJSConfigurationType" node-parameters="--env-file=.env.development" path-to-js-file="./backend/server.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="development" type="NodeJSConfigurationType" path-to-js-file="./backend/server.js" working-dir="$PROJECT_DIR$">
+    <envs pass-parent-envs="false">
+      <env name="CORS_ORIGIN" value=" *" />
+      <env name="JWT_SECRET" value=" segretissimissimissimissimissimissimo" />
+      <env name="MONGODB_NAME" value=" generazioni" />
+      <env name="MONGODB_PASS" value=" 4YzAgIC2hpzz18SL" />
+      <env name="MONGODB_URL" value=" &quot;mongodb+srv://generazioni.e4br1v2.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=generazioni&quot;" />
+      <env name="MONGODB_USER" value=" generazioni_backend" />
+      <env name="PORT" value=" 8080" />
+      <env name="SCADENZA_TOKEN" value=" 86400" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

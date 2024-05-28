@@ -1,15 +1,18 @@
+<script setup></script>
+
 <template>
   <div class="container">
     <div class="card card-container">
-      <h3>🤝 Serve una mano?</h3>
+      <h3>🤝Vuoi dare una mano?</h3>
       <p>
         Bentornato! Speriamo tu stia bene 😊.<br />
-        Qui puoi chiedere un <strong>aiuto</strong> per
-        <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
-        andare a fare la spesa per il pranzo con i nipoti o un passaggio in
-        macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
+        Qui puoi offire il tuo <strong>aiuto</strong> per
+        <strong>un anziano</strong>: che si tratti di aiutare a fare la spesa
+        per il pranzo con i nipoti o dare un passaggio in macchina per la visita
+        medica... <strong>puoi dare una mano</strong>!
       </p>
-      <Form @submit="richiestaHandler" :validation-schema="schema">
+      <!-- TODO: Implementare disponibilitaHandler -->
+      <Form @submit="disponibilitaHandler" :validation-schema="schema">
         <!-- Data, Ora  e Categoria-->
         <div class="input-container">
           <div class="form-group">
@@ -27,38 +30,70 @@
             <Field
               name="durata"
               type="number"
-              min="30"
-              max="180"
+              min="60"
+              max="360"
               class="form-control"
             />
             <ErrorMessage name="durata" class="error-feedback" />
           </div>
-          <div class="form-group">
-            <label for="categoria">Categoria di aiuto</label>
-            <Field name="categoria" as="select" class="form-control">
-              <option value="aiuto in casa" selected>Aiuto in casa</option>
-              <option value="aiuto fuori casa">Aiuto fuori casa</option>
-              <option value="compagnia">Compagnia</option>
-              <option value="passaggio in macchina">Passaggio in auto</option>
-            </Field>
-            <ErrorMessage name="categoria" class="error-feedback" />
+          <!-- versione con scelta multipla per categoria -->
+          <!-- Categoria -->
+          <div class="form-check form-check-inline">
+            <Field
+              name="categoria"
+              id="aiuto in casa"
+              value="aiuto in casa"
+              type="checkbox"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="aiuto in casa"
+              >Aiuto in casa</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <Field
+              name="categoria"
+              id="aiuto fuori casa"
+              value="aiuto fuori casa"
+              type="checkbox"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="aiuto fuori casa"
+              >Aiuto fuori casa</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <Field
+              name="categoria"
+              id="compagnia"
+              value="compagnia"
+              type="checkbox"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="compagnia">Compagnia</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <Field
+              name="categoria"
+              id="passaggio in macchina"
+              value="passaggio in macchina"
+              type="checkbox"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="passaggio in macchina"
+              >Passaggio in auto</label
+            >
           </div>
         </div>
-
-        <!-- Descrizione -->
-        <div class="form-group">
-          <label for="descrizione">Descrizione</label>
-          <Field name="descrizione" as="textarea" class="form-control" />
-          <ErrorMessage name="descrizione" class="error-feedback" />
-        </div>
-
+        <!-- Parte descrizione eliminata -->
+        <!-- Stessi campi della richiesta -->
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="caricamento">
             <span
               v-show="caricamento"
               class="spinner-border spinner-border-sm"
             ></span>
-            Invia la richiesta
+            Offri disponibilità
           </button>
         </div>
       </Form>
@@ -67,12 +102,12 @@
 </template>
 
 <script>
-import ServizioAnziano from "../services/anziano.service.js";
+import ServizioVolontario from "../services/disponibilita.service.js";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 
 export default {
-  name: "NuovaRichiesta",
+  name: "NuovaDisponibilita",
   components: {
     Form,
     Field,
@@ -94,27 +129,12 @@ export default {
       schema,
     };
   },
-  /*
-  montato() {
-    ServizioUtente.nuovaRichiesta().then(
-      (res) => {
-        this.contenuto = res.data;
-      },
-      (err) => {
-        this.contenuto =
-          (err.response && err.response.data && err.response.data.message) ||
-          err.message ||
-          err.toString();
-      },
-    );
-  },*/
   methods: {
-    richiestaHandler(richiesta) {
+    disponibilitaHandler(richiesta) {
       this.messaggio = "";
       this.ok = false;
       this.caricamento = true;
-
-      ServizioAnziano.nuovaRichiesta(richiesta).then(
+      ServizioVolontario.nuovaRichiesta(richiesta).then(
         (res) => {
           this.caricamento = false;
           this.messaggio = res.message;
