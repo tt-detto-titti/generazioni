@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <nav
-      class="navbar navbar-expand navbar-dark shadow-sm"
-      style="background-color: #2c3e50"
+      class="navbar sticky-top navbar-expand navbar-dark shadow-sm"
     >
       <a href="/" class="navbar-brand">
         <!-- img src="/logo.png" width="30" height="30" / -->
