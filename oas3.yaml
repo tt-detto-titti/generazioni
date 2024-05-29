@@ -87,22 +87,24 @@ paths:
           description: La richiesta specificata non è stata trovata.
         "500":
           description: Impossibile accettare la richiesta.
-  /matchmaker/disponibilita/add:
+  /matchmaker/offerte/add:
     post:
-      summary: Crea una nuova disponibilita
-      description: Permette a un volontario di creare una nuova richiesta di disponibilità.
+      summary: Crea un'offerta di aiuto
+      description: Permette a un volontario di creare una nuova offerta di aiuto.
       security:
         - BearerAuth: [ ]
       responses:
         "201":
-          description: La dipsonibilità è stata salvata correttamente.
+          description: L'offerta di aiuto è stata salvata correttamente.
+        "404":
+          description: L'utente specificato non è stato trovato.
         "500":
-          description: Impossibile creare la disponibilità.
+          description: Impossibile creare l'offerta di aiuto.
       requestBody:
          content:
            application/json:
              schema:
-               $ref: "#/components/schemas/Disponibilita"
+               $ref: "#/components/schemas/Offerta"
   /auth/signup:
     post:
       summary: SignUp
@@ -203,7 +205,7 @@ components:
           enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
           description: "Categoria della richiesta"
           example: "aiuto fuori casa"
-    Disponibilita:
+    Offerta:
       type: object
       required:
         - data
@@ -219,9 +221,11 @@ components:
           description: "Durata in minuti stimata per la disponibilità"
           example: 180
         categoria:
-          type: string
-          enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
-          description: "Categoria della disponibilità"
+          type: array
+          items:
+            type: string
+            enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
+          description: "Compiti che il volontario può/vuole svolgere"
           example: "aiuto fuori casa"
     Utente:
       title: Utente
