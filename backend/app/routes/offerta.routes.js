@@ -1,5 +1,5 @@
 const { authJwt } = require("../middlewares");
-const controller = require("../controllers/disponibilita.controller");
+const controller = require("../controllers/offerta.controller.js");
 var router = require("express").Router();
 
 module.exports = (app) => {
@@ -11,12 +11,8 @@ module.exports = (app) => {
     next();
   });
 
-  // Crea una nuova disponibilita
-  router.post(
-    "/add",
-    authJwt.controllaVolontario,
-    controller.nuovaDisponibilita,
-  );
+  // Crea una nuova offerta d'aiuto
+  router.post("/add", authJwt.controllaVolontario, controller.nuovaOfferta);
 
-  app.use("/api/matchmaker/disponibilita", authJwt.verificaToken, router);
+  app.use("/api/matchmaker/offerte", authJwt.verificaToken, router);
 };

@@ -7,6 +7,7 @@ import Profilo from "./components/Profilo.vue";
 import ListaRichiesteAnziano from "./components/ListaRichiesteAnziano.vue";
 import NuovaRichiesta from "./components/NuovaRichiesta.vue";
 import ListaRichiesteVolontario from "./components/ListaRichiesteVolontario.vue";
+import NuovaOfferta from "./components/NuovaOfferta.vue";
 
 const routes = [
   {
@@ -46,6 +47,11 @@ const routes = [
     name: "listaRichiesteVolontario",
     component: ListaRichiesteVolontario,
   },
+  {
+    path: "/offerte/add",
+    name: "nuovaOfferta",
+    component: NuovaOfferta
+  }
 ];
 
 const router = createRouter({

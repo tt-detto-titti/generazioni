@@ -38,6 +38,7 @@ app.get("/", function (req, res) {
 require("./app/routes/auth.routes.js")(app);
 require("./app/routes/utente.routes.js")(app);
 require("./app/routes/richiesta.routes.js")(app);
+require("./app/routes/offerta.routes.js")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

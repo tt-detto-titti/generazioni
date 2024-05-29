@@ -34,6 +34,12 @@
             Nuova Richiesta
           </router-link>
         </li>
+        <li v-if="mostraNuovaOfferta" class="nav-item">
+          <router-link to="/offerte/add" class="nav-link">
+            <font-awesome-icon icon="hand-holding-medical" />
+            Nuova Offerta
+          </router-link>
+        </li>
       </div>
 
       <div v-if="!utenteCorrente" class="navbar-nav ml-auto">
@@ -94,6 +100,9 @@ export default {
     mostraListaRichiesteVolontario() {
       return this.isVolontario;
     },
+    mostraNuovaOfferta() {
+      return this.isVolontario;
+    }
   },
   methods: {
     logOut() {
