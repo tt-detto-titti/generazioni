@@ -1,15 +1,16 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <div v-if="!ok">
-        <h3>🤝 Serve una mano?</h3>
-        <p>
-          Qui puoi chiedere un <strong>aiuto</strong> per
-          <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
-          andare a fare la spesa per il pranzo con i nipoti o un passaggio in
-          macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
-        </p>
-        <Form @submit="richiestaHandler" :validation-schema="schema">
+      <h3>🤝 Serve una mano?</h3>
+      <p>
+        Bentornato! Speriamo tu stia bene 😊.<br />
+        Qui puoi chiedere un <strong>aiuto</strong> per
+        <strong>tutto quello di cui hai bisogno</strong>: che si tratti di
+        andare a fare la spesa per il pranzo con i nipoti o un passaggio in
+        macchina per la visita medica... <strong>ti aiutiamo noi</strong>!
+      </p>
+      <Form @submit="richiestaHandler" :validation-schema="schema">
+        <div v-if="!ok">
           <!-- Data, Ora  e Categoria-->
           <div class="input-container">
             <div class="form-group">
@@ -76,8 +77,8 @@
               Invia la richiesta
             </button>
           </div>
-        </Form>
-      </div>
+        </div>
+      </Form>
 
       <div
         v-if="messaggio"
@@ -91,7 +92,7 @@
 </template>
 
 <script>
-import ServizioUtente from "../services/utente.service.js";
+import ServizioAnziano from "../services/anziano.service.js";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 
@@ -129,8 +130,26 @@ export default {
     };
   },
   methods: {
-    richiestaHandler() {
-      // TODO implementare
+    richiestaHandler(richiesta) {
+      this.messaggio = "";
+      this.ok = false;
+      this.caricamento = true;
+
+      ServizioAnziano.nuovaRichiesta(richiesta).then(
+        (res) => {
+          this.caricamento = false;
+          this.messaggio = res.message;
+          this.ok = true;
+        },
+        (err) => {
+          this.messaggio =
+            (err.response && err.response.data && err.response.data.message) ||
+            err.message ||
+            err.toString();
+          this.ok = false;
+          this.caricamento = false;
+        },
+      );
     },
   },
 };
