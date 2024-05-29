@@ -29,3 +29,11 @@ label {
     display: flex;
     gap: 10px;
 }
+
+h1, h3 {
+    color: #2c3e50
+}
+
+#app, html, body {
+    min-height: 100%;
+}

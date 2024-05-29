@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="background-color: #ecf0f1">
+  <div id="app">
     <nav
       class="navbar navbar-expand navbar-dark shadow-sm"
       style="background-color: #2c3e50"
@@ -103,3 +103,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@import "./global.css";
+</style>
