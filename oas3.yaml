@@ -87,6 +87,22 @@ paths:
           description: La richiesta specificata non è stata trovata.
         "500":
           description: Impossibile accettare la richiesta.
+  /matchmaker/disponibilita/add:
+    post:
+      summary: Crea una nuova disponibilita
+      description: Permette a un volontario di creare una nuova richiesta di disponibilità.
+      security:
+        - BearerAuth: [ ]
+      responses:
+        "201":
+          description: La dipsonibilità è stata salvata correttamente.
+        "500":
+          description: Impossibile creare la disponibilità.
+      requestBody:
+         content:
+           application/json:
+             schema:
+               $ref: "#/components/schemas/Disponibilita"
   /auth/signup:
     post:
       summary: SignUp
@@ -186,6 +202,26 @@ components:
           type: string
           enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
           description: "Categoria della richiesta"
+          example: "aiuto fuori casa"
+    Disponibilita:
+      type: object
+      required:
+        - data
+        - durata
+        - categoria
+      properties:
+        data:
+          type: string
+          format: date-time
+          description: "Data e ora per cui viene effettuata la disponibilità"
+        durata:
+          type: integer
+          description: "Durata in minuti stimata per la disponibilità"
+          example: 180
+        categoria:
+          type: string
+          enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
+          description: "Categoria della disponibilità"
           example: "aiuto fuori casa"
     Utente:
       title: Utente
