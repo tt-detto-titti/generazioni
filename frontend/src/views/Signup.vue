@@ -246,7 +246,6 @@ export default {
 
 .card-container.card {
   max-width: 900px !important;
-  padding: 40px 40px;
 }
 
 .signup-img {
