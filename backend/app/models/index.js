@@ -11,6 +11,7 @@ db.pass = process.env.MONGODB_PASS;
 
 db.categoria_aiuto = require("./categoria_aiuto.model.js")(mongoose);
 db.richiesta = require("./richiesta.model.js")(mongoose);
+db.offerta = require("./offerta.model.js")(mongoose);
 db.ruolo = require("./ruolo.model.js")(mongoose);
 db.utente = require("./utente.model.js")(mongoose);
 
