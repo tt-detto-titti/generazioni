@@ -1,13 +1,13 @@
 import { createWebHashHistory, createRouter } from "vue-router";
-import Home from "./components/Home.vue";
-import Login from "./components/Login.vue";
-import Signup from "./components/Signup.vue";
-import Profilo from "./components/Profilo.vue";
+import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
+import Signup from "./views/Signup.vue";
+import Profilo from "./views/Profilo.vue";
 
-import ListaRichiesteAnziano from "./components/ListaRichiesteAnziano.vue";
-import NuovaRichiesta from "./components/NuovaRichiesta.vue";
-import ListaRichiesteVolontario from "./components/ListaRichiesteVolontario.vue";
-import NuovaOfferta from "./components/NuovaOfferta.vue";
+import ListaRichiesteAnziano from "./views/ListaRichiesteAnziano.vue";
+import NuovaRichiesta from "./views/NuovaRichiesta.vue";
+import ListaRichiesteVolontario from "./views/ListaRichiesteVolontario.vue";
+import NuovaOfferta from "./views/NuovaOfferta.vue";
 
 const routes = [
   {
