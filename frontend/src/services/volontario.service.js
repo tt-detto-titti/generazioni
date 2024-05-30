@@ -3,8 +3,15 @@ import headerAauth from "./header-auth.js";
 
 // Servizio che dialoga con le API relative ai volontari
 class ServizioVolontario {
-    trovaRichieste() {
+    trovaRichiesteDisponibili() {
         const url = "/matchmaker/richieste/disponibili";
+        return http.get(url, {headers: headerAauth()}).then((res) => {
+            return res.data;
+        });
+    }
+
+    trovaRichiesteAccettate(idVolontario) {
+        const url = "/matchmaker/richieste/accettate/" + idVolontario;
         return http.get(url, {headers: headerAauth()}).then((res) => {
             return res.data;
         });
