@@ -13,6 +13,8 @@ module.exports = (app) => {
 
   // Crea una nuova offerta d'aiuto
   router.post("/add", authJwt.controllaVolontario, controller.nuovaOfferta);
+  // Restituisce tutte le offerte d'aiuto accettate fatte da un volontario
+  router.get("/:id_volontario", authJwt.controllaVolontario, controller.trovaOfferteVolontario);
 
   app.use("/api/matchmaker/offerte", authJwt.verificaToken, router);
 };
