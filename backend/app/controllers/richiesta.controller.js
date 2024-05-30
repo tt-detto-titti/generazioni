@@ -62,6 +62,18 @@ exports.trovaRichiesteDisponibili = async (req, res) => {
   }
 };
 
+// Restituisce  tutte le richieste accettate da un volontario
+exports.trovaRichiesteAccettate = async (req, res) => {
+  try {
+    const richieste = await Richiesta.find({id_volontario: req.params.id_volontario});
+    res.status(200).send(richieste);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+}
+
 // Accetta una richiesta d'aiuto
 exports.accettaRichiesta = async (req, res) => {
   try {

@@ -4,25 +4,25 @@
       <h3>📋 Le tue richieste d'aiuto</h3>
       <p>
         Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che hai
-        fatto nel tempo, così non c'è bisogno che ricordi tutto!<br />
+        fatto nel tempo, così non c'è bisogno che ricordi tutto!<br/>
         Cliccando sulle <strong>icone</strong> in fondo ad ogni riga puoi
         <strong>modificare</strong>, <strong>eliminare</strong> o
         <strong>visualizzare i dettagli</strong> di ogni richiesta... provare
         per credere!
       </p>
       <v-data-table
-        v-model:expanded="expanded"
-        :items="richieste"
-        :headers="headers"
-        :hide-default-footer="true"
-        item-value="id"
-        disable-pagination
-        show-expand
+          v-model:expanded="expanded"
+          :items="richieste"
+          :headers="headers"
+          :hide-default-footer="true"
+          item-value="id"
+          disable-pagination
+          show-expand
       >
         <template v-slot:item.stato="{ item }">
-          <v-chip :class="getClasseStato(item.stato)" dark>{{
-            item.stato
-          }}</v-chip>
+          <v-chip :class="getClasseStato(item.stato)" dark>
+            {{ item.stato }}
+          </v-chip>
         </template>
         <template v-slot:expanded-row="{ columns, item }">
           <tr>
@@ -45,12 +45,12 @@ export default {
       expanded: [],
       richieste: [],
       headers: [
-        { title: "Data", key: "data", align: "start", sortable: true },
-        { title: "Ora", key: "ora", sortable: false },
-        { title: "Categoria", key: "categoria", sortable: true },
-        { title: "Durata (min)", key: "durata", sortable: true },
-        { title: "Stato", key: "stato", sortable: false },
-        { title: "", key: "data-table-expand" },
+        {title: "Data", key: "data", align: "start", sortable: true},
+        {title: "Ora", key: "ora", sortable: false},
+        {title: "Categoria", key: "categoria", sortable: true},
+        {title: "Durata (min)", key: "durata", sortable: true},
+        {title: "Stato", key: "stato", sortable: false},
+        {title: "", key: "data-table-expand"},
       ],
     };
   },

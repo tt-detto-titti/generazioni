@@ -27,9 +27,9 @@ exports.nuovaOfferta = async (req, res) => {
   }
 };
 
+// Restituisce tutte le offerte future che sono ancora in attesa
 exports.trovaOfferteDisponibili = async (req, res) => {
   try {
-    // Prendo solo le offerte future che sono ancora in attesa
     const offerte = await Offerta.find({
       data: { $gte: new Date() },
       stato: "in attesa",
@@ -41,3 +41,15 @@ exports.trovaOfferteDisponibili = async (req, res) => {
     });
   }
 };
+
+// Restituisce tutte le offerte fatte da un volontario
+exports.trovaOfferteVolontario = async (req, res) => {
+  try {
+    const offerte = await Offerta.find({ id_volontario: req.params.id_volontario });
+    res.status(200).send(offerte);
+  } catch (err) {
+    res.status(500).send({
+      message: "Impossibile cercare le offerte d'aiuto: " + err.message,
+    });
+  }
+}

@@ -17,6 +17,14 @@ module.exports = (app) => {
     authJwt.controllaVolontario,
     controller.trovaRichiesteDisponibili,
   );
+  // Restituisce tutte le richieste d'aiuto accettate
+  // TODO scrivere documentazione
+  router.get(
+    "/accettate/:id_volontario",
+    authJwt.controllaVolontario,
+    controller.trovaRichiesteAccettate,
+  );
+  // Restituisce tutte le richieste d'aiuto per il futuro
   // Permette a un volontario di accettare una richiesta
   router.post("/accetta/:id_richiesta", authJwt.controllaVolontario, controller.accettaRichiesta);
   // Crea una richiesta
