@@ -20,9 +20,13 @@ exports.nuovaRichiesta = async (req, res) => {
     });
 
     await richiesta.save();
-    res.status(201).send({ message: "La richiesta è stata salvata correttamente." });
+    res
+      .status(201)
+      .send({ message: "La richiesta è stata salvata correttamente." });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res
+      .status(500)
+      .send({ message: "Impossibile creare la richiesta di aiuto: " + err.message });
   }
 };
 
@@ -34,45 +38,40 @@ exports.trovaRichiesteAnziano = async (req, res) => {
     });
     res.status(200).send(richieste);
   } catch (err) {
-    res.status(500).send({
-      message: err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile cercare le richieste d'aiuto: " + err.message});
   }
 };
 
-// Modifica una richiesta d'aiuto
-exports.modifica = (req, res) => {};
-
-// Elimina una richiesta d'aiuto
-exports.elimina = (req, res) => {};
-
-// Restituisce tutte le richieste d'aiuto per il futuro
+// Restituisce tutte le richieste d'aiuto per il futuro che sono ancora in attesa
 exports.trovaRichiesteDisponibili = async (req, res) => {
   try {
-    // Prendo solo le richieste future che sono ancora in attesa
     const richieste = await Richiesta.find({
       data: { $gte: new Date() },
       stato: "in attesa",
     });
     res.status(200).send(richieste);
   } catch (err) {
-    res.status(500).send({
-      message: err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile cercare le richieste d'aiuto: " + err.message });
   }
 };
 
 // Restituisce  tutte le richieste accettate da un volontario
 exports.trovaRichiesteAccettate = async (req, res) => {
   try {
-    const richieste = await Richiesta.find({id_volontario: req.params.id_volontario});
+    const richieste = await Richiesta.find({
+      id_volontario: req.params.id_volontario,
+    });
     res.status(200).send(richieste);
   } catch (err) {
-    res.status(500).send({
-      message: err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile cercare le richieste d'aiuto: " + err.message });
   }
-}
+};
 
 // Accetta una richiesta d'aiuto
 exports.accettaRichiesta = async (req, res) => {
@@ -87,10 +86,12 @@ exports.accettaRichiesta = async (req, res) => {
     richiesta.id_volontario = req.id_utente;
     await richiesta.save();
 
-    res.status(200).send({ message: "La richiesta è stata accettata correttamente." });
+    res
+      .status(200)
+      .send({ message: "La richiesta è stata accettata correttamente." });
   } catch (err) {
-    res.status(500).send({
-      message: err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile accettare la richiesta di aiuto: " + err.message });
   }
 };

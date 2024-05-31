@@ -1,6 +1,6 @@
 module.exports = (mongoose) => {
-  const Utente = mongoose.model(
-    "utente",
+  return mongoose.model(
+    "Utente",
     mongoose.Schema(
       {
         nome: { type: String, required: true },
@@ -11,7 +11,6 @@ module.exports = (mongoose) => {
         telefono: { type: String, required: true, unique: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
-        // Campi specifici per Anziano
         anziano: {
           bio: { type: String, required: false },
           esigenze: { type: String, required: false },
@@ -26,9 +25,7 @@ module.exports = (mongoose) => {
       },
       {
         collection: "utenti",
-      }
-    )
+      },
+    ),
   );
-
-  return Utente;
 };

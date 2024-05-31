@@ -1,20 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 const app = express();
-const path = __dirname + "/../frontend/dist/";
 
-app.use(express.static(path));
-
-var corsOptions = {
+const corsOptions = {
   origin: process.env.CORS_ORIGIN,
 };
 app.use(cors(corsOptions));
 
+// Interpreta i dati JSON nelle richieste HTTP
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-// Connessione al database
 const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
@@ -30,17 +27,18 @@ db.mongoose
     process.exit();
   });
 
+// Serve il frontend
+const path = __dirname + "/../frontend/dist/";
+app.use(express.static(path));
 app.get("/", function (req, res) {
   res.sendFile(path + "index.html");
 });
 
-// Carica le routes
 require("./app/routes/auth.routes.js")(app);
-require("./app/routes/utente.routes.js")(app);
 require("./app/routes/richiesta.routes.js")(app);
 require("./app/routes/offerta.routes.js")(app);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Il server è in ascolto sulla porta ${PORT}.`);
 });

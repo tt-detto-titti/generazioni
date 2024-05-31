@@ -1,6 +1,6 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/richiesta.controller.js");
-var router = require("express").Router();
+const router = require("express").Router();
 
 module.exports = (app) => {
   app.use((req, res, next) => {
@@ -18,16 +18,18 @@ module.exports = (app) => {
     controller.trovaRichiesteDisponibili,
   );
   // Restituisce tutte le richieste d'aiuto accettate
-  // TODO scrivere documentazione
   router.get(
     "/accettate/:id_volontario",
     authJwt.controllaVolontario,
     controller.trovaRichiesteAccettate,
   );
-  // Restituisce tutte le richieste d'aiuto per il futuro
   // Permette a un volontario di accettare una richiesta
-  router.post("/accetta/:id_richiesta", authJwt.controllaVolontario, controller.accettaRichiesta);
-  // Crea una richiesta
+  router.put(
+    "/accetta/:id_richiesta",
+    authJwt.controllaVolontario,
+    controller.accettaRichiesta,
+  );
+  // Crea una nuova richiesta d'aiuto
   router.post("/add", authJwt.controllaAnziano, controller.nuovaRichiesta);
   // Restituisce tutte le richieste fatte da parte di una persona anziana
   router.get(

@@ -1,8 +1,8 @@
 const config = require("../config/matchmaker.config.js");
 
 module.exports = (mongoose) => {
-  const Richiesta = mongoose.model(
-    "richiesta",
+  return mongoose.model(
+    "Richiesta",
     mongoose.Schema(
       {
         data: { type: Date, required: true },
@@ -24,6 +24,4 @@ module.exports = (mongoose) => {
       { collection: "richieste_aiuto", timestamps: true },
     ),
   );
-
-  return Richiesta;
 };

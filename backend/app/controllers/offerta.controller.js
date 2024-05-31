@@ -19,11 +19,13 @@ exports.nuovaOfferta = async (req, res) => {
     });
 
     await offerta.save();
-    res.status(201).send({ message: "L'offerta di aiuto è stata salvata correttamente." });
+    res
+      .status(201)
+      .send({ message: "L'offerta di aiuto è stata salvata correttamente." });
   } catch (err) {
-    res.status(500).send({
-      message: "Impossibile creare l'offerta di aiuto: " + err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile creare l'offerta di aiuto: " + err.message });
   }
 };
 
@@ -36,20 +38,22 @@ exports.trovaOfferteDisponibili = async (req, res) => {
     });
     res.status(200).send(offerte);
   } catch (err) {
-    res.status(500).send({
-      message: "Impossibile cercare le offerte d'aiuto: " + err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile cercare le offerte d'aiuto: " + err.message });
   }
 };
 
 // Restituisce tutte le offerte fatte da un volontario
 exports.trovaOfferteVolontario = async (req, res) => {
   try {
-    const offerte = await Offerta.find({ id_volontario: req.params.id_volontario });
+    const offerte = await Offerta.find({
+      id_volontario: req.params.id_volontario,
+    });
     res.status(200).send(offerte);
   } catch (err) {
-    res.status(500).send({
-      message: "Impossibile cercare le offerte d'aiuto: " + err.message,
-    });
+    res
+      .status(500)
+      .send({ message: "Impossibile cercare le offerte d'aiuto: " + err.message });
   }
-}
+};

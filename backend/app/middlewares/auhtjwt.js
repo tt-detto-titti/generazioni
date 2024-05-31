@@ -4,6 +4,7 @@ const db = require("../models/index.js");
 const Utente = db.utente;
 const Ruolo = db.ruolo;
 
+// Verifica la validità del token jwt
 const verificaToken = (req, res, next) => {
   const token = req.headers["x-access-token"];
 
@@ -20,6 +21,7 @@ const verificaToken = (req, res, next) => {
   });
 };
 
+// Verifica che un utente possieda il ruolo richiesto
 const controllaRuolo = (ruoloRichiesto) => {
   return async (req, res, next) => {
     try {
@@ -44,7 +46,9 @@ const controllaRuolo = (ruoloRichiesto) => {
           .send({ message: `Richiede il ruolo di ${ruoloRichiesto}!` });
       }
     } catch (err) {
-      res.status(500).send({ message: err });
+      res
+        .status(500)
+        .send({ message: "Impossibile verificare il ruolo: " + err.message });
     }
   };
 };

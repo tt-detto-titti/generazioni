@@ -1,8 +1,8 @@
 const config = require("../config/matchmaker.config.js");
 
 module.exports = (mongoose) => {
-  const CategoriaAiuto = mongoose.model(
-    "categoria_aiuto",
+  return mongoose.model(
+    "CategoriaAiuto",
     mongoose.Schema(
       {
         _id: {
@@ -10,9 +10,7 @@ module.exports = (mongoose) => {
           enum: config.categorie_aiuto,
         },
       },
-      { collection: "categorie_aiuto" }
-    )
+      { collection: "categorie_aiuto" },
+    ),
   );
-
-  return CategoriaAiuto;
 };
