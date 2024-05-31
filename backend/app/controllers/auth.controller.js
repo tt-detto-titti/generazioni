@@ -62,7 +62,7 @@ exports.login = async (req, res) => {
     // Genera un token d'accesso
     const token = jwt.sign({ id: utente._id }, config.JWT_SECRET, {
       algorithm: "HS256",
-      expiresIn: config.SCADENZA_TOKEN,
+      expiresIn: 86400,
     });
 
     res.status(200).send({
