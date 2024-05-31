@@ -1,6 +1,7 @@
 const db = require("../models");
 const Offerta = db.offerta;
 const Utente = db.utente;
+const MatchMaker = require("../matchmaker/matchmaker.js");
 
 // Crea e salva una nuova offerta d'aiuto
 exports.nuovaOfferta = async (req, res) => {
@@ -19,13 +20,22 @@ exports.nuovaOfferta = async (req, res) => {
     });
 
     await offerta.save();
+    const match = await MatchMaker.controllaMatch(offerta);
+
     res
       .status(201)
-      .send({ message: "L'offerta di aiuto è stata salvata correttamente." });
+      .send({
+        message:
+          match.length > 0
+            ? "L'offerta di aiuto è stata salvata correttamente. Esistono delle richieste d'aiuto compatibili, controlla la lista!"
+            : "L'offerta di aiuto è stata salvata correttamente.",
+      });
   } catch (err) {
     res
       .status(500)
-      .send({ message: "Impossibile creare l'offerta di aiuto: " + err.message });
+      .send({
+        message: "Impossibile creare l'offerta di aiuto: " + err.message,
+      });
   }
 };
 
@@ -40,7 +50,9 @@ exports.trovaOfferteDisponibili = async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .send({ message: "Impossibile cercare le offerte d'aiuto: " + err.message });
+      .send({
+        message: "Impossibile cercare le offerte d'aiuto: " + err.message,
+      });
   }
 };
 
@@ -54,6 +66,8 @@ exports.trovaOfferteVolontario = async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .send({ message: "Impossibile cercare le offerte d'aiuto: " + err.message });
+      .send({
+        message: "Impossibile cercare le offerte d'aiuto: " + err.message,
+      });
   }
 };
