@@ -14,11 +14,11 @@ paths:
       security:
         - BearerAuth: [ ]
       responses:
-        "201":
+        201:
           description: La richiesta è stata creata correttamente.
-        "404":
+        404:
           description: L'utente specificato non è stato trovato.
-        "500":
+        500:
           description: Impossibile creare la richiesta.
       requestBody:
         content:
@@ -27,7 +27,7 @@ paths:
               $ref: "#/components/schemas/Richiesta"
   /matchmaker/richieste/{id_anziano}:
     get:
-      summary: Richieste fatte da un anziano
+      summary: Richieste d'aiuto
       description: Restituisce tutte le richieste d'aiuto fatte da una persona anziana specificata dall'ID.
       security:
         - BearerAuth: [ ]
@@ -40,7 +40,7 @@ paths:
           description: ID della persona anziana
           example: "6651f6c1b506e79c21632f90"
       responses:
-        '200':
+        200:
           description: Richieste trovate con successo.
           content:
             application/json:
@@ -48,7 +48,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Richiesta"
-        '500':
+        500:
           description: Impossibile trovare le richieste.
   /matchmaker/richieste/disponibili:
     get:
@@ -57,7 +57,7 @@ paths:
       security:
         - BearerAuth: [ ]
       responses:
-        "200":
+        200:
           description: Richieste trovate con successo.
           content:
             application/json:
@@ -65,7 +65,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Richiesta"
-
   /matchmaker/richieste/accetta/{id_richiesta}:
     put:
       summary: Accetta una richiesta d'aiuto
@@ -81,12 +80,37 @@ paths:
           description: ID della richiesta che si vuole accettare
           example: "66536c68e151ca5dd70799f7"
       responses:
-        "200":
+        200:
           description: La richiesta è stata accettata correttamente.
-        "404":
+        404:
           description: La richiesta specificata non è stata trovata.
-        "500":
+        500:
           description: Impossibile accettare la richiesta.
+  /matchmaker/richieste/accettate/{id_volontario}:
+    get:
+      summary: Richieste accettate
+      description: Restituisce tutte le richieste d'aiuto accettate da un volontario.
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - in: path
+          name: id_volontario
+          required: true
+          schema:
+            type: string
+          description: ID del volontario
+          example: "6653382801e34c3fd8142996"
+      responses:
+        200:
+          description: Richieste trovate con successo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Richiesta"
+        500:
+          description: Impossibile trovare le richieste.
   /matchmaker/offerte/add:
     post:
       summary: Crea un'offerta di aiuto
@@ -94,25 +118,48 @@ paths:
       security:
         - BearerAuth: [ ]
       responses:
-        "201":
+        201:
           description: L'offerta di aiuto è stata salvata correttamente.
-        "404":
+        404:
           description: L'utente specificato non è stato trovato.
-        "500":
+        500:
           description: Impossibile creare l'offerta di aiuto.
       requestBody:
-         content:
-           application/json:
-             schema:
-               $ref: "#/components/schemas/Offerta"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Offerta"
+  /matchmaker/offerte/{id_volontario}:
+    get:
+      summary: Offerte di aiuto
+      description: Restituisce tutte le offerte di aiuto fatte da un volontario.
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - in: path
+          name: id_volontario
+          required: true
+          schema:
+            type: string
+          description: ID del volontario
+          example: "6653382801e34c3fd8142996"
+      responses:
+        200:
+          description: New response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offerta"
   /auth/signup:
     post:
       summary: SignUp
       description: Permette a un nuovo utente di registrarsi al sito.
       responses:
-        "201":
+        201:
           description: L'utente è stato creato correttamente.
-        "500":
+        500:
           description: Impossibile creare l'utente.
       requestBody:
         content:
@@ -124,11 +171,11 @@ paths:
       summary: Login
       description: Permette a un utente esistente di accedere al sito.
       responses:
-        "404":
+        404:
           description: L'utente non è stato trovato.
-        "401":
+        401:
           description: La password non è valida.
-        "200":
+        200:
           description: Login effettuato con successo.
           content:
             text/json:
@@ -153,7 +200,7 @@ paths:
                   accessToken:
                     type: string
                     description: "Token di autenticazione"
-        "500":
+        500:
           description: Impossibile effettuare il login.
       requestBody:
         content:
@@ -172,7 +219,6 @@ paths:
                   type: string
                   description: "Password dell'utente"
                   example: "pastaalpesto"
-
 components:
   securitySchemes:
     BearerAuth:
