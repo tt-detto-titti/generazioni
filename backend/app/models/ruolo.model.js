@@ -1,18 +1,16 @@
 const config = require("../config/auth.config");
 
 module.exports = (mongoose) => {
-  const Ruolo = mongoose.model(
-    "ruolo",
+  return mongoose.model(
+    "Ruolo",
     mongoose.Schema(
       {
         _id: {
           type: String,
-          enum: config.ruoli
-        }
+          enum: config.ruoli,
+        },
       },
-      { collection: "ruoli" }
-    )
+      { collection: "ruoli" },
+    ),
   );
-
-  return Ruolo;
 };

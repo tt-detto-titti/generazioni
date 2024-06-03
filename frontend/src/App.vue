@@ -19,9 +19,15 @@
           </router-link>
         </li>
         <li v-if="mostraListaRichiesteVolontario" class="nav-item">
-          <router-link to="/richieste/disponibili" class="nav-link">
+          <router-link to="/richieste/gestione" class="nav-link">
             <font-awesome-icon icon="list" />
-            Richieste
+            Gestione Richieste
+          </router-link>
+        </li>
+        <li v-if="mostraListaOfferteVolontario" class="nav-item">
+          <router-link to="/offerte/gestione" class="nav-link">
+            <font-awesome-icon icon="list" />
+            Gestione Offerte
           </router-link>
         </li>
         <li v-if="mostraNuovaRichiesta" class="nav-item">
@@ -112,6 +118,9 @@ export default {
     mostraNuovoFeedback() {
       return this.isVolontario || this.isAnziano;
     },
+    mostraListaOfferteVolontario() {
+      return this.isVolontario;
+    }
   },
   methods: {
     logOut() {

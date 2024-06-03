@@ -3,9 +3,9 @@ const db = require("../models/index.js");
 const Utente = db.utente;
 
 // Usato per gestire i token di accesso
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 // Usato per generare e controllare gli hash delle password
-var bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   try {
@@ -33,7 +33,9 @@ exports.signup = async (req, res) => {
       .status(201)
       .send({ message: "L'utente è stato registrato correttamente." });
   } catch (err) {
-    res.status(500).send({ message: err });
+    res
+      .status(500)
+      .send({ message: "Impossibile registrare l'utente: " + err.message });
   }
 };
 
@@ -45,7 +47,7 @@ exports.login = async (req, res) => {
       return res.status(404).send({ message: "Utente non trovato!" });
     }
 
-    // Verifica la password con l'hash
+    // Verifica la password tramite l'hash
     const passwordValida = bcrypt.compareSync(
       req.body.password,
       utente.password,
@@ -60,7 +62,7 @@ exports.login = async (req, res) => {
     // Genera un token d'accesso
     const token = jwt.sign({ id: utente._id }, config.JWT_SECRET, {
       algorithm: "HS256",
-      expiresIn: 86400,
+      expiresIn: config.SCADENZA_TOKEN,
     });
 
     res.status(200).send({
@@ -72,6 +74,8 @@ exports.login = async (req, res) => {
       accessToken: token,
     });
   } catch (err) {
-    res.status(500).send({ message: err });
+    res
+      .status(500)
+      .send({ message: "Impossibile effettuare il login: " + err.message });
   }
 };

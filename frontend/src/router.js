@@ -8,6 +8,7 @@ import ListaRichiesteAnziano from "./views/ListaRichiesteAnziano.vue";
 import NuovaRichiesta from "./views/NuovaRichiesta.vue";
 import ListaRichiesteVolontario from "./views/ListaRichiesteVolontario.vue";
 import NuovaOfferta from "./views/NuovaOfferta.vue";
+import ListaOfferte from "./views/ListaOfferte.vue";
 import NuovoFeedback from "./views/NuovoFeedback.vue";
 
 const routes = [
@@ -44,7 +45,7 @@ const routes = [
     component: NuovaRichiesta,
   },
   {
-    path: "/richieste/disponibili",
+    path: "/richieste/gestione",
     name: "listaRichiesteVolontario",
     component: ListaRichiesteVolontario,
   },
@@ -58,23 +59,28 @@ const routes = [
     name: "nuovoFeedback",
     component: NuovoFeedback,
   },
+  {
+    path: "/offerte/gestione",
+    name: "listaOfferte",
+    component: ListaOfferte,
+  }
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-// TODO
-// router.beforeEach((to, from, next) => {
-//   const paginePubbliche = ["/login", "/signup", "/home"];
-//   const pagineAuth = !paginePubbliche.includes(to.path);
-//   const loggato = localStorage.getItem("utente");
 
-//   if (pagineAuth && !loggato) {
-//     next("/login");
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  const paginePubbliche = ["/login", "/signup", "/home"];
+  const pagineAuth = !paginePubbliche.includes(to.path);
+  const loggato = localStorage.getItem("utente");
+
+  if (pagineAuth && !loggato) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 
 export default router;
