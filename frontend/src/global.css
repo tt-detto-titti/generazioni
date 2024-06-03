@@ -1,71 +1,74 @@
 label {
-    display: block;
-    margin-top: 10px;
+  display: block;
+  margin-top: 10px;
 }
 
 .error-feedback {
-    color: red;
+  color: red;
 }
 
 .input-container {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
-h1, h3 {
-    color: #2D3047;
+h1,
+h3 {
+  color: #2d3047;
 }
 
-#app, html, body {
-    background: #F5F3F5;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    min-height: 100vh;
-    color: #0C1618;
+#app,
+html,
+body {
+  background: #f5f3f5;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  color: #0c1618;
 }
 
 .card-container.card {
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 0 auto 25px;
-    margin-top: 50px;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 25px;
+  margin-top: 50px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .btn-arancione {
-    background-color: #ff7f50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
+  background-color: #ff7f50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .btn-arancione:disabled {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .links {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .links a {
-    color: #ff7f50;
-    text-decoration: none;
-    margin: 0 10px;
+  color: #ff7f50;
+  text-decoration: none;
+  margin: 0 10px;
 }
 
 .links a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .navbar {
-    background-color: #2D3047;
+  background-color: #2d3047;
 }

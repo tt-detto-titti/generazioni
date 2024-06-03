@@ -63,6 +63,7 @@ export default {
         console.error("Errore nel caricamento delle richieste:", err);
       }
     },
+
     mappaRichieste(richiesta) {
       return {
         id: richiesta._id,
@@ -74,6 +75,7 @@ export default {
         descrizione: richiesta.descrizione,
       };
     },
+
     getClasseStato(stato) {
       switch (stato) {
         case "in attesa":

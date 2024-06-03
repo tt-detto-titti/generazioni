@@ -1,13 +1,10 @@
 <template>
   <div id="app">
-    <nav
-      class="navbar sticky-top navbar-expand navbar-dark shadow-sm"
-    >
+    <nav class="navbar sticky-top navbar-expand navbar-dark shadow-sm">
       <a href="/" class="navbar-brand">
         <!-- img src="/logo.png" width="30" height="30" / -->
         Gener<strong>Azioni</strong>
       </a>
-      <!-- Differenziare le route in base al ruolo -->
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
@@ -37,6 +34,12 @@
           <router-link to="/offerte/add" class="nav-link">
             <font-awesome-icon icon="hand-holding-medical" />
             Nuova Offerta
+          </router-link>
+        </li>
+        <li v-if="mostraNuovoFeedback" class="nav-item">
+          <router-link to="/feedback/add/" class="nav-link">
+            <font-awesome-icon icon="comment" />
+            Nuovo Feedback
           </router-link>
         </li>
       </div>
@@ -85,10 +88,14 @@ export default {
       return this.$store.state.auth.utente;
     },
     isAnziano() {
-      return this.utenteCorrente && this.utenteCorrente.ruoli.includes("anziano");
+      return (
+        this.utenteCorrente && this.utenteCorrente.ruoli.includes("anziano")
+      );
     },
     isVolontario() {
-      return this.utenteCorrente && this.utenteCorrente.ruoli.includes("volontario");
+      return (
+        this.utenteCorrente && this.utenteCorrente.ruoli.includes("volontario")
+      );
     },
     mostraListaRichiesteAnziano() {
       return this.isAnziano;
@@ -101,7 +108,10 @@ export default {
     },
     mostraNuovaOfferta() {
       return this.isVolontario;
-    }
+    },
+    mostraNuovoFeedback() {
+      return this.isVolontario || this.isAnziano;
+    },
   },
   methods: {
     logOut() {

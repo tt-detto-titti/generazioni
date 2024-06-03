@@ -5,7 +5,7 @@
         <div class="col">
           <h3>👐 Rieccoti!</h3>
           <p>
-            Bentornato! Speriamo tu stia bene 😊.<br/>
+            Bentornato! Speriamo tu stia bene 😊.<br />
             Inserendo qui le tue <strong>credenziali</strong> (<em>email</em> e
             <em>password</em>
             scritte sul post-it attaccato al computer 😉) puoi entrare nel sito!
@@ -14,25 +14,31 @@
             <!-- Email -->
             <div class="form-group">
               <label for="email">Email</label>
-              <Field id="email" name="email" type="text" class="form-control"/>
-              <ErrorMessage name="email" class="error-feedback"/>
+              <Field id="email" name="email" type="text" class="form-control" />
+              <ErrorMessage name="email" class="error-feedback" />
             </div>
 
             <!-- Password -->
             <div class="form-group">
               <label for="password">Password</label>
               <Field
-                  id="password"
-                  name="password"
-                  type="password"
-                  class="form-control"
+                id="password"
+                name="password"
+                type="password"
+                class="form-control"
               />
-              <ErrorMessage name="password" class="error-feedback"/>
+              <ErrorMessage name="password" class="error-feedback" />
             </div>
 
             <div class="form-group">
-              <button class="btn btn-block btn-arancione" :disabled="caricamento">
-                <span v-show="caricamento" class="spinner-border spinner-border-sm"></span>
+              <button
+                class="btn btn-block btn-arancione"
+                :disabled="caricamento"
+              >
+                <span
+                  v-show="caricamento"
+                  class="spinner-border spinner-border-sm"
+                ></span>
                 <span v-show="!caricamento">Entra</span>
               </button>
             </div>
@@ -45,11 +51,12 @@
           </Form>
 
           <div class="links">
-            <router-link to="/signup">Non hai un account? Registrati</router-link>
+            <router-link to="/signup"
+              >Non hai un account? Registrati</router-link>
           </div>
         </div>
         <div class="col-5 d-flex align-items-center">
-          <img src="/login.png" class="login-img"/>
+          <img src="/login.png" class="login-img" />
         </div>
       </div>
     </div>
@@ -57,7 +64,7 @@
 </template>
 
 <script>
-import {Form, Field, ErrorMessage} from "vee-validate";
+import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 
 export default {
@@ -96,17 +103,17 @@ export default {
       this.caricamento = true;
 
       this.$store.dispatch("auth/login", utente).then(
-          () => {
-            // Reindirizza alla pagina personale
-            this.$router.push("/profilo");
-          },
-          (err) => {
-            this.caricamento = false;
-            this.messaggio =
-                (err.response && err.response.data && err.response.data.message) ||
-                err.message ||
-                err.toString();
-          },
+        () => {
+          // Reindirizza alla pagina personale
+          this.$router.push("/profilo");
+        },
+        (err) => {
+          this.caricamento = false;
+          this.messaggio =
+            (err.response && err.response.data && err.response.data.message) ||
+            err.message ||
+            err.toString();
+        },
       );
     },
   },
