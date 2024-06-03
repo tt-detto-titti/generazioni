@@ -3,26 +3,26 @@ import headerAauth from "./header-auth.js";
 
 // Servizio che dialoga con le API relative ai volontari
 class ServizioVolontario {
-    trovaRichiesteDisponibili() {
-        const url = "/matchmaker/richieste/disponibili";
-        return http.get(url, {headers: headerAauth()}).then((res) => {
-            return res.data;
-        });
-    }
+  trovaRichiesteDisponibili() {
+    const url = "/matchmaker/richieste/disponibili";
+    return http.get(url, { headers: headerAauth() }).then((res) => {
+      return res.data;
+    });
+  }
 
-    trovaRichiesteAccettate(idVolontario) {
-        const url = "/matchmaker/richieste/accettate/" + idVolontario;
-        return http.get(url, {headers: headerAauth()}).then((res) => {
-            return res.data;
-        });
-    }
+  trovaRichiesteAccettate(idVolontario) {
+    const url = "/matchmaker/richieste/accettate/" + idVolontario;
+    return http.get(url, { headers: headerAauth() }).then((res) => {
+      return res.data;
+    });
+  }
 
-    accettaRichiesta(idRichiesta) {
-        const url = "/matchmaker/richieste/accetta/" + idRichiesta;
-        return http.post(url, {}, {headers: headerAauth()}).then((res) => {
-            return res.data;
-        });
-    }
+  accettaRichiesta(idRichiesta) {
+    const url = "/matchmaker/richieste/accetta/" + idRichiesta;
+    return http.put(url, {}, { headers: headerAauth() }).then((res) => {
+      return res.data;
+    });
+  }
 
   trovaOfferte() {
     let utente = JSON.parse(localStorage.getItem("utente"));
