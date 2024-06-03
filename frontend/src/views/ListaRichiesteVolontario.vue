@@ -6,20 +6,20 @@
         <p>
           Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che sono
           ancora <strong>in attesa</strong> di una risposta, se ne trovi una che
-          soddisfa le tue disponibilità non esitare ad accettarla!<br/>
+          soddisfa le tue disponibilità non esitare ad accettarla!<br />
           Cliccando sulle <strong>icone</strong> in fondo ad ogni riga puoi
           <strong>accettare</strong> la richiesta o
           <strong>visualizzarne i dettagli</strong>.
         </p>
         <div v-if="!ok">
           <v-data-table
-              v-model:expanded="expanded"
-              :items="richiesteDisponibili"
-              :headers="headersDisponibili"
-              :hide-default-footer="true"
-              item-value="id"
-              disable-pagination
-              show-expand
+            v-model:expanded="expanded"
+            :items="richiesteDisponibili"
+            :headers="headersDisponibili"
+            :hide-default-footer="true"
+            item-value="id"
+            disable-pagination
+            show-expand
           >
             <!-- Riga espansa -->
             <template v-slot:expanded-row="{ columns, item }">
@@ -35,19 +35,19 @@
               <v-dialog v-model="dialogAccetta" max-width="500px">
                 <v-card>
                   <v-card-title class="text-h5"
-                  >Confermi di voler accettare la richiesta?
-                  </v-card-title
-                  >
+                    >Confermi di voler accettare la richiesta?
+                  </v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue-darken-1" variant="text" @click="chiudi"
-                    >Ho cambiato idea
-                    </v-btn
-                    >
-                    <v-btn color="blue-darken-1" variant="text" @click="conferma"
-                    >Conferma
-                    </v-btn
-                    >
+                      >Ho cambiato idea
+                    </v-btn>
+                    <v-btn
+                      color="blue-darken-1"
+                      variant="text"
+                      @click="conferma"
+                      >Conferma
+                    </v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -64,18 +64,18 @@
             <!-- Pulsante per accettare -->
             <template v-slot:item.accetta="{ item }">
               <v-icon
-                  icon="fas fa-hand-holding-heart"
-                  style="color: #e67e22"
-                  @click="accetta(item)"
+                icon="fas fa-hand-holding-heart"
+                style="color: #e67e22"
+                @click="accetta(item)"
               ></v-icon>
             </template>
           </v-data-table>
         </div>
 
         <div
-            v-if="messaggio"
-            class="alert"
-            :class="ok ? 'alert-success' : 'alert-danger'"
+          v-if="messaggio"
+          class="alert"
+          :class="ok ? 'alert-success' : 'alert-danger'"
         >
           {{ messaggio }}
         </div>
@@ -85,16 +85,17 @@
       <div class="card card-container">
         <h3>📋 Le tue richieste accettate</h3>
         <p>
-          Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che hai <strong>accettato</strong>.<br/>
+          Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che hai
+          <strong>accettato</strong>.<br />
         </p>
         <v-data-table
-            v-model:expanded="expanded"
-            :items="richiesteAccettate"
-            :headers="headersAccettate"
-            :hide-default-footer="true"
-            item-value="id"
-            disable-pagination
-            show-expand
+          v-model:expanded="expanded"
+          :items="richiesteAccettate"
+          :headers="headersAccettate"
+          :hide-default-footer="true"
+          item-value="id"
+          disable-pagination
+          show-expand
         >
           <!-- Riga espansa -->
           <template v-slot:expanded-row="{ columns, item }">
@@ -109,11 +110,17 @@
           <template v-slot:top>
             <v-dialog v-model="dialogAccetta" max-width="500px">
               <v-card>
-                <v-card-title class="text-h5">Confermi di voler accettare la richiesta?</v-card-title>
+                <v-card-title class="text-h5"
+                  >Confermi di voler accettare la richiesta?</v-card-title
+                >
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue-darken-1" variant="text" @click="chiudi">Ho cambiato idea</v-btn>
-                  <v-btn color="blue-darken-1" variant="text" @click="conferma">Conferma</v-btn>
+                  <v-btn color="blue-darken-1" variant="text" @click="chiudi"
+                    >Ho cambiato idea</v-btn
+                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="conferma"
+                    >Conferma</v-btn
+                  >
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -127,6 +134,7 @@
               style="color: #e67e22"
               @click="accetta(item)"
             ></v-icon>
+          </template>
 
           <!-- Categoria -->
           <template v-slot:item.categoria="{ item }">
@@ -159,42 +167,42 @@ export default {
           key: "data",
           align: "start",
           sortable: true,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"},
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Ora",
           key: "ora",
           sortable: false,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Categoria",
           key: "categoria",
           sortable: true,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Durata (min)",
           key: "durata",
           sortable: true,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Accetta",
           key: "accetta",
           sortable: false,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "",
           key: "data-table-expand",
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
       ],
       headersAccettate: [
@@ -203,35 +211,35 @@ export default {
           key: "data",
           align: "start",
           sortable: true,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"},
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Ora",
           key: "ora",
           sortable: false,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Categoria",
           key: "categoria",
           sortable: true,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "Durata (min)",
           key: "durata",
           sortable: true,
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
         {
           title: "",
           key: "data-table-expand",
-          headerProps: {class: "px-1"},
-          cellProps: {class: "px-1"}
+          headerProps: { class: "px-1" },
+          cellProps: { class: "px-1" },
         },
       ],
     };
@@ -246,9 +254,13 @@ export default {
       try {
         let utente = JSON.parse(localStorage.getItem("utente"));
         const disponibili = await ServizioVolontario.trovaRichiesteDisponibili();
-        const accettate = await ServizioVolontario.trovaRichiesteAccettate(utente.id);
+        const accettate = await ServizioVolontario.trovaRichiesteAccettate(
+          utente.id,
+        );
 
-        this.richiesteDisponibili = Array(disponibili)[0].map(this.mappaRichieste);
+        this.richiesteDisponibili = Array(disponibili)[0].map(
+          this.mappaRichieste,
+        );
         this.richiesteAccettate = Array(accettate)[0].map(this.mappaRichieste);
       } catch (err) {
         console.error("Errore nel caricamento delle richieste:", err);
@@ -259,7 +271,10 @@ export default {
       return {
         id: richiesta._id,
         data: new Date(richiesta.data).toLocaleDateString(),
-        ora: new Date(richiesta.data).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+        ora: new Date(richiesta.data).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
         durata: richiesta.durata,
         categoria: richiesta.categoria,
         descrizione: richiesta.descrizione,
@@ -276,7 +291,7 @@ export default {
     async conferma() {
       try {
         const res = await ServizioVolontario.accettaRichiesta(
-            this.richiesteDisponibili[this.richiestaSelezionata].id,
+          this.richiesteDisponibili[this.richiestaSelezionata].id,
         );
         this.messaggio = res.message;
         this.ok = true;
@@ -303,7 +318,7 @@ export default {
         case "passaggio in macchina":
           return "passaggio-in-macchina";
       }
-    }
+    },
   },
   mounted() {
     this.caricaRichieste();
@@ -320,22 +335,22 @@ export default {
 }
 
 .aiuto-in-casa {
-  background-color: #E91E63;
+  background-color: #e91e63;
   color: white;
 }
 
 .aiuto-fuori-casa {
-  background-color: #9C27B0;
+  background-color: #9c27b0;
   color: white;
 }
 
 .compagnia {
-  background-color: #673AB7;
+  background-color: #673ab7;
   color: white;
 }
 
 .passaggio-in-macchina {
-  background-color: #3F51B5;
+  background-color: #3f51b5;
   color: white;
 }
 </style>
