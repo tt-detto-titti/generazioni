@@ -9,6 +9,7 @@ import NuovaRichiesta from "./views/NuovaRichiesta.vue";
 import ListaRichiesteVolontario from "./views/ListaRichiesteVolontario.vue";
 import NuovaOfferta from "./views/NuovaOfferta.vue";
 import ListaOfferte from "./views/ListaOfferte.vue";
+import NuovoFeedback from "./views/NuovoFeedback.vue";
 
 const routes = [
   {
@@ -51,7 +52,12 @@ const routes = [
   {
     path: "/offerte/add",
     name: "nuovaOfferta",
-    component: NuovaOfferta
+    component: NuovaOfferta,
+  },
+  {
+    path: "/feedback/add/",
+    name: "nuovoFeedback",
+    component: NuovoFeedback,
   },
   {
     path: "/offerte/gestione",

@@ -1,9 +1,9 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-        <h3>
-          Profilo di <strong>{{ utenteCorrente.nome + " " + utenteCorrente.cognome }}</strong>
-        </h3>
+      <h3>
+        Profilo di <strong>{{ utenteCorrente.nome + " " + utenteCorrente.cognome }}</strong>
+      </h3>
       <div class="profile-details">
         <p>
           <strong>Token: </strong>{{ utenteCorrente.accessToken }}

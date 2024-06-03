@@ -14,5 +14,6 @@ db.richiesta = require("./richiesta.model.js")(mongoose);
 db.offerta = require("./offerta.model.js")(mongoose);
 db.ruolo = require("./ruolo.model.js")(mongoose);
 db.utente = require("./utente.model.js")(mongoose);
+db.feedback = require("./feedback.model.js")(mongoose);
 
 module.exports = db;
