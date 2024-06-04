@@ -57,7 +57,8 @@ export default {
   methods: {
     async caricaRichieste() {
       try {
-        const res = await ServizioAnziano.trovaRichieste();
+        const utente = JSON.parse(localStorage.getItem("utente"));
+        const res = await ServizioAnziano.trovaRichieste(utente.id);
         this.richieste = Array(res)[0].map(this.mappaRichieste);
       } catch (err) {
         console.error("Errore nel caricamento delle richieste:", err);
