@@ -219,6 +219,23 @@ paths:
                   type: string
                   description: "Password dell'utente"
                   example: "pastaalpesto"
+  /feedback/add:
+    post:
+      summary: Crea un nuovo feedback
+      description: Permette a un volontario di creare un nuovo feedback.
+      security:
+        - BearerAuth: [ ]
+      responses:
+        201:
+          description: Il feedback è stato creato correttamente.
+        404:
+          description: L'utente specificato non è stato trovato.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Feedback"
 components:
   securitySchemes:
     BearerAuth:
@@ -339,3 +356,32 @@ components:
           type: string
         esigenze:
           type: string
+    Feedback:
+      title: Feedback
+      type: object
+      required:
+        - id_utente
+        - id_richiesta
+        - destinazione
+        - tipologia
+        - descrizione
+      properties:
+        id_utente:
+          type: string
+          description: "ID dell'utente"
+          example: "6653382801e34c3fd8142996"
+        id_richiesta:
+          type: string
+          description: "ID della richiesta di cui si dà un feedback"
+          example: "6653382801e34c3fd8"
+        destinazione:
+          type: string
+          description: "Tipo di utente a cui è destinato il feedback (volontario/anziano)"
+          example: "per anziano"
+        tipologia:
+          type: string
+          description: "Tipologia del feedback"
+          example: "segnalazione"
+        descrizione:
+          type: string
+          description: "Breve descrizione del feedback"
