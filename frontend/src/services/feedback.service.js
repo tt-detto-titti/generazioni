@@ -14,7 +14,7 @@ class ServizioFeedback {
   nuovoFeedback(feedback) {
     return http
       .post(
-        "/feedback/add/",
+        "/feedback/add/" + feedback.idRichiesta,
         {
           tipologia: feedback.tipologia,
           descrizione: feedback.descrizione,
