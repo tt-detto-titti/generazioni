@@ -76,8 +76,8 @@ const controllaMatch = async (offerta) => {
   }
 };
 
-const MatchMaker = {
+const MatchmakerService = {
   controllaMatch,
 };
 
-module.exports = MatchMaker;
+module.exports = MatchmakerService;

@@ -1,7 +1,7 @@
 const db = require("../models");
 const Offerta = db.offerta;
 const Utente = db.utente;
-const MatchMaker = require("../matchmaker/matchmaker.js");
+const MatchMaker = require("../services/matchmaker.service.js");
 
 // Crea e salva una nuova offerta d'aiuto
 exports.nuovaOfferta = async (req, res) => {
