@@ -1,83 +1,26 @@
-const db = require("../models");
+const db = require('../models');
 const Richiesta = db.richiesta;
 
-const controllaMatch = async (offerta) => {
+const controllaMatchOfferta = async (offerta) => {
   try {
-    const richieste = await Richiesta.find({
-      data: {
-        $gte: new Date(offerta.data.setHours(0, 0, 0, 0)),
-        $lt: new Date(offerta.data.setHours(23, 59, 59, 999)),
-      },
+    return await Richiesta.find({
       $expr: {
-        $lte: [
-          {
-            $add: [
-              { $multiply: [{ $hour: "$data" }, 60] },
-              { $minute: "$data" },
-            ],
-          },
-          {
-            $add: [
-              { $multiply: [{ $hour: offerta.data }, 60] },
-              { $minute: offerta.data },
-              offerta.durata,
-            ],
-          },
-        ],
+        $and: [
+          // La data e ora d'inizio della richiesta dev'essere dopo la data e ora d'inizio della disponibilità
+          { $gte: ['$data', new Date(offerta.data)] },
+          // La data e ora d'inizi della richiesta dev'essere prima la data e ora d'inizio della disponibilità + la durata
+          { $lte: ['$data', { $dateAdd: { startDate: offerta.data, unit: 'minute', amount: offerta.durata } }] }
+        ]
       },
-      // TODO capire perché non funziona la parte destra dell'AND
-      // $expr: {
-      //   $and: [
-      //     {
-      //       $lte: [
-      //         {
-      //           $add: [
-      //             { $multiply: [{ $hour: "$data" }, 60] },
-      //             { $minute: "$data" },
-      //           ],
-      //         },
-      //         {
-      //           $add: [
-      //             { $multiply: [{ $hour: offerta.data }, 60] },
-      //             { $minute: offerta.data },
-      //             offerta.durata,
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       $gte: [
-      //         {
-      //           $add: [
-      //             { $multiply: [{ $hour: "$data" }, 60] },
-      //             { $minute: "$data" },
-      //           ],
-      //         },
-      //         {
-      //           $add: [
-      //             { $multiply: [{ $hour: offerta.data }, 60] },
-      //             { $minute: offerta.data },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      stato: "in attesa",
+      stato: 'in attesa'
     });
-
-    if (richieste.length > 0) {
-      console.log("ho trovato delle richieste!");
-    }
-
-    return richieste;
   } catch (err) {
     console.error(err.message);
   }
 };
 
 const MatchmakerService = {
-  controllaMatch,
+  controllaMatchOfferta
 };
 
 module.exports = MatchmakerService;

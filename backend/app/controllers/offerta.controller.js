@@ -23,7 +23,7 @@ exports.nuovaOfferta = async (req, res) => {
     await offerta.save();
 
     // Controlla la presenza di match disponibili
-    const richieste = await ServizioMatchmaker.controllaMatch(offerta);
+    const richieste = await ServizioMatchmaker.controllaMatchOfferta(offerta);
     // Invia una email se è stato trovato un match
     if (richieste.length > 0) {
       ServizioEmail.inviaNotificaMatch(utente.email, richieste);
