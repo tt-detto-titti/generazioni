@@ -3,6 +3,13 @@ const Feedback = db.feedback;
 const Richiesta = db.richiesta;
 const Utente = db.utente;
 
+const yup = require('yup');
+
+const schemaFeedback = yup.object.shape({
+  tipologia: yup.string().required('È necessario inserire la tipologia!'),
+  descrizione: yup.string().required('È necessario inserire la descrizione!')
+})
+
 exports.nuovoFeedback = async (req, res) => {
   try {
     const richiesta = await Richiesta.findById(req.params.id_richiesta);
