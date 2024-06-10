@@ -35,6 +35,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
     "popper.js": "^1.16.1",
+    "supertest": "^7.0.0",
     "vee-validate": "^4.12.8",
     "vite": "^5.2.11",
     "vite-plugin-vuetify": "^2.0.3",
@@ -53,6 +54,8 @@
   "jest": {
     "verbose": true,
     "collectCoverage": true,
-    "setupFiles": ["<rootDir>/jest.setup.js"]
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
   }
 }
