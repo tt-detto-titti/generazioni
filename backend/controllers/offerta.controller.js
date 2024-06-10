@@ -2,6 +2,25 @@ const db = require("../models");
 const Offerta = db.offerta;
 const Utente = db.utente;
 
+const yup = require('yup');
+
+const schemaOfferta = yup.object.shape({
+  data: yup
+    .date()
+    .min(new Date(), "La data deve essere nel futuro.")
+    .required("È necessario inserire la data!"),
+  ora: yup.string().required("È necessario inserire l'ora!"),
+  durata: yup
+    .number()
+    .min(30, "La durata minima è di 30 minuti!")
+    .max(180, "La durata massima è di 180 minuti!")
+    .required("È necessario inserire la durata!"),
+  categorie: yup
+    .array()
+    .of(yup.string())
+    .min(1, "È necessario selezionare almeno una categoria!"),
+})
+
 // Crea e salva una nuova offerta d'aiuto
 exports.nuovaOfferta = async (req, res) => {
   try {
