@@ -1,5 +1,5 @@
 const config = require('../config/auth.config.js');
-const db = require('../models/index.js');
+const db = require('../models');
 const Utente = db.utente;
 
 // Usato per gestire i token di accesso
@@ -35,6 +35,11 @@ const schemaSignUp = yup.object().shape({
     .required('È necessario inserire la password!')
     .min(8, "La password dev'essere lunga almeno 8 caratteri.")
     .max(32, "La password dev'essere lunga al massimo 32 caratteri.")
+});
+
+const schemaLogin = yup.object().shape({
+  email: yup.string().required("È necessario inserire l'email!").email('Email non valida.'),
+  password: yup.string().required('È necessario inserire la password!')
 });
 
 exports.signup = async (req, res) => {
@@ -81,6 +86,11 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
+    await schemaLogin.validate({
+      email: req.body.email,
+      password: req.body.password
+    });
+
     const utente = await Utente.findOne({ email: req.body.email });
     if (!utente) {
       return res.status(404).send({ message: 'Utente non trovato!' });
@@ -110,6 +120,9 @@ exports.login = async (req, res) => {
       accessToken: token
     });
   } catch (err) {
+    if (err instanceof yup.ValidationError) {
+      return res.status(400).send({ message: err.message });
+    }
     res.status(500).send({ message: 'Impossibile effettuare il login: ' + err.message });
   }
 };
