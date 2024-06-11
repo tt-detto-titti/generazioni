@@ -21,7 +21,7 @@ describe('Test - (6) NuovaRichiesta', () => {
   test('Aggiunta di una nuova richiesta con i campi validi, l\'accessToken valido e disponendo del ruolo "anziano"', async () => {
     token = generaToken(ID_ANZIANO);
     const res = await request(app)
-      .post('/api/matchmaker/richieste/add')
+      .post('/apiv2/matchmaker/richieste/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -39,7 +39,7 @@ describe('Test - (6) NuovaRichiesta', () => {
   test('Aggiunta di una nuova richiesta con i campi validi, l\'accessToken valido e disponendo di un ruolo diverso da "anziano"', async () => {
     token = generaToken(ID_VOLONTARIO);
     const res = await request(app)
-      .post('/api/matchmaker/richieste/add')
+      .post('/apiv2/matchmaker/richieste/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -57,7 +57,7 @@ describe('Test - (6) NuovaRichiesta', () => {
   test('Aggiunta di una nuova richiesta con i campi validi a parte data che è vuoto, l\'accessToken valido e disponendo del ruolo "anziano"', async () => {
     token = generaToken(ID_ANZIANO);
     const res = await request(app)
-      .post('/api/matchmaker/richieste/add')
+      .post('/apiv2/matchmaker/richieste/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -74,7 +74,7 @@ describe('Test - (6) NuovaRichiesta', () => {
   test('Aggiunta di una nuova richiesta con i campi validi a parte durata che è vuoto, l\'accessToken valido e disponendo del ruolo "anziano"', async () => {
     token = generaToken(ID_ANZIANO);
     const res = await request(app)
-      .post('/api/matchmaker/richieste/add')
+      .post('/apiv2/matchmaker/richieste/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -91,7 +91,7 @@ describe('Test - (6) NuovaRichiesta', () => {
   test('Aggiunta di una nuova richiesta con i campi validi a parte descrizione che è vuoto, l\'accessToken valido e disponendo del ruolo "anziano"', async () => {
     token = generaToken(ID_ANZIANO);
     const res = await request(app)
-      .post('/api/matchmaker/richieste/add')
+      .post('/apiv2/matchmaker/richieste/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -108,7 +108,7 @@ describe('Test - (6) NuovaRichiesta', () => {
   test('Aggiunta di una nuova richiesta con i campi validi a parte categoria che è vuoto, l\'accessToken valido e disponendo del ruolo "anziano"', async () => {
     token = generaToken(ID_ANZIANO);
     const res = await request(app)
-      .post('/api/matchmaker/richieste/add')
+      .post('/apiv2/matchmaker/richieste/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -127,7 +127,7 @@ describe('Test - (13) VisualizzazioneRichieste', () => {
   test("Accettazione di una richiesta d'aiuto da parte di un volontario", async () => {
     token = generaToken(ID_VOLONTARIO);
     const res = await request(app)
-      .put(`/api/matchmaker/richieste/accetta/${ID_RICHIESTA_VALIDA}`)
+      .put(`/apiv2/matchmaker/richieste/accetta/${ID_RICHIESTA_VALIDA}`)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -139,7 +139,7 @@ describe('Test - (13) VisualizzazioneRichieste', () => {
   test('Utente non registrato come volontario prova ad accettare una richiesta', async () => {
     token = generaToken(ID_ANZIANO);
     const res = await request(app)
-      .put(`/api/matchmaker/richieste/accetta/${ID_RICHIESTA_VALIDA}`)
+      .put(`/apiv2/matchmaker/richieste/accetta/${ID_RICHIESTA_VALIDA}`)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -151,7 +151,7 @@ describe('Test - (13) VisualizzazioneRichieste', () => {
   test('Volontario accetta richiesta che non esiste', async () => {
     token = generaToken(ID_VOLONTARIO);
     const res = await request(app)
-      .put(`/api/matchmaker/richieste/accetta/${ID_RICHIESTA_NON_VALIDA}`)
+      .put(`/apiv2/matchmaker/richieste/accetta/${ID_RICHIESTA_NON_VALIDA}`)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)

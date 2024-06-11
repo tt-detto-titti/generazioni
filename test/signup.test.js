@@ -14,7 +14,7 @@ describe('Test Signup (1)', () => {
   // test case 3
   it('Registrazione di un nuovo utente con i campi validi', async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       .send({
         nome: 'Mario',
         cognome: 'Rossi',
@@ -35,7 +35,7 @@ describe('Test Signup (1)', () => {
   // test case 4
   it("Registrazione di un nuovo utente con i campi validi ma l'email già presente nel database" , async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       //registrazione primo utente con email mario.rossi@email.com
       .send({
         nome: generateRandomString(8),
@@ -69,7 +69,7 @@ describe('Test Signup (1)', () => {
   // test case 5
   it('Registrazione di un nuovo utente con i campi validi ma il codice fiscale già presente nel database', async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       .send({
         nome: generateRandomString(8),
         cognome: generateRandomString(8),
@@ -102,7 +102,7 @@ describe('Test Signup (1)', () => {
   // test case 6
   it('Registrazione di un nuovo utente con i campi validi ma il numero di telefono già presente nel database', async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       .send({
         nome: generateRandomString(8),
         cognome: generateRandomString(8),
@@ -135,7 +135,7 @@ describe('Test Signup (1)', () => {
   // test case 7
   it("Registrazione di un nuovo utente con i campi validi a parte l'email", async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       .send({
         nome: 'Mario',
         cognome: 'Rossi',
@@ -156,7 +156,7 @@ describe('Test Signup (1)', () => {
   //test case 8
   it('Registrazione di un nuovo utente con il campo nome vuoto e il resto dei campi validi', async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       .send({
         nome: '',
         cognome: 'Rossi',
@@ -177,7 +177,7 @@ describe('Test Signup (1)', () => {
   //test case 9
   it('Registrazione di un nuovo utente con il campo cognome vuoto e il resto dei campi validi', async () => {
     const response = await request(app)
-      .post('/api/auth/signup')
+      .post('/apiv2/auth/signup')
       .send({
         nome: 'Mario',
         cognome: '',

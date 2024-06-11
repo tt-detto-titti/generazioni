@@ -20,7 +20,7 @@ describe('Test - (11) Disponibilita', () => {
   test('Aggiunta di una nuova offerta d\'aiuto con i campi validi, l\'accessToken valido e disponendo del ruolo "volontario"', async () => {
     token = generaToken(ID_VOLONTARIO);
     const response = await request(app)
-      .post('/api/matchmaker/offerte/add')
+      .post('/apiv2/matchmaker/offerte/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -37,7 +37,7 @@ describe('Test - (11) Disponibilita', () => {
   test('Aggiunta di una nuova offerta d\'aiuto con i campi validi, l\'accessToken valido e disponendo di un ruolo diverso da "volontario"', async () => {
     token = generaToken(ID_ANZIANO);
     const response = await request(app)
-      .post('/api/matchmaker/offerte/add')
+      .post('/apiv2/matchmaker/offerte/add')
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -53,7 +53,7 @@ describe('Test - (11) Disponibilita', () => {
 test('Aggiunta di una nuova offerta d\'aiuto con i campi validi, l\'accessToken valido e disponendo del ruolo "volontario"', async () => {
   token = generaToken(ID_VOLONTARIO);
   const response = await request(app)
-    .post('/api/matchmaker/offerte/add')
+    .post('/apiv2/matchmaker/offerte/add')
     .set('x-access-token', token)
     .set('Accept', 'application/json')
     .send({

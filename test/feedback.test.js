@@ -22,7 +22,7 @@ describe('Test - (16) Feedback/Segnalazione', () => {
   test('Anziano segnala comportamento scorretto da parte di un volontario', async () => {
     token = generaToken(ID_ANZIANO);
     const response = await request(app)
-      .post('/api/feedback/add/' + ID_RICHIESTA_VALIDA)
+      .post('/apiv2/feedback/add/' + ID_RICHIESTA_VALIDA)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -38,7 +38,7 @@ describe('Test - (16) Feedback/Segnalazione', () => {
   test('Volontario segnala comportamento scorretto da parte di un anziano', async () => {
     token = generaToken(ID_VOLONTARIO);
     const response = await request(app)
-      .post('/api/feedback/add/' + ID_RICHIESTA_VALIDA)
+      .post('/apiv2/feedback/add/' + ID_RICHIESTA_VALIDA)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -54,7 +54,7 @@ describe('Test - (16) Feedback/Segnalazione', () => {
   test('Feedback da parte di un anziano dopo aver ricevuto aiuto da un volontario', async () => {
     token = generaToken(ID_ANZIANO);
     const response = await request(app)
-      .post('/api/feedback/add/' + ID_RICHIESTA_VALIDA)
+      .post('/apiv2/feedback/add/' + ID_RICHIESTA_VALIDA)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -70,7 +70,7 @@ describe('Test - (16) Feedback/Segnalazione', () => {
   test('Feedback da parte di un volontario dopo aver aiutato un anziano', async () => {
     token = generaToken(ID_VOLONTARIO);
     const response = await request(app)
-      .post('/api/feedback/add/' + ID_RICHIESTA_VALIDA)
+      .post('/apiv2/feedback/add/' + ID_RICHIESTA_VALIDA)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -86,7 +86,7 @@ describe('Test - (16) Feedback/Segnalazione', () => {
   test('Feedback da parte di un anziano ad una richiesta che non esiste', async () => {
     token = generaToken(ID_ANZIANO);
     const response = await request(app)
-      .post('/api/feedback/add/' + ID_RICHIESTA_NON_VALIDA)
+      .post('/apiv2/feedback/add/' + ID_RICHIESTA_NON_VALIDA)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
@@ -102,7 +102,7 @@ describe('Test - (16) Feedback/Segnalazione', () => {
   test('Feedback da parte di un volontario ad una richiesta che non esiste', async () => {
     token = generaToken(ID_VOLONTARIO);
     const response = await request(app)
-      .post('/api/feedback/add/' + ID_RICHIESTA_NON_VALIDA)
+      .post('/apiv2/feedback/add/' + ID_RICHIESTA_NON_VALIDA)
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
