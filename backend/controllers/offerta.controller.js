@@ -9,7 +9,6 @@ const schemaOfferta = yup.object().shape({
     .date()
     .min(new Date(), "La data deve essere nel futuro.")
     .required("È necessario inserire la data!"),
-  ora: yup.string().required("È necessario inserire l'ora!"),
   durata: yup
     .number()
     .min(30, "La durata minima è di 30 minuti!")
@@ -24,6 +23,12 @@ const schemaOfferta = yup.object().shape({
 // Crea e salva una nuova offerta d'aiuto
 exports.nuovaOfferta = async (req, res) => {
   try {
+    await schemaOfferta.validate({
+      data: req.body.data,
+      durata: req.body.durata,
+      categorie: req.body.categorie,
+    })
+
     const utente = await Utente.findById(req.id_utente);
     if (!utente) {
       res.status(404).send({ message: "Utente non trovato!" });
@@ -42,6 +47,9 @@ exports.nuovaOfferta = async (req, res) => {
       .status(201)
       .send({ message: "L'offerta di aiuto è stata salvata correttamente." });
   } catch (err) {
+    if (err instanceof yup.ValidationError) {
+      return res.status(400).send({ message: err.message });
+    }
     res
       .status(500)
       .send({ message: "Impossibile creare l'offerta di aiuto: " + err.message });
@@ -75,4 +83,6 @@ exports.trovaOfferteVolontario = async (req, res) => {
       .status(500)
       .send({ message: "Impossibile cercare le offerte d'aiuto: " + err.message });
   }
+
+
 };
