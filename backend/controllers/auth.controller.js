@@ -66,7 +66,6 @@ exports.signup = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 8)
     });
 
-    // TODO non permettere a chiunque di registrarsi come admin lol
     if (req.body.ruoli) {
       utente.ruoli = req.body.ruoli;
     } else {
