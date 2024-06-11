@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const db = {};
 mongoose.Promise = global.Promise;
@@ -9,11 +9,11 @@ db.name = process.env.MONGODB_NAME;
 db.user = process.env.MONGODB_USER;
 db.pass = process.env.MONGODB_PASS;
 
-db.categoria_aiuto = require("./categoria_aiuto.model.js")(mongoose);
-db.richiesta = require("./richiesta.model.js")(mongoose);
-db.offerta = require("./offerta.model.js")(mongoose);
-db.ruolo = require("./ruolo.model.js")(mongoose);
-db.utente = require("./utente.model.js")(mongoose);
-db.feedback = require("./feedback.model.js")(mongoose);
+db.categoria_aiuto = require('./categoria_aiuto.model.js')(mongoose);
+db.richiesta = require('./richiesta.model.js')(mongoose);
+db.offerta = require('./offerta.model.js')(mongoose);
+db.ruolo = require('./ruolo.model.js')(mongoose);
+db.utente = require('./utente.model.js')(mongoose);
+db.feedback = require('./feedback.model.js')(mongoose);
 
 module.exports = db;

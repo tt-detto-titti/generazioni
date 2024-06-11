@@ -4,11 +4,9 @@
       <div class="card card-container">
         <h3>🫰 Ecco cosa puoi fare!</h3>
         <p>
-          Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che sono
-          ancora <strong>in attesa</strong> di una risposta, se ne trovi una che
-          soddisfa le tue disponibilità non esitare ad accettarla!<br />
-          Cliccando sulle <strong>icone</strong> in fondo ad ogni riga puoi
-          <strong>accettare</strong> la richiesta o
+          Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che sono ancora <strong>in attesa</strong> di una
+          risposta, se ne trovi una che soddisfa le tue disponibilità non esitare ad accettarla!<br />
+          Cliccando sulle <strong>icone</strong> in fondo ad ogni riga puoi <strong>accettare</strong> la richiesta o
           <strong>visualizzarne i dettagli</strong>.
         </p>
         <div v-if="!ok">
@@ -34,20 +32,11 @@
             <template v-slot:top>
               <v-dialog v-model="dialogAccetta" max-width="500px">
                 <v-card>
-                  <v-card-title class="text-h5"
-                    >Confermi di voler accettare la richiesta?
-                  </v-card-title>
+                  <v-card-title class="text-h5">Confermi di voler accettare la richiesta? </v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue-darken-1" variant="text" @click="chiudi"
-                      >Ho cambiato idea
-                    </v-btn>
-                    <v-btn
-                      color="blue-darken-1"
-                      variant="text"
-                      @click="conferma"
-                      >Conferma
-                    </v-btn>
+                    <v-btn color="blue-darken-1" variant="text" @click="chiudi">Ho cambiato idea </v-btn>
+                    <v-btn color="blue-darken-1" variant="text" @click="conferma">Conferma </v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -63,20 +52,12 @@
 
             <!-- Pulsante per accettare -->
             <template v-slot:item.accetta="{ item }">
-              <v-icon
-                icon="fas fa-hand-holding-heart"
-                style="color: #e67e22"
-                @click="accetta(item)"
-              ></v-icon>
+              <v-icon icon="fas fa-hand-holding-heart" style="color: #e67e22" @click="accetta(item)"></v-icon>
             </template>
           </v-data-table>
         </div>
 
-        <div
-          v-if="messaggio"
-          class="alert"
-          :class="ok ? 'alert-success' : 'alert-danger'"
-        >
+        <div v-if="messaggio" class="alert" :class="ok ? 'alert-success' : 'alert-danger'">
           {{ messaggio }}
         </div>
       </div>
@@ -84,10 +65,7 @@
     <div class="col-md-5">
       <div class="card card-container">
         <h3>📋 Le tue richieste accettate</h3>
-        <p>
-          Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che hai
-          <strong>accettato</strong>.<br />
-        </p>
+        <p>Qui puoi vedere tutte le <strong>richieste d'aiuto</strong> che hai <strong>accettato</strong>.<br /></p>
         <v-data-table
           v-model:expanded="expanded"
           :items="richiesteAccettate"
@@ -110,17 +88,11 @@
           <template v-slot:top>
             <v-dialog v-model="dialogAccetta" max-width="500px">
               <v-card>
-                <v-card-title class="text-h5"
-                  >Confermi di voler accettare la richiesta?</v-card-title
-                >
+                <v-card-title class="text-h5">Confermi di voler accettare la richiesta?</v-card-title>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue-darken-1" variant="text" @click="chiudi"
-                    >Ho cambiato idea</v-btn
-                  >
-                  <v-btn color="blue-darken-1" variant="text" @click="conferma"
-                    >Conferma</v-btn
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="chiudi">Ho cambiato idea</v-btn>
+                  <v-btn color="blue-darken-1" variant="text" @click="conferma">Conferma</v-btn>
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -129,11 +101,7 @@
 
           <!-- Pulsante per accettare -->
           <template v-slot:item.accetta="{ item }">
-            <v-icon
-              icon="fas fa-hand-holding-heart"
-              style="color: #e67e22"
-              @click="accetta(item)"
-            ></v-icon>
+            <v-icon icon="fas fa-hand-holding-heart" style="color: #e67e22" @click="accetta(item)"></v-icon>
           </template>
 
           <!-- Categoria -->
@@ -149,209 +117,205 @@
 </template>
 
 <script>
-import ServizioVolontario from "../services/volontario.service";
+  import ServizioVolontario from '../services/volontario.service';
 
-export default {
-  data() {
-    return {
-      ok: false,
-      messaggio: "",
-      dialogAccetta: false,
-      richiestaSelezionata: -1,
-      expanded: [],
-      richiesteDisponibili: [],
-      richiesteAccettate: [],
-      headersDisponibili: [
-        {
-          title: "Data",
-          key: "data",
-          align: "start",
-          sortable: true,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Ora",
-          key: "ora",
-          sortable: false,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Categoria",
-          key: "categoria",
-          sortable: true,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Durata (min)",
-          key: "durata",
-          sortable: true,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Accetta",
-          key: "accetta",
-          sortable: false,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "",
-          key: "data-table-expand",
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-      ],
-      headersAccettate: [
-        {
-          title: "Data",
-          key: "data",
-          align: "start",
-          sortable: true,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Ora",
-          key: "ora",
-          sortable: false,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Categoria",
-          key: "categoria",
-          sortable: true,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "Durata (min)",
-          key: "durata",
-          sortable: true,
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-        {
-          title: "",
-          key: "data-table-expand",
-          headerProps: { class: "px-1" },
-          cellProps: { class: "px-1" },
-        },
-      ],
-    };
-  },
-  watch: {
-    dialogAccetta(val) {
-      val || this.chiudi();
-    },
-  },
-  methods: {
-    async caricaRichieste() {
-      try {
-        let utente = JSON.parse(localStorage.getItem("utente"));
-        const disponibili = await ServizioVolontario.trovaRichiesteDisponibili();
-        const accettate = await ServizioVolontario.trovaRichiesteAccettate(
-          utente.id,
-        );
-
-        this.richiesteDisponibili = Array(disponibili)[0].map(
-          this.mappaRichieste,
-        );
-        this.richiesteAccettate = Array(accettate)[0].map(this.mappaRichieste);
-      } catch (err) {
-        console.error("Errore nel caricamento delle richieste:", err);
-      }
-    },
-
-    mappaRichieste(richiesta) {
+  export default {
+    data() {
       return {
-        id: richiesta._id,
-        data: new Date(richiesta.data).toLocaleDateString(),
-        ora: new Date(richiesta.data).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-        durata: richiesta.durata,
-        categoria: richiesta.categoria,
-        descrizione: richiesta.descrizione,
+        ok: false,
+        messaggio: '',
+        dialogAccetta: false,
+        richiestaSelezionata: -1,
+        expanded: [],
+        richiesteDisponibili: [],
+        richiesteAccettate: [],
+        headersDisponibili: [
+          {
+            title: 'Data',
+            key: 'data',
+            align: 'start',
+            sortable: true,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Ora',
+            key: 'ora',
+            sortable: false,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Categoria',
+            key: 'categoria',
+            sortable: true,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Durata (min)',
+            key: 'durata',
+            sortable: true,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Accetta',
+            key: 'accetta',
+            sortable: false,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: '',
+            key: 'data-table-expand',
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          }
+        ],
+        headersAccettate: [
+          {
+            title: 'Data',
+            key: 'data',
+            align: 'start',
+            sortable: true,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Ora',
+            key: 'ora',
+            sortable: false,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Categoria',
+            key: 'categoria',
+            sortable: true,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: 'Durata (min)',
+            key: 'durata',
+            sortable: true,
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          },
+          {
+            title: '',
+            key: 'data-table-expand',
+            headerProps: { class: 'px-1' },
+            cellProps: { class: 'px-1' }
+          }
+        ]
       };
     },
-
-    chiudi() {
-      this.dialogAccetta = false;
-      this.$nextTick(() => {
-        this.richiestaSelezionata = -1;
-      });
-    },
-
-    async conferma() {
-      try {
-        const res = await ServizioVolontario.accettaRichiesta(
-          this.richiesteDisponibili[this.richiestaSelezionata].id,
-        );
-        this.messaggio = res.message;
-        this.ok = true;
-
-        this.chiudi();
-        await this.caricaRichieste();
-      } catch (err) {
-        console.error("Errore nella conferma della richiesta:", err);
+    watch: {
+      dialogAccetta(val) {
+        val || this.chiudi();
       }
     },
+    methods: {
+      async caricaRichieste() {
+        try {
+          let utente = JSON.parse(localStorage.getItem('utente'));
+          const disponibili = await ServizioVolontario.trovaRichiesteDisponibili();
+          const accettate = await ServizioVolontario.trovaRichiesteAccettate(utente.id);
 
-    accetta(richiesta) {
-      this.richiestaSelezionata = this.richiesteDisponibili.indexOf(richiesta);
-      this.dialogAccetta = true;
-    },
+          this.richiesteDisponibili = Array(disponibili)[0].map(this.mappaRichieste);
+          this.richiesteAccettate = Array(accettate)[0].map(this.mappaRichieste);
+        } catch (err) {
+          console.error('Errore nel caricamento delle richieste:', err);
+        }
+      },
 
-    getClasseCategoria(categoria) {
-      switch (categoria) {
-        case "aiuto in casa":
-          return "aiuto-in-casa";
-        case "aiuto fuori casa":
-          return "aiuto-fuori-casa";
-        case "compagnia":
-          return "compagnia";
-        case "passaggio in macchina":
-          return "passaggio-in-macchina";
+      mappaRichieste(richiesta) {
+        return {
+          id: richiesta._id,
+          data: new Date(richiesta.data).toLocaleDateString(),
+          ora: new Date(richiesta.data).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          }),
+          durata: richiesta.durata,
+          categoria: richiesta.categoria,
+          descrizione: richiesta.descrizione
+        };
+      },
+
+      chiudi() {
+        this.dialogAccetta = false;
+        this.$nextTick(() => {
+          this.richiestaSelezionata = -1;
+        });
+      },
+
+      async conferma() {
+        try {
+          const res = await ServizioVolontario.accettaRichiesta(
+            this.richiesteDisponibili[this.richiestaSelezionata].id
+          );
+          this.messaggio = res.message;
+          this.ok = true;
+
+          this.chiudi();
+          await this.caricaRichieste();
+        } catch (err) {
+          console.error('Errore nella conferma della richiesta:', err);
+        }
+      },
+
+      accetta(richiesta) {
+        this.richiestaSelezionata = this.richiesteDisponibili.indexOf(richiesta);
+        this.dialogAccetta = true;
+      },
+
+      getClasseCategoria(categoria) {
+        switch (categoria) {
+          case 'aiuto in casa':
+            return 'aiuto-in-casa';
+          case 'aiuto fuori casa':
+            return 'aiuto-fuori-casa';
+          case 'compagnia':
+            return 'compagnia';
+          case 'passaggio in macchina':
+            return 'passaggio-in-macchina';
+        }
       }
     },
-  },
-  mounted() {
-    this.caricaRichieste();
-  },
-};
+    mounted() {
+      this.caricaRichieste();
+    }
+  };
 </script>
 
 <style scoped>
-@import "../global.css";
+  @import '../global.css';
 
-.card-container.card {
-  max-width: 630px !important;
-  padding: 40px 40px;
-}
+  .card-container.card {
+    max-width: 630px !important;
+    padding: 40px 40px;
+  }
 
-.aiuto-in-casa {
-  background-color: #e91e63;
-  color: white;
-}
+  .aiuto-in-casa {
+    background-color: #e91e63;
+    color: white;
+  }
 
-.aiuto-fuori-casa {
-  background-color: #9c27b0;
-  color: white;
-}
+  .aiuto-fuori-casa {
+    background-color: #9c27b0;
+    color: white;
+  }
 
-.compagnia {
-  background-color: #673ab7;
-  color: white;
-}
+  .compagnia {
+    background-color: #673ab7;
+    color: white;
+  }
 
-.passaggio-in-macchina {
-  background-color: #3f51b5;
-  color: white;
-}
+  .passaggio-in-macchina {
+    background-color: #3f51b5;
+    color: white;
+  }
 </style>

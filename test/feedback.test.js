@@ -26,12 +26,12 @@ describe('Test - (16) Feedback/Segnalazione', () => {
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
-        tipologia: "segnalazione",
-        descrizione: "Il volontario ha rubato a casa mia"
+        tipologia: 'segnalazione',
+        descrizione: 'Il volontario ha rubato a casa mia'
       })
       .expect('Content-Type', /json/)
       .expect(201);
-    expect(response.body.message).toBe("Feedback salvato con successo.");
+    expect(response.body.message).toBe('Feedback salvato con successo.');
   }, 10000);
 
   // Test Case 23
@@ -42,12 +42,12 @@ describe('Test - (16) Feedback/Segnalazione', () => {
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
-        tipologia: "segnalazione",
-        descrizione: "Sono stato truffato"
+        tipologia: 'segnalazione',
+        descrizione: 'Sono stato truffato'
       })
       .expect('Content-Type', /json/)
       .expect(201);
-    expect(response.body.message).toBe("Feedback salvato con successo.");
+    expect(response.body.message).toBe('Feedback salvato con successo.');
   }, 10000);
 
   // Test Case 24
@@ -58,12 +58,12 @@ describe('Test - (16) Feedback/Segnalazione', () => {
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
-        tipologia: "feedback",
-        descrizione: "Tutto bene"
+        tipologia: 'feedback',
+        descrizione: 'Tutto bene'
       })
       .expect('Content-Type', /json/)
       .expect(201);
-    expect(response.body.message).toBe("Feedback salvato con successo.");
+    expect(response.body.message).toBe('Feedback salvato con successo.');
   }, 10000);
 
   // Test Case 25
@@ -74,12 +74,12 @@ describe('Test - (16) Feedback/Segnalazione', () => {
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
-        tipologia: "feedback",
-        descrizione: "Tutto bene"
+        tipologia: 'feedback',
+        descrizione: 'Tutto bene'
       })
       .expect('Content-Type', /json/)
       .expect(201);
-    expect(response.body.message).toBe("Feedback salvato con successo.");
+    expect(response.body.message).toBe('Feedback salvato con successo.');
   }, 10000);
 
   // Test Case 26
@@ -90,12 +90,12 @@ describe('Test - (16) Feedback/Segnalazione', () => {
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
-        tipologia: "feedback",
-        descrizione: "Tutto bene"
+        tipologia: 'feedback',
+        descrizione: 'Tutto bene'
       })
       .expect('Content-Type', /json/)
       .expect(404);
-    expect(response.body.message).toBe("Richiesta non trovata!");
+    expect(response.body.message).toBe('Richiesta non trovata!');
   }, 10000);
 
   // Test Case 27
@@ -106,12 +106,11 @@ describe('Test - (16) Feedback/Segnalazione', () => {
       .set('x-access-token', token)
       .set('Accept', 'application/json')
       .send({
-        tipologia: "feedback",
-        descrizione: "Tutto bene"
+        tipologia: 'feedback',
+        descrizione: 'Tutto bene'
       })
       .expect('Content-Type', /json/)
       .expect(404);
-    expect(response.body.message).toBe("Richiesta non trovata!");
+    expect(response.body.message).toBe('Richiesta non trovata!');
   }, 10000);
-
 });

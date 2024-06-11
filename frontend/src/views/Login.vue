@@ -21,24 +21,13 @@
             <!-- Password -->
             <div class="form-group">
               <label for="password">Password</label>
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                class="form-control"
-              />
+              <Field id="password" name="password" type="password" class="form-control" />
               <ErrorMessage name="password" class="error-feedback" />
             </div>
 
             <div class="form-group">
-              <button
-                class="btn btn-block btn-arancione"
-                :disabled="caricamento"
-              >
-                <span
-                  v-show="caricamento"
-                  class="spinner-border spinner-border-sm"
-                ></span>
+              <button class="btn btn-block btn-arancione" :disabled="caricamento">
+                <span v-show="caricamento" class="spinner-border spinner-border-sm"></span>
                 <span v-show="!caricamento">Entra</span>
               </button>
             </div>
@@ -51,8 +40,7 @@
           </Form>
 
           <div class="links">
-            <router-link to="/signup"
-              >Non hai un account? Registrati</router-link>
+            <router-link to="/signup">Non hai un account? Registrati</router-link>
           </div>
         </div>
         <div class="col-5 d-flex align-items-center">
@@ -64,73 +52,71 @@
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from "vee-validate";
-import * as yup from "yup";
+  import { Form, Field, ErrorMessage } from 'vee-validate';
+  import * as yup from 'yup';
 
-export default {
-  name: "Login",
-  components: {
-    Form,
-    Field,
-    ErrorMessage,
-  },
-  data() {
-    // Schema di validazione
-    const schema = yup.object().shape({
-      email: yup.string().required("È necessario inserire l'email!"),
-      password: yup.string().required("È necessario inserire la password!"),
-    });
-
-    return {
-      caricamento: false,
-      messaggio: "",
-      schema,
-    };
-  },
-  computed: {
-    loggato() {
-      return this.$store.state.auth.loggato;
+  export default {
+    name: 'Login',
+    components: {
+      Form,
+      Field,
+      ErrorMessage
     },
-  },
-  mounted() {
-    // Se l'utente è già loggato rimanda alla pagina personale
-    if (this.loggato) {
-      this.$router.push("/profilo");
+    data() {
+      // Schema di validazione
+      const schema = yup.object().shape({
+        email: yup.string().required("È necessario inserire l'email!"),
+        password: yup.string().required('È necessario inserire la password!')
+      });
+
+      return {
+        caricamento: false,
+        messaggio: '',
+        schema
+      };
+    },
+    computed: {
+      loggato() {
+        return this.$store.state.auth.loggato;
+      }
+    },
+    mounted() {
+      // Se l'utente è già loggato rimanda alla pagina personale
+      if (this.loggato) {
+        this.$router.push('/profilo');
+      }
+    },
+    methods: {
+      loginHandler(utente) {
+        this.caricamento = true;
+
+        this.$store.dispatch('auth/login', utente).then(
+          () => {
+            // Reindirizza alla pagina personale
+            this.$router.push('/profilo');
+          },
+          (err) => {
+            this.caricamento = false;
+            this.messaggio =
+              (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+          }
+        );
+      }
     }
-  },
-  methods: {
-    loginHandler(utente) {
-      this.caricamento = true;
-
-      this.$store.dispatch("auth/login", utente).then(
-        () => {
-          // Reindirizza alla pagina personale
-          this.$router.push("/profilo");
-        },
-        (err) => {
-          this.caricamento = false;
-          this.messaggio =
-            (err.response && err.response.data && err.response.data.message) ||
-            err.message ||
-            err.toString();
-        },
-      );
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-@import "../global.css";
+  @import '../global.css';
 
-.card-container.card {
-  max-width: 700px !important;
-}
+  .card-container.card {
+    max-width: 700px !important;
+  }
 
-.login-img {
-  width: 250px;
-  height: 250px;
-  margin: 0 auto 10px;
-  display: block;
-}
+  .login-img {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 10px;
+    display: block;
+  }
 </style>

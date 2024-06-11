@@ -1,17 +1,17 @@
-import http from "./http-common.js";
+import http from './http-common.js';
 
 // Servizio che dialoga con le API di autenticazione
 class ServizioAuth {
   login(utente) {
     return http
-      .post("/auth/login", {
+      .post('/auth/login', {
         email: utente.email,
-        password: utente.password,
+        password: utente.password
       })
       .then((res) => {
         // Se è stato restituito un token lo aggiungo al local storage
         if (res.data.accessToken) {
-          localStorage.setItem("utente", JSON.stringify(res.data));
+          localStorage.setItem('utente', JSON.stringify(res.data));
         }
 
         return res.data;
@@ -19,11 +19,11 @@ class ServizioAuth {
   }
 
   logout() {
-    localStorage.removeItem("utente");
+    localStorage.removeItem('utente');
   }
 
   signup(utente) {
-    return http.post("/auth/signup", {
+    return http.post('/auth/signup', {
       nome: utente.nome,
       cognome: utente.cognome,
       cf: utente.cf,
@@ -32,7 +32,7 @@ class ServizioAuth {
       telefono: utente.telefono,
       email: utente.email,
       password: utente.password,
-      ruoli: utente.ruoli,
+      ruoli: utente.ruoli
     });
   }
 }

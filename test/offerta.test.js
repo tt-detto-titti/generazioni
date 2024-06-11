@@ -49,20 +49,19 @@ describe('Test - (11) Disponibilita', () => {
     expect(response.body.message).toBe('Richiede il ruolo di volontario!');
   }, 10000);
 
-//test case 21
-test('Aggiunta di una nuova offerta d\'aiuto con i campi validi, l\'accessToken valido e disponendo del ruolo "volontario"', async () => {
-  token = generaToken(ID_VOLONTARIO);
-  const response = await request(app)
-    .post('/apiv2/matchmaker/offerte/add')
-    .set('x-access-token', token)
-    .set('Accept', 'application/json')
-    .send({
-      durata: 180,
-      categoria: ['aiuto in casa', 'aiuto fuori casa', 'compagnia']
-    })
-    .expect('Content-Type', /json/)
-    .expect(400);
-  expect(response.body.message).toBe("È necessario inserire la data!");
-}, 10000);
-
+  //test case 21
+  test('Aggiunta di una nuova offerta d\'aiuto con i campi validi, l\'accessToken valido e disponendo del ruolo "volontario"', async () => {
+    token = generaToken(ID_VOLONTARIO);
+    const response = await request(app)
+      .post('/apiv2/matchmaker/offerte/add')
+      .set('x-access-token', token)
+      .set('Accept', 'application/json')
+      .send({
+        durata: 180,
+        categoria: ['aiuto in casa', 'aiuto fuori casa', 'compagnia']
+      })
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(response.body.message).toBe('È necessario inserire la data!');
+  }, 10000);
 });

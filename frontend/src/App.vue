@@ -15,7 +15,7 @@
         <li v-if="mostraListaRichiesteAnziano" class="nav-item">
           <router-link to="/richieste/tutte" class="nav-link">
             <font-awesome-icon icon="list" />
-            Richieste
+            Gestione Richieste
           </router-link>
         </li>
         <li v-if="mostraListaRichiesteVolontario" class="nav-item">
@@ -88,49 +88,45 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    utenteCorrente() {
-      return this.$store.state.auth.utente;
+  export default {
+    computed: {
+      utenteCorrente() {
+        return this.$store.state.auth.utente;
+      },
+      isAnziano() {
+        return this.utenteCorrente && this.utenteCorrente.ruoli.includes('anziano');
+      },
+      isVolontario() {
+        return this.utenteCorrente && this.utenteCorrente.ruoli.includes('volontario');
+      },
+      mostraListaRichiesteAnziano() {
+        return this.isAnziano;
+      },
+      mostraNuovaRichiesta() {
+        return this.isAnziano;
+      },
+      mostraListaRichiesteVolontario() {
+        return this.isVolontario;
+      },
+      mostraNuovaOfferta() {
+        return this.isVolontario;
+      },
+      mostraNuovoFeedback() {
+        return this.isVolontario || this.isAnziano;
+      },
+      mostraListaOfferteVolontario() {
+        return this.isVolontario;
+      }
     },
-    isAnziano() {
-      return (
-        this.utenteCorrente && this.utenteCorrente.ruoli.includes("anziano")
-      );
-    },
-    isVolontario() {
-      return (
-        this.utenteCorrente && this.utenteCorrente.ruoli.includes("volontario")
-      );
-    },
-    mostraListaRichiesteAnziano() {
-      return this.isAnziano;
-    },
-    mostraNuovaRichiesta() {
-      return this.isAnziano;
-    },
-    mostraListaRichiesteVolontario() {
-      return this.isVolontario;
-    },
-    mostraNuovaOfferta() {
-      return this.isVolontario;
-    },
-    mostraNuovoFeedback() {
-      return this.isVolontario || this.isAnziano;
-    },
-    mostraListaOfferteVolontario() {
-      return this.isVolontario;
+    methods: {
+      logOut() {
+        this.$store.dispatch('auth/logout');
+        this.$router.push('/login');
+      }
     }
-  },
-  methods: {
-    logOut() {
-      this.$store.dispatch("auth/logout");
-      this.$router.push("/login");
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-@import "./global.css";
+  @import './global.css';
 </style>

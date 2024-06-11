@@ -22,7 +22,7 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: 'Via Trento 1, Roma RM 00133',
         telefono: generateRandomString(10),
-        email: generateRandomString(20)+'@email.com',
+        email: generateRandomString(20) + '@email.com',
         password: generateRandomString(8),
         ruoli: ['anziano']
       })
@@ -33,7 +33,7 @@ describe('Test Signup (1)', () => {
   });
 
   // test case 4
-  it("Registrazione di un nuovo utente con i campi validi ma l'email già presente nel database" , async () => {
+  it("Registrazione di un nuovo utente con i campi validi ma l'email già presente nel database", async () => {
     const response = await request(app)
       .post('/apiv2/auth/signup')
       //registrazione primo utente con email mario.rossi@email.com
@@ -77,7 +77,7 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: generateRandomString(18),
         telefono: generateRandomString(10),
-        email: generateRandomString(20)+'@email.com',
+        email: generateRandomString(20) + '@email.com',
         password: generateRandomString(8),
         ruoli: ['anziano']
       })
@@ -89,7 +89,7 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: 'Via Trento 1, Roma RM 00133',
         telefono: generateRandomString(10),
-        email: generateRandomString(20)+'@email.com',
+        email: generateRandomString(20) + '@email.com',
         password: 'pastaalpesto',
         ruoli: ['volontario']
       })
@@ -110,7 +110,7 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: generateRandomString(18),
         telefono: '3351234567',
-        email: generateRandomString(20)+'@email.com',
+        email: generateRandomString(20) + '@email.com',
         password: generateRandomString(8),
         ruoli: ['anziano']
       })
@@ -122,7 +122,7 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: 'Via Trento 1, Roma RM 00133',
         telefono: '3351234567',
-        email: generateRandomString(20)+'@email.com',
+        email: generateRandomString(20) + '@email.com',
         password: 'pastaalpesto',
         ruoli: ['anziano']
       })
@@ -150,7 +150,7 @@ describe('Test Signup (1)', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400);
-    expect(response.body.message).toBe("Email non valida.");
+    expect(response.body.message).toBe('Email non valida.');
   });
 
   //test case 8
@@ -164,14 +164,14 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: 'Via Trento 1, Roma RM 00133',
         telefono: generateRandomString(10),
-        email: generateRandomString(10)+'@email.com',
+        email: generateRandomString(10) + '@email.com',
         password: 'pastaalpesto',
         ruoli: ['anziano']
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400);
-    expect(response.body.message).toBe("È necessario inserire il nome!");
+    expect(response.body.message).toBe('È necessario inserire il nome!');
   });
 
   //test case 9
@@ -185,15 +185,13 @@ describe('Test Signup (1)', () => {
         dataNascita: '1960-01-01T12:00:00Z',
         residenza: 'Via Trento 1, Roma RM 00133',
         telefono: generateRandomString(10),
-        email: generateRandomString(20)+'@email.com',
+        email: generateRandomString(20) + '@email.com',
         password: 'pastaalpesto',
         ruoli: ['anziano']
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400);
-    expect(response.body.message).toBe("È necessario inserire il cognome!");
+    expect(response.body.message).toBe('È necessario inserire il cognome!');
   });
-
-
 });

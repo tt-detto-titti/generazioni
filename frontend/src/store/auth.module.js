@@ -1,9 +1,7 @@
-import ServizioAuth from "../services/auth.service.js";
+import ServizioAuth from '../services/auth.service.js';
 
-const utente = JSON.parse(localStorage.getItem("utente"));
-const statoIniziale = utente
-  ? { loggato: true, utente }
-  : { loggato: false, utente: null };
+const utente = JSON.parse(localStorage.getItem('utente'));
+const statoIniziale = utente ? { loggato: true, utente } : { loggato: false, utente: null };
 
 export const auth = {
   namespaced: true,
@@ -12,31 +10,31 @@ export const auth = {
     login({ commit }, utente) {
       return ServizioAuth.login(utente).then(
         (utente) => {
-          commit("loginSuccess", utente);
+          commit('loginSuccess', utente);
           return Promise.resolve(utente);
         },
         (err) => {
-          commit("loginFailure");
+          commit('loginFailure');
           return Promise.reject(err);
-        },
+        }
       );
     },
     logout({ commit }) {
       ServizioAuth.logout();
-      commit("logout");
+      commit('logout');
     },
     signup({ commit }, utente) {
       return ServizioAuth.signup(utente).then(
         (res) => {
-          commit("signupSuccess");
+          commit('signupSuccess');
           return Promise.resolve(res.data);
         },
         (err) => {
-          commit("signupFailure");
+          commit('signupFailure');
           return Promise.reject(err);
-        },
+        }
       );
-    },
+    }
   },
   mutations: {
     loginSuccess(stato, utente) {
@@ -56,6 +54,6 @@ export const auth = {
     },
     signupFailure(stato) {
       stato.loggato = false;
-    },
-  },
+    }
+  }
 };

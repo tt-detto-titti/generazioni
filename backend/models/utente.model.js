@@ -1,6 +1,6 @@
 module.exports = (mongoose) => {
   return mongoose.model(
-    "Utente",
+    'Utente',
     mongoose.Schema(
       {
         nome: { type: String, required: true },
@@ -13,19 +13,19 @@ module.exports = (mongoose) => {
         password: { type: String, required: true },
         anziano: {
           bio: { type: String, required: false },
-          esigenze: { type: String, required: false },
+          esigenze: { type: String, required: false }
         },
         ruoli: [
           {
             type: String,
-            ref: "Ruolo",
-            required: true,
-          },
-        ],
+            ref: 'Ruolo',
+            required: true
+          }
+        ]
       },
       {
-        collection: "utenti",
-      },
-    ),
+        collection: 'utenti'
+      }
+    )
   );
 };

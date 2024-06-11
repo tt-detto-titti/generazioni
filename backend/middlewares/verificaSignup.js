@@ -1,5 +1,5 @@
-const config = require("../config/auth.config.js");
-const db = require("../models");
+const config = require('../config/auth.config.js');
+const db = require('../models');
 const Utente = db.utente;
 
 const RUOLI = config.ruoli;
@@ -24,9 +24,7 @@ const controllaCFDoppio = async (req, res, next) => {
   try {
     const utente = await Utente.findOne({ cf: req.body.cf });
     if (utente) {
-      res
-        .status(400)
-        .send({ message: "Il codice fiscale è gia presente nel database!" });
+      res.status(400).send({ message: 'Il codice fiscale è gia presente nel database!' });
       return;
     }
 
@@ -41,11 +39,9 @@ const controllaTelefonoDoppio = async (req, res, next) => {
   try {
     const utente = await Utente.findOne({ telefono: req.body.telefono });
     if (utente) {
-      res
-        .status(400)
-        .send({
-          message: "Il numero di telefono è gia presente nel database!",
-        });
+      res.status(400).send({
+        message: 'Il numero di telefono è gia presente nel database!'
+      });
       return;
     }
 
@@ -62,7 +58,7 @@ const controllaRuolo = (req, res, next) => {
     for (let i = 0; i < ruoli.length; i++) {
       if (!RUOLI.includes(ruoli[i])) {
         res.status(400).send({
-          message: `Il ruolo ${ruoli[i]} non esiste!`,
+          message: `Il ruolo ${ruoli[i]} non esiste!`
         });
         return;
       }
@@ -76,7 +72,7 @@ const verificaSignup = {
   controllaEmailDoppia,
   controllaCFDoppio,
   controllaTelefonoDoppio,
-  controllaRuolo,
+  controllaRuolo
 };
 
 module.exports = verificaSignup;

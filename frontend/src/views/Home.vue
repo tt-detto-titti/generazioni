@@ -16,23 +16,23 @@
 </template>
 
 <script>
-export default {
-  name: "Home",
-};
+  export default {
+    name: 'Home'
+  };
 </script>
 
 <style scoped>
-@import "../global.css";
+  @import '../global.css';
 
-.card-container.card {
-  max-width: 900px !important;
-  padding: 40px 40px;
-}
+  .card-container.card {
+    max-width: 900px !important;
+    padding: 40px 40px;
+  }
 
-.logo {
-  width: 250px;
-  height: 250px;
-  margin: 0 auto 10px;
-  display: block;
-}
+  .logo {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 10px;
+    display: block;
+  }
 </style>
