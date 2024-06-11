@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  version: "1.0"
-  title: "API GenerAzioni"
+  version: '2.0'
+  title: 'API GenerAzioni'
   description: API del progetto GenerAzioni del corso di Ingegneria del Software.
 servers:
-  - url: https://generazioni.onrender.com/api/
+  - url: https://generazioni.onrender.com/apiv2/
     description: Render.com
 paths:
   /matchmaker/richieste/add:
@@ -12,7 +12,7 @@ paths:
       summary: Crea una richiesta d'aiuto
       description: Permette a una persona anziana di creare una nuova richiesta d'aiuto.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       responses:
         201:
           description: La richiesta è stata creata correttamente.
@@ -24,13 +24,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Richiesta"
+              $ref: '#/components/schemas/Richiesta'
   /matchmaker/richieste/{id_anziano}:
     get:
       summary: Richieste d'aiuto
       description: Restituisce tutte le richieste d'aiuto fatte da una persona anziana specificata dall'ID.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       parameters:
         - in: path
           name: id_anziano
@@ -38,7 +38,7 @@ paths:
           schema:
             type: string
           description: ID della persona anziana
-          example: "6651f6c1b506e79c21632f90"
+          example: '6651f6c1b506e79c21632f90'
       responses:
         200:
           description: Richieste trovate con successo.
@@ -47,7 +47,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Richiesta"
+                  $ref: '#/components/schemas/Richiesta'
         500:
           description: Impossibile trovare le richieste.
   /matchmaker/richieste/disponibili:
@@ -55,7 +55,7 @@ paths:
       summary: Richieste disponibili
       description: Resituisce a un volontario tutte le richieste d'aiuto disponibili (future) non ancora accettate.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       responses:
         200:
           description: Richieste trovate con successo.
@@ -64,13 +64,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Richiesta"
+                  $ref: '#/components/schemas/Richiesta'
   /matchmaker/richieste/accetta/{id_richiesta}:
     put:
       summary: Accetta una richiesta d'aiuto
       description: Permette a un volontario di accettare una richiesta d'aiuto.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       parameters:
         - in: path
           name: id_richiesta
@@ -78,7 +78,7 @@ paths:
           schema:
             type: string
           description: ID della richiesta che si vuole accettare
-          example: "66536c68e151ca5dd70799f7"
+          example: '66536c68e151ca5dd70799f7'
       responses:
         200:
           description: La richiesta è stata accettata correttamente.
@@ -91,7 +91,7 @@ paths:
       summary: Richieste accettate
       description: Restituisce tutte le richieste d'aiuto accettate da un volontario.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       parameters:
         - in: path
           name: id_volontario
@@ -99,7 +99,7 @@ paths:
           schema:
             type: string
           description: ID del volontario
-          example: "6653382801e34c3fd8142996"
+          example: '6653382801e34c3fd8142996'
       responses:
         200:
           description: Richieste trovate con successo.
@@ -108,7 +108,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Richiesta"
+                  $ref: '#/components/schemas/Richiesta'
         500:
           description: Impossibile trovare le richieste.
   /matchmaker/offerte/add:
@@ -116,7 +116,7 @@ paths:
       summary: Crea un'offerta di aiuto
       description: Permette a un volontario di creare una nuova offerta di aiuto.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       responses:
         201:
           description: L'offerta di aiuto è stata salvata correttamente.
@@ -128,13 +128,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Offerta"
+              $ref: '#/components/schemas/Offerta'
   /matchmaker/offerte/{id_volontario}:
     get:
       summary: Offerte di aiuto
       description: Restituisce tutte le offerte di aiuto fatte da un volontario.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
       parameters:
         - in: path
           name: id_volontario
@@ -142,7 +142,7 @@ paths:
           schema:
             type: string
           description: ID del volontario
-          example: "6653382801e34c3fd8142996"
+          example: '6653382801e34c3fd8142996'
       responses:
         200:
           description: New response
@@ -151,7 +151,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Offerta"
+                  $ref: '#/components/schemas/Offerta'
   /auth/signup:
     post:
       summary: SignUp
@@ -165,7 +165,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Utente"
+              $ref: '#/components/schemas/Utente'
   /auth/login:
     post:
       summary: Login
@@ -199,7 +199,7 @@ paths:
                     description: "ID dell'utente"
                   accessToken:
                     type: string
-                    description: "Token di autenticazione"
+                    description: 'Token di autenticazione'
         500:
           description: Impossibile effettuare il login.
       requestBody:
@@ -214,34 +214,42 @@ paths:
                 email:
                   type: string
                   description: "Indirizzo email dell'utente"
-                  example: "giovanni.rana@email.it"
+                  example: 'giovanni.rana@email.it'
                 password:
                   type: string
                   description: "Password dell'utente"
-                  example: "pastaalpesto"
-  /feedback/add:
+                  example: 'pastaalpesto'
+  /feedback/add/{id_richiesta}:
     post:
       summary: Crea un nuovo feedback
       description: Permette a un volontario di creare un nuovo feedback.
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id_richiesta
+          required: true
+          schema:
+            type: string
+          description: ID della richiesta per la quale si vuole fare un feedback
       responses:
         201:
           description: Il feedback è stato creato correttamente.
         404:
           description: L'utente specificato non è stato trovato.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Feedback"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Feedback'
 components:
   securitySchemes:
     BearerAuth:
-      type: "http"
-      scheme: "bearer"
-      bearerFormat: "JWT"
+      type: 'http'
+      scheme: 'bearer'
+      bearerFormat: 'JWT'
   schemas:
     Richiesta:
       type: object
@@ -265,9 +273,9 @@ components:
           example: "Ho bisogno d'aiuto per andare a fare la spesa"
         categoria:
           type: string
-          enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
-          description: "Categoria della richiesta"
-          example: "aiuto fuori casa"
+          enum: ['aiuto in casa', 'aiuto fuori casa', 'compagnia', 'passaggio in macchina']
+          description: 'Categoria della richiesta'
+          example: 'aiuto fuori casa'
     Offerta:
       type: object
       required:
@@ -278,18 +286,18 @@ components:
         data:
           type: string
           format: date-time
-          description: "Data e ora per cui viene effettuata la disponibilità"
+          description: 'Data e ora per cui viene effettuata la disponibilità'
         durata:
           type: integer
-          description: "Durata in minuti stimata per la disponibilità"
+          description: 'Durata in minuti stimata per la disponibilità'
           example: 180
         categoria:
           type: array
           items:
             type: string
-            enum: [ "aiuto in casa", "aiuto fuori casa", "compagnia", "passaggio in macchina" ]
-          description: "Compiti che il volontario può/vuole svolgere"
-          example: "aiuto fuori casa"
+            enum: ['aiuto in casa', 'aiuto fuori casa', 'compagnia', 'passaggio in macchina']
+          description: 'Compiti che il volontario può/vuole svolgere'
+          example: 'aiuto fuori casa'
     Utente:
       title: Utente
       type: object
@@ -307,32 +315,32 @@ components:
         nome:
           type: string
           description: "Nome dell'utente"
-          example: "Mario"
+          example: 'Mario'
         cognome:
           type: string
           description: "Cognome dell'utente"
-          example: "Rossi"
+          example: 'Rossi'
         cf:
           type: string
           description: "Codice fiscale dell'utente"
-          example: "RSSMRA60A01H501Q"
+          example: 'RSSMRA60A01H501Q'
         dataNascita:
           type: string
           format: date-time
           description: "Data di nascita dell'utente"
-          example: "1960-01-01"
+          example: '1960-01-01'
         residenza:
           type: string
           description: "Indirizzo di residenza dell'utente"
-          example: "Via Trento 1, Roma RM"
+          example: 'Via Trento 1, Roma RM'
         telefono:
           type: string
           description: "Numero di telefono dell'utente"
-          example: "335 1234567"
+          example: '335 1234567'
         email:
           type: string
           description: "Indirizzo email dell'utente"
-          example: "mario.rossi@gmail.com"
+          example: 'mario.rossi@gmail.com'
         password:
           type: string
           description: "Password dell'utente"
@@ -340,14 +348,14 @@ components:
           type: array
           items:
             type: string
-            enum: [ anziano, volontario, supervisore, admin ]
+            enum: [anziano, volontario, supervisore, admin]
           description: "Ruolo dell'utente"
-          example: [ "anziano" ]
+          example: ['anziano']
         anziano:
           type: array
           items:
-            $ref: "#/components/schemas/Anziano"
-          description: "Campi specifici per utente Anziano"
+            $ref: '#/components/schemas/Anziano'
+          description: 'Campi specifici per utente Anziano'
     Anziano:
       title: Anziano
       type: object
@@ -369,19 +377,19 @@ components:
         id_utente:
           type: string
           description: "ID dell'utente"
-          example: "6653382801e34c3fd8142996"
+          example: '6653382801e34c3fd8142996'
         id_richiesta:
           type: string
-          description: "ID della richiesta di cui si dà un feedback"
-          example: "6653382801e34c3fd8"
+          description: 'ID della richiesta di cui si dà un feedback'
+          example: '6653382801e34c3fd8'
         destinazione:
           type: string
-          description: "Tipo di utente a cui è destinato il feedback (volontario/anziano)"
-          example: "per anziano"
+          description: 'Tipo di utente a cui è destinato il feedback (volontario/anziano)'
+          example: 'per anziano'
         tipologia:
           type: string
-          description: "Tipologia del feedback"
-          example: "segnalazione"
+          description: 'Tipologia del feedback'
+          example: 'segnalazione'
         descrizione:
           type: string
-          description: "Breve descrizione del feedback"
+          description: 'Breve descrizione del feedback'

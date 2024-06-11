@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'API GenerAzioni'
+  description: API del progetto GenerAzioni del corso di Ingegneria del Software.
+servers:
+  - url: https://generazioni.onrender.com/api/
+    description: Render.com
+paths:
+  /matchmaker/richieste/add:
+    post:
+      summary: Crea una richiesta d'aiuto
+      description: Permette a una persona anziana di creare una nuova richiesta d'aiuto.
+      security:
+        - BearerAuth: []
+      responses:
+        201:
+          description: La richiesta è stata creata correttamente.
+        404:
+          description: L'utente specificato non è stato trovato.
+        500:
+          description: Impossibile creare la richiesta.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Richiesta'
+  /auth/signup:
+    post:
+      summary: SignUp
+      description: Permette a un nuovo utente di registrarsi al sito.
+      responses:
+        201:
+          description: L'utente è stato creato correttamente.
+        500:
+          description: Impossibile creare l'utente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Utente'
+  /auth/login:
+    post:
+      summary: Login
+      description: Permette a un utente esistente di accedere al sito.
+      responses:
+        404:
+          description: L'utente non è stato trovato.
+        401:
+          description: La password non è valida.
+        200:
+          description: Login effettuato con successo.
+          content:
+            text/json:
+              schema:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                    description: "Nome dell'utente"
+                  cognome:
+                    type: string
+                    description: "Cognome dell'utente"
+                  email:
+                    type: string
+                    description: "Indirizzo email dell'utente"
+                  ruoli:
+                    type: string
+                    description: "Ruoli dell'utente"
+                  _id:
+                    type: string
+                    description: "ID dell'utente"
+                  accessToken:
+                    type: string
+                    description: 'Token di autenticazione'
+        500:
+          description: Impossibile effettuare il login.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: "Indirizzo email dell'utente"
+                  example: 'giovanni.rana@email.it'
+                password:
+                  type: string
+                  description: "Password dell'utente"
+                  example: 'pastaalpesto'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: 'http'
+      scheme: 'bearer'
+      bearerFormat: 'JWT'
+  schemas:
+    Richiesta:
+      type: object
+      required:
+        - data
+        - durata
+        - descrizione
+        - categoria
+      properties:
+        data:
+          type: string
+          format: date-time
+          description: "Data e ora per cui viene effettuata la richiesta d'aiuto"
+        durata:
+          type: integer
+          description: "Durata in minuti stimata per la prestazione d'aiuto"
+          example: 90
+        descrizione:
+          type: string
+          description: "Breve descrizione della richiesta d'aiuto fornita dalla persona anziana"
+          example: "Ho bisogno d'aiuto per andare a fare la spesa"
+        categoria:
+          type: string
+          enum: ['aiuto in casa', 'aiuto fuori casa', 'compagnia', 'passaggio in macchina']
+          description: 'Categoria della richiesta'
+          example: 'aiuto fuori casa'
+    Utente:
+      title: Utente
+      type: object
+      required:
+        - nome
+        - cognome
+        - cf
+        - dataNascita
+        - residenza
+        - telefono
+        - email
+        - password
+        - ruoli
+      properties:
+        nome:
+          type: string
+          description: "Nome dell'utente"
+          example: 'Mario'
+        cognome:
+          type: string
+          description: "Cognome dell'utente"
+          example: 'Rossi'
+        cf:
+          type: string
+          description: "Codice fiscale dell'utente"
+          example: 'RSSMRA60A01H501Q'
+        dataNascita:
+          type: string
+          format: date-time
+          description: "Data di nascita dell'utente"
+          example: '1960-01-01'
+        residenza:
+          type: string
+          description: "Indirizzo di residenza dell'utente"
+          example: 'Via Trento 1, Roma RM'
+        telefono:
+          type: string
+          description: "Numero di telefono dell'utente"
+          example: '335 1234567'
+        email:
+          type: string
+          description: "Indirizzo email dell'utente"
+          example: 'mario.rossi@gmail.com'
+        password:
+          type: string
+          description: "Password dell'utente"
+        ruoli:
+          type: array
+          items:
+            type: string
+            enum: [anziano, volontario, supervisore, admin]
+          description: "Ruolo dell'utente"
+          example: ['anziano']
+        anziano:
+          type: array
+          items:
+            $ref: '#/components/schemas/Anziano'
+          description: 'Campi specifici per utente Anziano'
+    Anziano:
+      title: Anziano
+      type: object
+      properties:
+        bio:
+          type: string
+        esigenze:
+          type: string
