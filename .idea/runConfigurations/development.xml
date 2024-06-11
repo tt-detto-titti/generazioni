@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="development" type="NodeJSConfigurationType" node-parameters="--env-file=.env.development" path-to-js-file="./index.js" working-dir="$PROJECT_DIR$">
-    <envs pass-parent-envs="false" />
-    <method v="2" />
-  </configuration>
-</component>
