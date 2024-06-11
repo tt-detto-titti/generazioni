@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../backend/server');
 
-describe('Test Login (3)', () => {
+describe('Test - (3) Login', () => {
   // test case 10
   it('Login di un utente con email e password corretta', async () => {
     const response = await request(app)
