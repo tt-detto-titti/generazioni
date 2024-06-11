@@ -5,7 +5,7 @@ const Utente = db.utente;
 
 const yup = require('yup');
 
-const schemaFeedback = yup.object.shape({
+const schemaFeedback = yup.object().shape({
   tipologia: yup.string().required('È necessario inserire la tipologia!'),
   descrizione: yup.string().required('È necessario inserire la descrizione!')
 })

@@ -4,7 +4,7 @@ const Utente = db.utente;
 
 const yup = require('yup');
 
-const schemaRichiesta = yup.object.shape({
+const schemaRichiesta = yup.object().shape({
   data: yup.date().min(new Date(), "La data deve essere futura").required("È necessario inserire la data!"),
   ora: yup.string().required("È necessario inserire l'ora!"),
   durata: yup.number().min(30, "La durata minima è di 30 minuti").max(180, "La durata massima è di 180 minuti").required("È necessario inserire la durata!"),

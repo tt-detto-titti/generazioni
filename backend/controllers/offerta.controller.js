@@ -4,7 +4,7 @@ const Utente = db.utente;
 
 const yup = require('yup');
 
-const schemaOfferta = yup.object.shape({
+const schemaOfferta = yup.object().shape({
   data: yup
     .date()
     .min(new Date(), "La data deve essere nel futuro.")
