@@ -69,8 +69,6 @@
                 <Field id="ruoli" name="ruoli" as="select" multiple class="form-control">
                   <option value="anziano" selected>Anziano</option>
                   <option value="volontario">Volontario</option>
-                  <option value="supervisore">Supervisore</option>
-                  <option value="admin">Admin</option>
                 </Field>
               </div>
             </div>
