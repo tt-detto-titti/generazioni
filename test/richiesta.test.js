@@ -1,33 +1,50 @@
-//test case 1
-const app = require('./app');
-const jwt = require('jsonwebtoken'); //non sono sicuro sia giusto
-const mongoose = require('mongoose');
-// const { locals } = require('express/lib/application'); //serve?
-describe('GET /api/matchmaker/richieste', () => {
-  beforeAll( async() => { jest.setTimeout(8000);
-    locals.db = await mongoose.connect(process.env.localhost || 8080); }); //non sono sicuro sia giusto l'URL
-  afterAll( () => { mongoose.connection.close(true); });
-//accesso con account anziano
-  var token = jwt.sign({email: 'giovanni.rana@email.it', password: 'pastaalpesto'}.
-  process.env.SUPER_SECRET, {expiresIn: 86400}); //crea un token
+const request = require('supertest');
+const app = require('../backend/server');
+const jwt = require('jsonwebtoken');
+const config = require('../backend/config/auth.config');
 
-  test('POST /api/matchmaker/richieste/add', () => {
-    return request(app)
-     .post('/api/matchmaker/richieste/add')
-     .set('x-access-token', token)
-     .send({
-        data: '2024-07-08T12:00:00Z',
+var token;
+function generaToken(id) {
+  // Genero il token d'accesso per l'account di test
+  return jwt.sign({ id: id }, config.JWT_SECRET, {
+    algorithm: 'HS256',
+    expiresIn: 86400
+  });
+}
+
+describe('Test - (6) NuovaRichiesta', () => {
+  // Test Case 1
+  test('Aggiunta di una nuova richiesta con i campi validi, l\'accessToken valido e disponendo del ruolo "anziano"', async () => {
+    token = generaToken('666812b5775238144c44b0d8');
+    const response = await request(app)
+      .post('/api/matchmaker/richieste/add')
+      .set('x-access-token', token)
+      .set('Accept', 'application/json')
+      .send({
+        data: '2025-07-08T12:00:00Z',
         durata: 90,
         descrizione: 'ho bisogno di aiuto per fare la spesa',
         categoria: 'aiuto fuori casa'
       })
-     .expect(200)
-     .then(res => {
-        expect(response.status).toBe(200);
-        expect(res.body.data).toBe('2024-07-08T12:00:00Z');
-        expect(res.body.durata).toBe(90);
-        expect(res.body.descrizione).toBe('ho bisogno di aiuto per fare la spesa');
-        expect(res.body.categoria).toBe('aiuto fuori casa');
-      });
-  })
-})
+      .expect('Content-Type', /json/)
+      .expect(201);
+    expect(response.body.message).toBe('La richiesta è stata salvata correttamente.');
+  }, 10000);
+
+  // Test Case 2
+  test('Aggiunta di una nuova richiesta con i campi validi, l\'accessToken valido e disponendo di un ruolo diverso da "anziano"', async () => {
+    token = generaToken('6653382801e34c3fd8142996');
+    const response = await request(app)
+      .post('/api/matchmaker/richieste/add')
+      .set('x-access-token', token)
+      .set('Accept', 'application/json')
+      .send({
+        data: '2025-07-08T12:00:00Z',
+        durata: 90,
+        descrizione: 'ho bisogno di aiuto per fare la spesa',
+        categoria: 'aiuto fuori casa'
+      })
+      .expect(403);
+          expect(response.body.message).toBe('Richiede il ruolo di anziano!');
+  }, 10000);
+});
