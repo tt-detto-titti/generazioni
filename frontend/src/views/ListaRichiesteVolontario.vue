@@ -297,6 +297,7 @@ export default {
         this.ok = true;
 
         this.chiudi();
+        await this.caricaRichieste();
       } catch (err) {
         console.error("Errore nella conferma della richiesta:", err);
       }
